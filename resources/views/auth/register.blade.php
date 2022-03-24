@@ -67,13 +67,34 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password-confirm" class="col-md-12">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-12 @error('password_confirmation') has-error @enderror">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="password_confirmation">
+
+																@error('password_confirmation')
+																<span class="invalid-feedback" role="alert">
+																		<strong>{{ $message }}</strong>
+																</span>
+														@enderror
                             </div>
                         </div>
+
+												<div class="row mb-2 @error('accept') has-error @enderror">
+													<div class="d-flex pb-2">
+														<input class="mt-1" type="checkbox" name="accept" id="accept">
+
+														<label class="px-1" for="accept">{{ __('Accept the terms and conditions') }}</label>
+
+															@error('accept')
+																<span class="invalid-feedback accept" role="alert">
+																	<strong>{{ $message }}</strong>
+																</span>
+															@enderror
+													</div>
+
+												</div>
 
                         <div class="row mb-0">
                             <div class="col-md-12">

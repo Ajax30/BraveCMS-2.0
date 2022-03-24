@@ -11293,6 +11293,10 @@ textarea.form-control-lg {
   flex-direction: column;
 }
 
+label {
+  color: #777;
+}
+
 .has-error {
   position: relative;
 }
@@ -11301,6 +11305,10 @@ textarea.form-control-lg {
   bottom: -1px;
   left: 18px;
   width: auto;
+  display: inline-block;
   color: #dc3545;
   font-size: 10px;
+}
+.has-error .invalid-feedback.accept {
+  left: 12px;
 }
