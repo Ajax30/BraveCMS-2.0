@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="email" class="col-md-12">{{ __('Email Address') }}</label>
 
                             <div class="col-md-12 @error('email') has-error @enderror">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password" class="col-md-12">{{ __('Password') }}</label>
 
                             <div class="col-md-12 @error('password') has-error @enderror">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
 													<div class="col-md-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>

@@ -13,7 +13,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="email" class="col-md-12">{{ __('Email Address') }}</label>
 
                             <div class="col-md-12">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password" class="col-md-12">{{ __('Password') }}</label>
 
                             <div class="col-md-12">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password-confirm" class="col-md-12">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-12">

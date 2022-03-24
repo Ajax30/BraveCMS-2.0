@@ -13,7 +13,7 @@
                     <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password" class="col-md-12">{{ __('Password') }}</label>
 
                             <div class="col-md-12 @error('password') has-error @enderror">

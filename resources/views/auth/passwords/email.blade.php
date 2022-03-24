@@ -17,7 +17,7 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="email" class="col-md-12">{{ __('Email Address') }}</label>
 
                             <div class="col-md-12 @error('email') has-error @enderror">

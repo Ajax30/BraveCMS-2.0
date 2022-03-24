@@ -11,7 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="first_name" class="col-md-12">{{ __('First name') }}</label>
 
                             <div class="col-md-12 @error('first_name') has-error @enderror">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="last_name" class="col-md-12">{{ __('Last name') }}</label>
 
                             <div class="col-md-12 @error('last_name') has-error @enderror">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="email" class="col-md-12">{{ __('Email address') }}</label>
 
                             <div class="col-md-12 @error('email') has-error @enderror">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        <div class="row mb-2">
                             <label for="password" class="col-md-12">{{ __('Password') }}</label>
 
                             <div class="col-md-12 @error('password') has-error @enderror">
