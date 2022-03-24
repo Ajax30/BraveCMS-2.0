@@ -11297,13 +11297,18 @@ label {
   color: #777;
 }
 
+.form-control {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .has-error {
   position: relative;
 }
 .has-error .invalid-feedback {
   position: absolute;
   bottom: -1px;
-  left: 18px;
+  left: 20px;
   width: auto;
   display: inline-block;
   color: #dc3545;

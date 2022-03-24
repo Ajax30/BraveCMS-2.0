@@ -1,6 +1,10 @@
 label {
     color: $label-color;
 }
+.form-control {
+	padding-left: .5rem;
+	padding-right: .5rem;
+}
 
 // Error messages
 .has-error {
@@ -9,7 +13,7 @@ label {
 	.invalid-feedback {
 		position: absolute;
 		bottom: -1px;
-		left: 18px;
+		left: 20px;
         width: auto;
         display: inline-block;
 		color: #dc3545;
