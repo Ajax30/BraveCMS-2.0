@@ -49,14 +49,25 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $rules = [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'password_confirmation' => ['required', 'same:password', 'min:6'],
             'accept' => ['accepted'],
-        ]);
+        ];
+
+        $messages = [
+            'first_name.required' => 'The "First name" field is required',
+            'last_name.required' => 'The "Last name" field is required',
+            'email.required' => 'Please provide a valid email address',
+            'email.email' => 'The email address you provided is not valid',
+            'password.required' => 'A password is required',
+            'accept.required' => 'You must accept the Terms & conditions of service'
+        ];
+        
+        return Validator::make($data, $rules, $messages);
     }
 
     /**
