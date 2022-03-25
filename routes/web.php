@@ -15,6 +15,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/', [UserController::class, 'index'])->name('user');
+				Route::match(['get', 'post'],'/update', [UserController::class, 'update'])->name('user.update');
+				Route::post('/deleteavatar/{id}/{fileName}', [UserController::class, 'deleteavatar'])->name('user.deleteavatar');
     });
 });
 
