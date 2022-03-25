@@ -6,6 +6,9 @@ label {
 	padding-left: .5rem;
 	padding-right: .5rem;
 }
+.form-control[type=file] {
+	background: transparent;
+}
 
 // Error messages
 .has-error {

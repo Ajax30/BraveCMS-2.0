@@ -28,4 +28,7 @@
         </main>
     </div>
 </body>
+<script>
+    var APP_URL = "{{ env("APP_URL") }}"
+</script>
 </html>
