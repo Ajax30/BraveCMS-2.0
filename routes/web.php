@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\ArticleCategoryController;
 
 Auth::routes();
 
@@ -12,6 +13,7 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+		Route::get('/categories', [ArticleCategoryController::class, 'index'])->name('dashboard.categories');
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/', [UserController::class, 'index'])->name('user');
