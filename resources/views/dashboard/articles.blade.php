@@ -30,7 +30,8 @@
 												<div class="btn-group btn-group-sm">
 													<a href="#" class="btn btn-primary">View</a>
 													<a href="#" class="btn btn-primary">Edit</a>
-													<a href="/dashboard/articles/delete/{{ $article->id }}" class="btn btn-primary" onclick="return confirm('Delete this article?')" title="Delete article">
+
+													<a href="{{ route('dashboard.articles.delete', [$article->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this article?')" title="Delete article">
 														<i class="fa-solid fa-trash"></i> Delete
 													</a>
 												</div>
