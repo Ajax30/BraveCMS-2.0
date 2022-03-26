@@ -24,6 +24,14 @@
 			@include('partials/navbar')
 
         <main class="py-4">
+            @if (session('error'))
+								@include('partials.errors')
+						@endif
+
+						@if (session('success'))
+								@include('partials.success')
+						@endif
+
             @yield('content')
         </main>
     </div>
