@@ -53,7 +53,7 @@
 											</div>
 
 											<div class="row mb-3">
-												<label for="email" class="col-md-12">{{ __('Bio') }}</label>
+												<label for="bio" class="col-md-12">{{ __('Bio') }}</label>
 
 												<div class="col-md-12 @error('bio') has-error @enderror">
 
@@ -64,7 +64,7 @@
 																	<strong>{{ $message }}</strong>
 															</span>
 													@enderror
-													</div>
+												</div>
 											</div>
 
                         <label for="avatar" class="text-muted">Upload avatar</label>
