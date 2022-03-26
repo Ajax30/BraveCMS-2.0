@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 					<div class="card">
-						<div class="card-header">{{ __('Categories') }}</div>
-						<div class="card-body">
+						<div class="card-header px-2">{{ __('Categories') }}</div>
+						<div class="card-body p-0">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table mb-0">
 									<thead>
 										<tr>
 											<th>ID</th>
@@ -36,6 +36,11 @@
 								</table>
 							</div>
 						</div>
+						@if (count($categories) >= 10)
+						<div class="card-footer">
+							{!! $categories->withQueryString()->links() !!}
+						</div>
+						@endif
 					</div>
         </div>
     </div>

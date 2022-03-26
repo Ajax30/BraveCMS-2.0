@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ArticleCategoryController extends Controller
 {
     public function index() {
-        $categories = ArticleCategory::all();
+        $categories = ArticleCategory::paginate(10);
 
         return view('dashboard/article-categories',
           ['categories' => $categories]
