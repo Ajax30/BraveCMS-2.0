@@ -19663,6 +19663,11 @@ textarea.form-control-lg {
   flex-direction: column;
 }
 
+.pagination {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
 .card-header {
   font-size: 1rem;
 }

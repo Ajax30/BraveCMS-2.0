@@ -11,7 +11,7 @@ class ArticleCategoryController extends Controller
         $categories = ArticleCategory::all();
 
         return view('dashboard/article-categories',
-            ['categories' => $categories]
+          ['categories' => $categories]
         );
     }
 }
