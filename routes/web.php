@@ -16,9 +16,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 	// Category routes
-	Route::group(['prefix' => 'articles'], function() {
-		Route::get('/categories', [ArticleCategoryController::class, 'index'])->name('dashboard.categories');
-		// Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete');
+	Route::group(['prefix' => 'categories'], function() {
+		Route::get('/', [ArticleCategoryController::class, 'index'])->name('dashboard.categories');
+		Route::get('/edit/{id}', [ArticleCategoryController::class, 'edit'])->name('dashboard.categories.edit');
+		Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete');
 	});
 
 	// Article routes

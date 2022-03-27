@@ -24,9 +24,13 @@
 											<td>{{ $category->name }}</td>
 											<td class="text-end">
 												<div class="btn-group btn-group-sm">
-													<a href="#" class="btn btn-primary">View</a>
-													<a href="#" class="btn btn-primary">Edit</a>
-													<a href="#" class="btn btn-primary">Delete</a>
+													<a href="{{ route('dashboard.categories.edit', [$category->id]) }}" class="btn btn-primary">
+														<i class="fa-solid fa-pen-to-square"></i> Edit
+													</a>
+
+													<a href="{{ route('dashboard.categories.delete', [$category->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this category?')" title="Delete article">
+														<i class="fa-solid fa-trash"></i> Delete
+													</a>
 												</div>
 											</td>
 										</tr>
