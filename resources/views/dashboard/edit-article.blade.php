@@ -61,7 +61,7 @@
 									<div class="row mb-2">
 										<div class="col-md-12 d-flex align-items-center switch-toggle">
 												<p class="mb-0 me-3">Featured article?</p>
-												<input id="featured" class="mt-1" type="checkbox" name="featured" value="{{ old('featured', $article->featured) }}">
+												<input id="featured" class="mt-1" type="checkbox" name="featured" {{ $article->featured == 1 ? 'checked' : '' }}>
 												<label class="px-1" for="featured">{{ __('Toggle') }}</label>
 										</div>
 									</div>
