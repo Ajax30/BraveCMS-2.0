@@ -55,11 +55,28 @@ class ArticleCategoryController extends Controller
     }
 
     public function edit($id) {
-     echo "Edit category";
+      $category = ArticleCategory::find($id);
+      return view('dashboard/edit-category',
+        ['category' => $category]
+      );
     }
 
-    public function ediupaftet($id) {
-      echo "Update category";
+    public function update(Request $request, $id) {
+      $validator = Validator::make($request->all(), $this->rules, $this->messages);
+
+      if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator->errors())->withInput();
+      }
+
+      $fields = $validator->validated();
+
+      $category = ArticleCategory::find($id);
+
+      $category->name = $request->get('name');
+
+      $category->save();
+
+		  return redirect()->route('dashboard.articles')->with('success', 'The category named "' . $category->name . '" was updated');
      }
 
     public function delete($id) {
