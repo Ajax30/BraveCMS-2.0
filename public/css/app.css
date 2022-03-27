@@ -19663,8 +19663,15 @@ textarea.form-control-lg {
   flex-direction: column;
 }
 
+.pagination {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
 .card-header {
-  font-size: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #565656;
 }
 
 label {
@@ -19681,6 +19688,76 @@ label {
   background: transparent;
 }
 
+.switch-toggle {
+  display: inline-block;
+}
+.switch-toggle input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+}
+.switch-toggle label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 70px;
+  max-width: 70px;
+  height: 30px;
+  line-height: 20px;
+  background: #ccc;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+}
+.switch-toggle label:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background: #f6f6f6;
+  background: linear-gradient(to bottom, #f6f6f6 0%, #efefef 100%);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+}
+.switch-toggle input:checked + label, .switch-toggle input:checked + input + label {
+  background: #0d6efd;
+}
+.switch-toggle input:checked + label:after {
+  border: 0;
+}
+.switch-toggle input:checked + label:before, .switch-toggle input:checked + input + label:before {
+  content: "Yes";
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  transition: 0.2s;
+  text-indent: 0;
+  color: #fff;
+}
+.switch-toggle input:checked + label:after, .switch-toggle input:checked + input + label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+.switch-toggle input + label:before, .switch-toggle input + input + label:before {
+  content: "No";
+  position: absolute;
+  top: 5px;
+  left: 35px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  transition: 0.2s;
+  text-indent: 0;
+  color: #fff;
+}
+
 .has-error {
   position: relative;
 }
@@ -19695,6 +19772,9 @@ label {
 }
 .has-error .invalid-feedback.accept {
   left: 12px;
+}
+.has-error.post-image .invalid-feedback {
+  left: 150px;
 }
 
 .user-dropdown-trigger {
@@ -19785,4 +19865,13 @@ label {
   position: absolute;
   top: 6px;
   left: 11px;
+}
+
+.image-preview {
+  width: 40px;
+  height: auto;
+  padding: 1px;
+  background-color: #f8fafc;
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
 }

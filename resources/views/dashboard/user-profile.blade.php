@@ -53,7 +53,7 @@
 											</div>
 
 											<div class="row mb-3">
-												<label for="email" class="col-md-12">{{ __('Bio') }}</label>
+												<label for="bio" class="col-md-12">{{ __('Bio') }}</label>
 
 												<div class="col-md-12 @error('bio') has-error @enderror">
 
@@ -64,13 +64,13 @@
 																	<strong>{{ $message }}</strong>
 															</span>
 													@enderror
-													</div>
+												</div>
 											</div>
 
                         <label for="avatar" class="text-muted">Upload avatar</label>
 												<div class="form-group d-flex justify-content-between">
 													<input type='file' name='avatar' id="avatar" class="form-control border-0 py-0 pl-0 file-upload-btn" value="{{$current_user->avatar}}">
-														@if ($errors->has('avatar'))
+														@error('avatar')
 																<span class="invalid-feedback" role="alert">{{ $errors->first('avatar') }}</span>
 														@endif
 

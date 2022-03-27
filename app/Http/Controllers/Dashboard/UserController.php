@@ -13,7 +13,7 @@ class UserController extends Controller
 	public function index(UserProfile $user)
 	{
 		return view('dashboard/user-profile',
-			array('current_user' => Auth::user()) 
+			['current_user' => Auth::user()] 
 		);
 	}
 
