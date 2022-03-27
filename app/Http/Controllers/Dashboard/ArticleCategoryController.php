@@ -63,8 +63,8 @@ class ArticleCategoryController extends Controller
      }
 
     public function delete($id) {
-      $article = ArticleCategory::find($id);
-      $article->delete();
-      return redirect()->back()->with('success', 'The category "' . $article->title . '" was deleted');
+      $category = ArticleCategory::find($id);
+      $category->delete();
+      return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
     }
 }

@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 					<div class="card">
-						<div class="card-header px-2">{{ __('Categories') }}</div>
+						<div class="card-header d-flex justify-content-between px-2">
+							<span class="align-self-center">{{ __('Categories') }}</span>
+							<a href="{{ route('dashboard.categories.new') }}" title="Add a new category" class="btn btn-sm btn-primary">
+								<i class="fa-solid fa-circle-plus"></i> Add category
+							</a>
+						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
 								<table class="table mb-0">
@@ -18,9 +23,9 @@
 									</thead>
 									@if ($categories)
 									<tbody>
-										@foreach ($categories as $category)
+										@foreach ($categories as $index => $category)
 										<tr>
-											<td>{{ $category->id }}</td>
+											<td>{{ $index + 1 }}</td>
 											<td>{{ $category->name }}</td>
 											<td class="text-end">
 												<div class="btn-group btn-group-sm">
