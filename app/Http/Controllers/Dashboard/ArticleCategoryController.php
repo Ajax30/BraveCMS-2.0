@@ -86,7 +86,5 @@ class ArticleCategoryController extends Controller
     } else {
       return redirect()->back()->with('error', 'The category "' . $category->name . '" has articles!');
     }
-    
-   
   }
 }
