@@ -24,7 +24,7 @@ class ArticleController extends Controller
 		'category_id.required' => 'Please pick a category for the article',
 		'title.required' => 'Please provide a title for the article',
 		'short_description.required' => 'The article needs a short description',
-		'short_description.max' => 'The short description too long',
+		'short_description.max' => 'The short description field is too long',
 		'content.required' => 'Please add content'
 	];
 	
