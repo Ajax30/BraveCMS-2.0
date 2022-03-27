@@ -87,7 +87,7 @@ class ArticleController extends Controller
 		$query = Article::create($form_data);
 
 		if ($query) {
-			return redirect()->route('dashboard.articles')->with('success', 'Article added');
+			return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $form_data['title'] . '" was added');
 		} else {
 			return redirect()->back()->with('error', 'Adding article failed');
 		}
@@ -131,13 +131,13 @@ class ArticleController extends Controller
 
 		$article->save();
 
-		return redirect()->route('dashboard.articles')->with('success', 'Article updated');
+		return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
 
 	}
 
 	public function delete($id) {
 		$article = Article::find($id);
 		$article->delete();
-		return redirect()->back()->with('success', 'The article was deleted');
+		return redirect()->back()->with('success', 'The article titled "' . $article->title . '" was deleted');
 	}
 }
