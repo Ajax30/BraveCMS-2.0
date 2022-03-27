@@ -14,8 +14,8 @@ class ArticleController extends Controller
 	
 	private $rules = [
 		'category_id' => 'required|exists:article_categories,id',
-		'title' => 'required|string|max:255',
-		'short_description' => 'required|string|max:255',
+		'title' => 'required|string|max:190',
+		'short_description' => 'required|string|max:190',
 		'image' =>  'image|mimes:jpeg,png,jpg|max:2048',
 		'content' => 'required|string'
 	];
@@ -24,6 +24,7 @@ class ArticleController extends Controller
 		'category_id.required' => 'Please pick a category for the article',
 		'title.required' => 'Please provide a title for the article',
 		'short_description.required' => 'The article needs a short description',
+		'short_description.max' => 'The short description too long',
 		'content.required' => 'Please add content'
 	];
 	
