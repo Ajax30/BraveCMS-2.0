@@ -24,8 +24,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
     // Article routes
     Route::group(['prefix' => 'articles'], function() {
       Route::get('/', [ArticleController::class, 'index'])->name('dashboard.articles');
+      Route::get('/new', [ArticleController::class, 'create'])->name('dashboard.articles.new');
+      Route::post('/add', [ArticleController::class, 'save'])->name('dashboard.articles.add');
       Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete');
-    });
+    }); 
 
     // User routes
     Route::group(['prefix' => 'user'], function() {
