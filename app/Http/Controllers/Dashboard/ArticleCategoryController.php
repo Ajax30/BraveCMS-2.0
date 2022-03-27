@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleCategory;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleCategoryController extends Controller
@@ -75,8 +76,17 @@ class ArticleCategoryController extends Controller
   }
 
   public function delete($id) {
+    // Check if there are articles in category
+    $canDelete = Article::where('category_id', $id)->count() == 0;
     $category = ArticleCategory::find($id);
-    $category->delete();
-    return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
+
+    if ($canDelete) {
+      $category->delete();
+      return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
+    } else {
+      return redirect()->back()->with('error', 'The category "' . $category->name . '" has articles!');
+    }
+    
+   
   }
 }
