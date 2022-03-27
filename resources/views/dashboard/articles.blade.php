@@ -56,9 +56,12 @@
 								</table>
 							</div>
 						</div>
+						@if (count($articles) > 10) 
 						<div class="card-footer">
 							{!! $articles->withQueryString()->links() !!}
 						</div>
+						@endif
+						
 					</div>
         </div>
     </div>
