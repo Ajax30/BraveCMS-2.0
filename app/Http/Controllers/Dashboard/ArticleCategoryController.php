@@ -25,63 +25,58 @@ class ArticleCategoryController extends Controller
       );
     }
 
-    public function create() {
-      return view('dashboard/add-category');
+  public function create() {
+    return view('dashboard/add-category');
+  }
+
+  public function save(Request $request) {
+    $validator = Validator::make($request->all(), $this->rules, $this->messages);
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator->errors())->withInput();
     }
 
-    public function save(Request $request) {
-      $validator = Validator::make($request->all(), $this->rules, $this->messages);
+    $fields = $validator->validated();
 
-      if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator->errors())->withInput();
-      }
+    // Data to be added
+    $form_data = [
+      'user_id' => Auth::user()->id,
+      'name' => $fields['name']
+    ];
 
-      $fields = $validator->validated();
+    // Insert data in the 'articles' table
+    $query = ArticleCategory::create($form_data);
 
-      // Data to be added
-      $form_data = [
-        'user_id' => Auth::user()->id,
-        'name' => $fields['name']
-      ];
-
-      // Insert data in the 'articles' table
-      $query = ArticleCategory::create($form_data);
-
-      if ($query) {
-        return redirect()->route('dashboard.categories')->with('success', 'The category named "' . $form_data['name'] . '" was added');
-      } else {
-        return redirect()->back()->with('error', 'Adding a new category failed');
-      }
+    if ($query) {
+      return redirect()->route('dashboard.categories')->with('success', 'The category named "' . $form_data['name'] . '" was added');
+    } else {
+      return redirect()->back()->with('error', 'Adding a new category failed');
     }
+  }
 
-    public function edit($id) {
+  public function edit($id) {
+    $category = ArticleCategory::find($id);
+    return view('dashboard/edit-category',
+      ['category' => $category]
+    );
+  }
+
+  public function update(Request $request, $id) {
+    $validator = Validator::make($request->all(), $this->rules, $this->messages);
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator->errors())->withInput();
+    } else {
       $category = ArticleCategory::find($id);
-      return view('dashboard/edit-category',
-        ['category' => $category]
-      );
-    }
-
-    public function update(Request $request, $id) {
-      $validator = Validator::make($request->all(), $this->rules, $this->messages);
-
-      if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator->errors())->withInput();
-      }
-
-      $fields = $validator->validated();
-
-      $category = ArticleCategory::find($id);
-
       $category->name = $request->get('name');
-
       $category->save();
-
-		  return redirect()->route('dashboard.articles')->with('success', 'The category named "' . $category->name . '" was updated');
-     }
-
-    public function delete($id) {
-      $category = ArticleCategory::find($id);
-      $category->delete();
-      return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
+      return redirect()->route('dashboard.categories')->with('success', 'The category named "' . $category->name . '" was updated');
     }
+  }
+
+  public function delete($id) {
+    $category = ArticleCategory::find($id);
+    $category->delete();
+    return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
+  }
 }

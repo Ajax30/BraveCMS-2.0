@@ -7,7 +7,7 @@
 					<div class="card">
 						<div class="card-header px-2">{{ __('Edit category') }}</div>
 						<div class="card-body">
-							<form method="POST" action="{{ route('dashboard.categories.add') }}" novalidate>
+							<form method="POST" action="{{ route('dashboard.categories.update', [$category->id]) }}" novalidate>
 									@csrf
 									<div class="row mb-2">
 											<label for="name" class="col-md-12">{{ __('Name') }}</label>

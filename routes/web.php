@@ -21,7 +21,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 		Route::get('/new', [ArticleCategoryController::class, 'create'])->name('dashboard.categories.new');
 		Route::post('/add', [ArticleCategoryController::class, 'save'])->name('dashboard.categories.add');
 		Route::get('/edit/{id}', [ArticleCategoryController::class, 'edit'])->name('dashboard.categories.edit');
-		Route::get('/update/{id}', [ArticleCategoryController::class, 'update'])->name('dashboard.categories.update');
+		Route::post('/update/{id}', [ArticleCategoryController::class, 'update'])->name('dashboard.categories.update');
 		Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete');
 	});
 
