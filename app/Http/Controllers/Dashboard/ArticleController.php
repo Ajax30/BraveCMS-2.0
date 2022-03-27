@@ -69,7 +69,7 @@ class ArticleController extends Controller
 		$fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
 		// If no image is uploaded, use default.jpg
-		$fields['image'] = $request->get('image') == '' ? 'default.jpg' : $imageName;
+		$fields['image'] = null == $request->image ? 'default.jpg' : $imageName;
 
 		// Data to be added
 		$form_data = [
@@ -91,6 +91,47 @@ class ArticleController extends Controller
 		} else {
 			return redirect()->back()->with('error', 'Adding article failed');
 		}
+
+	}
+
+	public function edit($id) {
+		$article = Article::find($id);
+		return view('dashboard/edit-article',
+			['categories' => $this->categories(),
+			'article' => $article]
+		);
+	}
+
+	public function update(Request $request, $id) {
+		$validator = Validator::make($request->all(), $this->rules, $this->messages);
+
+		if ($validator->fails()) {
+			return redirect()->back()->withErrors($validator->errors())->withInput();
+		}
+
+		$fields = $validator->validated();
+
+		$article = Article::find($id);
+
+		// If a new image is uploaded, set it as the article image
+		// Otherwise, set the old image...
+		if (isset($request->image)) {
+			$imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
+			$request->image->move(public_path('images/articles'), $imageName);
+		} else {
+			$imageName = $article->image;
+		}
+
+		$article->title = $request->get('title');
+		$article->short_description = $request->get('short_description');
+		$article->category_id = $request->get('category_id');
+		$article->featured = $request->get('featured') == 'on' ? 1 : 0;
+		$article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
+		$article->content = $request->get('content');
+
+		$article->save();
+
+		return redirect()->route('dashboard.articles')->with('success', 'Article updated');
 
 	}
 

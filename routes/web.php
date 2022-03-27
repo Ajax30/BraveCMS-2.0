@@ -26,6 +26,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
       Route::get('/', [ArticleController::class, 'index'])->name('dashboard.articles');
       Route::get('/new', [ArticleController::class, 'create'])->name('dashboard.articles.new');
       Route::post('/add', [ArticleController::class, 'save'])->name('dashboard.articles.add');
+      Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit');
+      Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
       Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete');
     }); 
 

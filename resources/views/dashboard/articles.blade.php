@@ -19,7 +19,7 @@
 											<th>Title</th>
 											<th>Author</th>
 											<th>Category</th>
-											{{-- <th>Image</th> --}}
+											<th>Image</th>
 											<th>Publication date</th>
 											<th class="text-end">Actions</th>
 										</tr>
@@ -31,16 +31,16 @@
 											<td>{{ $article->title }}</td>
 											<td>{{ $article->user->first_name }} {{ $article->user->last_name }}</td>
 											<td>{{ $article->category->name }}</td>
-											{{-- <td>
+											<td>
 												<img class="image-preview img-thumbnail" src="{{ asset('images/articles/' . $article->image)}}" alt="{{ $article->title }}">
-											</td> --}}
+											</td>
 											<td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
 											<td class="text-end">
 												<div class="btn-group btn-group-sm">
 													<a href="#" class="btn btn-primary">
 														<i class="fa-solid fa-eye"></i> View
 													</a>
-													<a href="#" class="btn btn-primary">
+													<a href="{{ route('dashboard.articles.edit', [$article->id]) }}" class="btn btn-primary">
 														<i class="fa-solid fa-pen-to-square"></i> Edit
 													</a>
 
