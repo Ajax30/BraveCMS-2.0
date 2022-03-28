@@ -32,7 +32,25 @@
 								@include('partials.success')
 						@endif
 
-            @yield('content')
+            <div class="container">
+							<div class="row justify-content-center">
+								{{-- 6 columns for user profile --}}
+								@if(Route::is('user'))<div class="col-md-6">@else<div class="col-md-12">@endif
+										
+										@if(!Route::is('user'))
+										<div class="row">
+											<div class="col-sm-4 col-md-3 d-none d-sm-block">
+												@include('partials.sidebar')
+											</div>
+										@endif
+										
+										@if(!Route::is('user'))<div class="col-sm-8 col-md-9">@endif
+												@yield('content')
+										@if(!Route::is('user'))</div>@endif
+										</div>
+									</div>
+								</div>
+						</div>
         </main>
     </div>
 </body>
