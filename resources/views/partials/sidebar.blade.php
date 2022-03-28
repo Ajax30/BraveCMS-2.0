@@ -3,13 +3,13 @@
 	<div class="card-body p-0">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item">
-				<a href="{{ route('dashboard.articles') }}">
+				<a class="{{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">
 					Articles
 					<span class="badge">2</span>
 				</a>
 			</li>
 			<li class="list-group-item">
-				<a href="{{ route('dashboard.categories') }}">
+				<a class="{{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">
 					Categories
 					<span class="badge">3</span>
 				</a>

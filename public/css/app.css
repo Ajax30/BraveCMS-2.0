@@ -19798,6 +19798,9 @@ label {
   display: flex;
   justify-content: space-between;
 }
+.sidebar .list-group-item a.active {
+  color: rgba(0, 0, 0, 0.9);
+}
 .sidebar .list-group-item .badge {
   line-height: 1;
   display: flex;
