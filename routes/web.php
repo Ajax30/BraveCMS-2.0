@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
+use App\Http\Controllers\Dashboard\CommentController;
 
 Auth::routes();
 
@@ -33,6 +34,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 		Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit');
 		Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
 		Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete');
+	}); 
+
+	// Comments routes
+	Route::group(['prefix' => 'comments'], function() {
+		Route::get('/', [CommentController::class, 'index'])->name('dashboard.comments');
+		Route::get('/delete/{id}', [CommentController::class, 'delete'])->name('dashboard.comments.delete');
 	}); 
 
 	// User routes

@@ -15,7 +15,7 @@
 				</a>
 			</li>
 			<li class="list-group-item">
-				<a href="#">
+				<a class="{{ request()->routeIs('dashboard.comments*') ? 'active' : '' }}" href="{{ route('dashboard.comments') }}">
 					Comments
 					<span class="badge">5</span>
 				</a>

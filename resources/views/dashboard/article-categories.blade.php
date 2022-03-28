@@ -42,10 +42,8 @@
 				</table>
 			</div>
 		</div>
-		@if (count($categories) > 10)
 		<div class="card-footer">
 			{!! $categories->withQueryString()->links() !!}
 		</div>
-		@endif
 	</div> 
 @endsection

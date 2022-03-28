@@ -13,12 +13,12 @@
 				<table class="table table-hover mb-0">
 					<thead>
 						<tr>
-							<th>Title</th>
+							<th class="w-25">Title</th>
 							<th>Author</th>
 							<th>Category</th>
 							<th>Image</th>
 							<th>Publication date</th>
-							<th class="text-end">Actions</th>
+							<th class="w-25 text-end">Actions</th>
 						</tr>
 					</thead>
 					@if ($articles)
@@ -53,11 +53,8 @@
 				</table>
 			</div>
 		</div>
-		@if (count($articles) > 10) 
 		<div class="card-footer">
 			{!! $articles->withQueryString()->links() !!}
 		</div>
-		@endif
-		
 	</div>     
 @endsection

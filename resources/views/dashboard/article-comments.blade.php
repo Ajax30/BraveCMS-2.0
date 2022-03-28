@@ -28,11 +28,11 @@
 							<td>{{ date('jS M Y', strtotime($comment->created_at)) }}</td>
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
-									<a href="{{ route('dashboard.comments.status', [$comment->id]) }}" class="btn btn-primary">
+									{{-- <a href="{{ route('dashboard.comments.status', [$comment->id]) }}" class="btn btn-primary">
 										<i class="fa-solid fa-pen-to-square"></i> Aprove
-									</a>
+									</a> --}}
 
-									<a href="{{ route('dashboard.comments.delete', [$comment->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this category?')" title="Delete article">
+									<a href="{{ route('dashboard.comments.delete', [$comment->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this comment?')" title="Delete comment">
 										<i class="fa-solid fa-trash"></i> Delete
 									</a>
 								</div>
@@ -44,10 +44,8 @@
 				</table>
 			</div>
 		</div>
-		@if (count($comments) > 10)
 		<div class="card-footer">
 			{!! $comments->withQueryString()->links() !!}
 		</div>
-		@endif
 	</div> 
 @endsection
