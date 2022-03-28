@@ -13,7 +13,7 @@
 				<table class="table table-hover mb-0">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>#</th>
 							<th>Category</th>
 							<th class="text-end">Actions</th>
 						</tr>
@@ -42,7 +42,7 @@
 				</table>
 			</div>
 		</div>
-		@if (count($categories) > 10)
+		@if ($category_count > 10)
 		<div class="card-footer">
 			{!! $categories->withQueryString()->links() !!}
 		</div>

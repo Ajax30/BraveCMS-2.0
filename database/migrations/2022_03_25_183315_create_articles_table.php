@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug');
             $table->string('short_description');
             $table->longText('content');
-            $table->tinyInteger('featured')->default('0');
+            $table->boolean('featured')->default(0);
             $table->string('image')->nullable();
             $table->timestamps();
         });

@@ -5,19 +5,19 @@
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">
 					Articles
-					<span class="badge">2</span>
+					<span class="badge">{{ $article_count }}</span>
 				</a>
 			</li>
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">
 					Categories
-					<span class="badge">3</span>
+					<span class="badge">{{ $category_count }}</span>
 				</a>
 			</li>
 			<li class="list-group-item">
-				<a href="#">
+				<a class="{{ request()->routeIs('dashboard.comments*') ? 'active' : '' }}" href="{{ route('dashboard.comments') }}">
 					Comments
-					<span class="badge">5</span>
+					<span class="badge">{{ $comments_count }}</span>
 				</a>
 			</li>
 		</ul>

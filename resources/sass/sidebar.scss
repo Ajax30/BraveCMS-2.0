@@ -1,35 +1,30 @@
 .sidebar {
-		overflow: hidden;
+	overflow: hidden;
 
-    .list-group-item {
-			padding: 0;
+	.list-group-item {
+		padding: 0;
 
-			&:hover {
-				background: rgba(0, 0, 0, .03);
+		&:hover {
+			background: rgba(0, 0, 0, .03);
+		}
+
+		a {
+			color: #777;
+			text-decoration: none;
+			padding: 0.5rem 1rem;
+			display: flex;
+			justify-content: space-between;
+
+			&.active {
+				color: rgba(0, 0, 0, 0.9);
 			}
 
 			.badge {
 				line-height: 1;
-				display: flex;
-				align-items: center;
-				background: #a5a5a5;
-				color: #fff;
+				font-size: inherit;
+				color: inherit;
+				font-weight: inherit;
 			}
-
-			a {
-				color: #777;
-				text-decoration: none;
-				padding: 0.5rem 1rem;
-				display: flex;
-				justify-content: space-between;
-
-				&.active {
-					color: rgba(0, 0, 0, 0.9);
-
-					.badge {
-						background-color: rgba(0, 0, 0, 0.5);
-					}
-				}
-			}
-    }
+		}
+	}
 }
