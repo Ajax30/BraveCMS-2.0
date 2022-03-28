@@ -20,7 +20,7 @@ class ArticleCategoryController extends Controller
 	];
   
   public function index() {
-		$category_count = ArticleCategory::all()->count();
+		$category_count = ArticleCategory::count();
 		$categories = ArticleCategory::paginate(10);
 		return view('dashboard/article-categories',
 			[

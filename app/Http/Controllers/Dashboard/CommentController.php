@@ -9,14 +9,14 @@ class CommentController extends Controller
 {
   
 	public function index() {
-		$comments_count =  Comment::all()->count();
+		$comments_count =  Comment::count();
 		$comments = Comment::orderBy('id', 'desc')->paginate(10);
 
 		return view('dashboard/article-comments',
 			[
 				'comments' => $comments,
 				'comments_count' => $comments_count
-				]
+			]
 		);
 	}
 
