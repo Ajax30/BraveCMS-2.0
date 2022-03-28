@@ -40,7 +40,7 @@
 										@if(!request()->routeIs(['user','register','login','password*']))
 										<div class="row">
 											<div class="col-sm-4 col-md-3 d-none d-sm-block">
-												@include('partials.sidebar')
+												<x-sidebar/>
 											</div>
 										@endif
 										

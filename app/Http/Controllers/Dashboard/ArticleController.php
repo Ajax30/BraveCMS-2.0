@@ -33,10 +33,13 @@ class ArticleController extends Controller
 	}
 	
 	public function index() {
+		$article_count = Article::count();
 		$articles = Article::orderBy('id', 'desc')->paginate(10);
-
 		return view('dashboard/articles',
-			['articles' => $articles]
+			[
+				'articles' => $articles,
+				'article_count' => $article_count
+				]
 		);
 	}
 
