@@ -8,6 +8,14 @@
 				background: rgba(0, 0, 0, .03);
 			}
 
+			.badge {
+				line-height: 1;
+				display: flex;
+				align-items: center;
+				background: #a5a5a5;
+				color: #fff;
+			}
+
 			a {
 				color: #777;
 				text-decoration: none;
@@ -17,15 +25,11 @@
 
 				&.active {
 					color: rgba(0, 0, 0, 0.9);
-				}
-			}
 
-			.badge {
-				line-height: 1;
-				display: flex;
-				align-items: center;
-				background: #a5a5a5;
-				color: #fff;
+					.badge {
+						background-color: rgba(0, 0, 0, 0.5);
+					}
+				}
 			}
     }
 }

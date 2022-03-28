@@ -19791,6 +19791,13 @@ label {
 .sidebar .list-group-item:hover {
   background: rgba(0, 0, 0, 0.03);
 }
+.sidebar .list-group-item .badge {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  background: #a5a5a5;
+  color: #fff;
+}
 .sidebar .list-group-item a {
   color: #777;
   text-decoration: none;
@@ -19801,12 +19808,8 @@ label {
 .sidebar .list-group-item a.active {
   color: rgba(0, 0, 0, 0.9);
 }
-.sidebar .list-group-item .badge {
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  background: #a5a5a5;
-  color: #fff;
+.sidebar .list-group-item a.active .badge {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .user-dropdown-trigger {
