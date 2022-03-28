@@ -44,8 +44,10 @@
 				</table>
 			</div>
 		</div>
+		@if ($comments_count > 10) 
 		<div class="card-footer">
 			{!! $comments->withQueryString()->links() !!}
 		</div>
+		@endif
 	</div> 
 @endsection
