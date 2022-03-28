@@ -12,10 +12,10 @@
 						@auth
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item">
-									<a class="nav-link" href="{{ route('dashboard.articles') }}">Articles</a>
+									<a class="nav-link {{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">Articles</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="{{ route('dashboard.categories') }}">Categories</a>
+									<a class="nav-link {{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">Categories</a>
 								</li>
 							</ul>
 						@endauth
