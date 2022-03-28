@@ -19663,6 +19663,11 @@ textarea.form-control-lg {
   flex-direction: column;
 }
 
+@media (min-width: 576px) and (max-width: 992px) {
+  .container {
+    max-width: 100%;
+  }
+}
 .pagination {
   margin-bottom: 0;
   justify-content: center;
@@ -19775,6 +19780,30 @@ label {
 }
 .has-error.post-image .invalid-feedback {
   left: 150px;
+}
+
+.sidebar {
+  overflow: hidden;
+}
+.sidebar .list-group-item {
+  padding: 0;
+}
+.sidebar .list-group-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+.sidebar .list-group-item a {
+  color: #777;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.sidebar .list-group-item .badge {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  background: #a5a5a5;
+  color: #fff;
 }
 
 .user-dropdown-trigger {
