@@ -39,7 +39,7 @@ class ArticleController extends Controller
 			[
 				'articles' => $articles,
 				'article_count' => $article_count
-				]
+			]
 		);
 	}
 
