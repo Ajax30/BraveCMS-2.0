@@ -23,7 +23,7 @@
     <div id="app">
 			@include('partials/navbar')
 
-        <main class="py-4">
+        <main class="py-3">
             @if (session('error'))
 								@include('partials.errors')
 						@endif
@@ -52,6 +52,8 @@
 								</div>
 						</div>
         </main>
+
+				@include('partials/footer')
     </div>
 </body>
 <script>

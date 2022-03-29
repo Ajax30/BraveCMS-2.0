@@ -19668,6 +19668,17 @@ textarea.form-control-lg {
     max-width: 100%;
   }
 }
+.dashboard-footer {
+  margin-top: auto;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+.dashboard-footer p {
+  color: #878787;
+  font-size: 12px;
+}
+
 .pagination {
   margin-bottom: 0;
   justify-content: center;
