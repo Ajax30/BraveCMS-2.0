@@ -6,6 +6,10 @@ label {
 	padding-left: .5rem;
 	padding-right: .5rem;
 
+	&:focus {
+		box-shadow: none;
+	}
+
 	&.is-invalid {
 		&:focus {
 			box-shadow: none;
