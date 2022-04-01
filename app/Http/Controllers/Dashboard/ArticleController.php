@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-	
+
 	private $rules = [
 		'category_id' => 'required|exists:article_categories,id',
 		'title' => 'required|string|max:190',
@@ -27,11 +27,11 @@ class ArticleController extends Controller
 		'short_description.max' => 'The short description field is too long',
 		'content.required' => 'Please add content'
 	];
-	
+
 	public function categories() {
 		return ArticleCategory::all();
 	}
-	
+
 	public function index() {
 		$article_count = Article::count();
 		$articles = Article::orderBy('id', 'desc')->paginate(10);
@@ -129,7 +129,7 @@ class ArticleController extends Controller
 		$article->title = $request->get('title');
 		$article->short_description = $request->get('short_description');
 		$article->category_id = $request->get('category_id');
-		$article->featured = $request->get('featured') == 'on' ? 1 : 0;
+		$article->featured = $request->has('featured');
 		$article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
 		$article->content = $request->get('content');
 
