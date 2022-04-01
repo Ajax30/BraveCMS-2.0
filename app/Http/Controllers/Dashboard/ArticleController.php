@@ -69,11 +69,11 @@ class ArticleController extends Controller
 			$request->image->move(public_path('images/articles'), $imageName);
 		}
 
-		// Turn the 'featured' field value into a tiny integer
-		$fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
-
 		// If no image is uploaded, use default.jpg
 		$fields['image'] = null == $request->image ? 'default.jpg' : $imageName;
+
+		// Turn the 'featured' field value into a tiny integer
+		$fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
 		// Data to be added
 		$form_data = [
