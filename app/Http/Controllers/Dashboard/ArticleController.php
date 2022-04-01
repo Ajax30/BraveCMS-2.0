@@ -32,9 +32,19 @@ class ArticleController extends Controller
 		return ArticleCategory::all();
 	}
 
-	public function index() {
+	public function index(Request $request) {
+		// Articles count
 		$article_count = Article::count();
-		$articles = Article::orderBy('id', 'desc')->paginate(10);
+
+		// Search query
+		$qry = $request->input('search');
+
+		$articles = Article::where('title', 'like', '%' . $qry . '%')
+												->orWhere('short_description', 'like', '%' . $qry . '%')
+												->orWhere('content', 'like', '%' . $qry . '%')
+												->orderBy('id', 'desc')
+												->paginate(10);
+
 		return view('dashboard/articles',
 			[
 				'articles' => $articles,

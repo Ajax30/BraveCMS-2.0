@@ -10,6 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
 						@auth
+							@if ($agent->isMobile())
+								@include('partials/search')
+							@endif	
+
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item">
 									<a class="nav-link {{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">Articles</a>
@@ -18,6 +22,10 @@
 									<a class="nav-link {{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">Categories</a>
 								</li>
 							</ul>
+
+							@if (!$agent->isMobile())
+								@include('partials/search')
+							@endif
 						@endauth
 
             <!-- Right Side Of Navbar -->
@@ -25,9 +33,9 @@
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
+											<li class="nav-item">
+												<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+											</li>
                     @endif
 
                     @if (Route::has('register'))

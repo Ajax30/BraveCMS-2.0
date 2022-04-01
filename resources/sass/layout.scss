@@ -11,6 +11,13 @@
 	}
 }
 
+.navbar-toggler {
+	background-color: #f8fafc;
+	&:focus {
+		box-shadow: none;
+	}
+}
+
 .dashboard-footer {
 	margin-top: auto;
 	padding: 10px;
