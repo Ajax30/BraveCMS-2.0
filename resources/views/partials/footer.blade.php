@@ -3,7 +3,11 @@
 			</div> 
 		</div>
 		<script>
-			var APP_URL = "{{ env("APP_URL") }}"
+			var APP_URL = "{{ env("APP_URL") }}";
 		</script>
+		@if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit']))
+		<script>CKEDITOR.replace('content');</script>
+		@endif
+
 	</body>
 </html>
