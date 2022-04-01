@@ -36,17 +36,17 @@
 
 					<div class="row mb-2">
 						<label for="category" class="col-md-12">{{ __('Category') }}</label>
-					
+
 						<div class="col-md-12 @error('category_id') has-error @enderror">
-					
+
 							<select name="category_id" id="category" class="form-control @error('category_id') is-invalid @enderror">
 								<option value="0">Pick a category</option>
 								@foreach($categories as $category)
 									<option value="{{ $category->id }}">{{ $category->name }}</option>
 								@endforeach
 							</select>
-								
-					
+
+
 								@error('category_id')
 										<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -58,17 +58,17 @@
 					<div class="row mb-2">
 						<div class="col-md-12 d-flex align-items-center switch-toggle">
 								<p class="mb-0 me-3">Featured article?</p>
-								<input class="mt-1" type="checkbox" id="featured" name="featured" value="featured" {{ old('featured') ? 'checked' : '' }}>
+								<input class="mt-1" type="checkbox" id="featured" name="featured" {{ old('featured') ? 'checked' : '' }}>
 								<label class="px-1" for="featured">{{ __('Toggle') }}</label>
 						</div>
 					</div>
 
 					<div class="row mb-2">
 						<label for="image" class="col-md-12">{{ __('Article image') }}</label>
-					
+
 						<div class="col-md-12 post-image @error('image') has-error @enderror">
 							<input type="file" value="{{ old('image') }}" name="image" id="file" class="file-upload-btn">
-					
+
 							@error('image')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
@@ -91,7 +91,7 @@
 							@enderror
 						</div>
 					</div>
-					
+
 					<div class="row mb-0">
 							<div class="col-md-12">
 									<button type="submit" class="w-100 btn btn-primary">
