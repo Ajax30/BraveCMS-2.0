@@ -15,7 +15,7 @@ class CreateArticleCategoriesTable extends Migration
     {
         Schema::create('article_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->timestamps();

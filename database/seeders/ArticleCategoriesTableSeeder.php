@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\ArticleCategory;
+use Illuminate\Support\Facades\Schema;
 
 class ArticleCategoriesTableSeeder extends Seeder
 {
@@ -13,7 +14,9 @@ class ArticleCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-			ArticleCategory::truncate();
+        Schema::disableForeignKeyConstraints();
+        ArticleCategory::truncate();
+        Schema::enableForeignKeyConstraints();
 
         $categories = [
 					['user_id' => 1, 'name' => 'Uncategorised']
