@@ -28,12 +28,12 @@ class ArticleFactory extends Factory
 			return [
           'user_id' => $this->faker->randomElement([1, 2]),
 					'category_id' => 1,
-					'title' => $title,
+					'title' => rtrim($title, '.'),
 					'slug' => Str::slug($title, '-'),
 					'short_description' => $this->faker->paragraph(1),
 					'content' => $this->faker->paragraph(5),
 					'featured' => 0,
-					'image' => 'horses.jpg',
+					'image' => 'default.jpg',
         ];
     }
 }

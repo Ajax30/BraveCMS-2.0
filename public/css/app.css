@@ -19668,6 +19668,13 @@ textarea.form-control-lg {
     max-width: 100%;
   }
 }
+.navbar-toggler {
+  background-color: #f8fafc;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
 .dashboard-footer {
   margin-top: auto;
   padding: 10px;
@@ -19708,6 +19715,18 @@ label {
 
 .form-control[type=file] {
   background: transparent;
+}
+
+#search_form .form-control[type=text] {
+  border-right: 0;
+}
+#search_form button[type=submit] {
+  border: 1px solid #ced4da;
+  border-left: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background: #f8fafc;
+  box-shadow: none !important;
 }
 
 .switch-toggle {
@@ -19831,9 +19850,15 @@ label {
 
 .avatar-top {
   height: 34px;
+  margin-top: 2px;
   width: auto;
   padding: 1px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+  .avatar-top {
+    margin-right: 4px;
+  }
 }
 
 .avatar-preview {
