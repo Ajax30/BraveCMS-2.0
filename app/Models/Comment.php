@@ -22,7 +22,7 @@ class Comment extends Model
 		}
 
 		// Join articles to comments
-		public function category() {
-			return $this->belongsTo(Articles::class);
+		public function article() {
+			return $this->belongsTo(Article::class);
 		}
 }
