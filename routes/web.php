@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\PageController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
@@ -16,6 +17,16 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+	// Pages routes
+	Route::group(['prefix' => 'pages'], function() {
+		Route::get('/', [PageController::class, 'index'])->name('dashboard.pages');
+		Route::get('/new', [PageController::class, 'create'])->name('dashboard.pages.new');
+		Route::post('/add', [PageController::class, 'save'])->name('dashboard.pages.add');
+		Route::get('/edit/{id}', [PageController::class, 'edit'])->name('dashboard.pages.edit');
+		Route::post('/update/{id}', [PageController::class, 'update'])->name('dashboard.pages.update');
+		Route::get('/delete/{id}', [PageController::class, 'delete'])->name('dashboard.pages.delete');
+	});
+	
 	// Category routes
 	Route::group(['prefix' => 'categories'], function() {
 		Route::get('/', [ArticleCategoryController::class, 'index'])->name('dashboard.categories');

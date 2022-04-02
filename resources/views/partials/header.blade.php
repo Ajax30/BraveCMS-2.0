@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit']))
+    @if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit', 'dashboard.pages.new', 'dashboard.pages.edit']))
     <script src="{{ asset('lib/ckeditor/js/ckeditor.js') }}"></script>
     @endif
     <script src="{{ asset('js/app.js') }}" defer></script>
