@@ -35,4 +35,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+    //remove easyimage and cloudservices plugin
+    config.removePlugins = 'easyimage, cloudservices';
 };
