@@ -5,8 +5,8 @@
 		<script>
 			var APP_URL = "{{ env("APP_URL") }}";
 		</script>
-		@if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit']))
-		<script>CKEDITOR.replace('content');</script>
+		@if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit', 'dashboard.pages.new', 'dashboard.pages.edit']))
+			<script>CKEDITOR.replace('content');</script>
 		@endif
 
 	</body>

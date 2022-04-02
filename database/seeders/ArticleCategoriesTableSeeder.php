@@ -19,7 +19,8 @@ class ArticleCategoriesTableSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $categories = [
-					['user_id' => 1, 'name' => 'Uncategorised']
+					['user_id' => 1, 'name' => 'Uncategorised'],
+          ['user_id' => 2, 'name' => 'Sports']
         ];
 
         foreach ($categories as $key => $value) {
