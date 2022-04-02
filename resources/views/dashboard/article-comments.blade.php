@@ -44,7 +44,7 @@
 				</table>
 			</div>
 		</div>
-		@if ($comments_count > 10) 
+		@if($comments->hasPages())
 		<div class="card-footer">
 			{!! $comments->withQueryString()->links() !!}
 		</div>
