@@ -10,7 +10,7 @@ class CommentController extends Controller
   
 	public function index() {
 		$comments_count =  Comment::count();
-		$comments = Comment::orderBy('id', 'desc')->paginate(10);
+		$comments = Comment::orderBy('id', 'desc')->paginate(10)->onEachSide(1);
 
 		return view('dashboard/article-comments',
 			[
