@@ -21,39 +21,45 @@
 							<th class="w-25 text-end">Actions</th>
 						</tr>
 					</thead>
-					@if ($articles)
 					<tbody>
-						@foreach ($articles as $article)
-						<tr>
-							<td>{{ $article->title }}</td>
-							<td>{{ $article->user->first_name }} {{ $article->user->last_name }}</td>
-							<td>{{ $article->category->name }}</td>
-							<td>
-								<img class="image-preview img-thumbnail" src="{{ asset('images/articles/' . $article->image)}}" alt="{{ $article->title }}">
-							</td>
-							<td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
-							<td class="text-end">
-								<div class="btn-group btn-group-sm">
-									<a href="#" class="btn btn-primary">
-										<i class="fa-solid fa-eye"></i> View
-									</a>
-									<a href="{{ route('dashboard.articles.edit', [$article->id]) }}" class="btn btn-primary">
-										<i class="fa-solid fa-pen-to-square"></i> Edit
-									</a>
+						@if (count($articles))
+							@foreach ($articles as $article)
+								<tr>
+									<td>{{ $article->title }}</td>
+									<td>{{ $article->user->first_name }} {{ $article->user->last_name }}</td>
+									<td>{{ $article->category->name }}</td>
+									<td>
+										<img class="image-preview img-thumbnail" src="{{ asset('images/articles/' . $article->image)}}" alt="{{ $article->title }}">
+									</td>
+									<td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
+									<td class="text-end">
+										<div class="btn-group btn-group-sm">
+											<a href="#" class="btn btn-primary">
+												<i class="fa-solid fa-eye"></i> View
+											</a>
+											<a href="{{ route('dashboard.articles.edit', [$article->id]) }}" class="btn btn-primary">
+												<i class="fa-solid fa-pen-to-square"></i> Edit
+											</a>
 
-									<a href="{{ route('dashboard.articles.delete', [$article->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this article?')" title="Delete article">
-										<i class="fa-solid fa-trash"></i> Delete
-									</a>
-								</div>
+											<a href="{{ route('dashboard.articles.delete', [$article->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this article?')" title="Delete article">
+												<i class="fa-solid fa-trash"></i> Delete
+											</a>
+										</div>
+									</td>
+								</tr>
+							@endforeach
+						@else
+						<tr>
+							<td colspan="6" class="text-danger text-center">
+								No articles found
 							</td>
-						</tr>
-						@endforeach
+						</tr>	
+						@endif
 					</tbody>
-					@endif
 				</table>
 			</div>
 		</div>
-		@if ($article_count > 10)
+		@if($articles->hasPages())
 		<div class="card-footer">
 			{!! $articles->withQueryString()->links() !!}
 		</div>

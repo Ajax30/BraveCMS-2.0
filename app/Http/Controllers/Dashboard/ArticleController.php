@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-
+	
 	private $rules = [
 		'category_id' => 'required|exists:article_categories,id',
 		'title' => 'required|string|max:190',
@@ -35,6 +35,8 @@ class ArticleController extends Controller
 	public function index(Request $request) {
 		// Articles count
 		$article_count = Article::count();
+
+		$per_page = 10;
     
 		// Search query
 		$qry = $request->input('search');
@@ -43,7 +45,7 @@ class ArticleController extends Controller
 												->orWhere('short_description', 'like', '%' . $qry . '%')
 												->orWhere('content', 'like', '%' . $qry . '%')
 												->orderBy('id', 'desc')
-												->paginate(10)
+												->paginate($per_page)
                         ->onEachSide(1);
 
 

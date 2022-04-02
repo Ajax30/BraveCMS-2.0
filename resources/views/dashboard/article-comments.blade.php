@@ -22,7 +22,7 @@
 					<tbody>
 						@foreach ($comments as $index => $comment)
 						<tr>
-							<td>{{ $index + 1 }}</td>
+							<td>{{ $per_page * ($current_page - 1) + $index + 1 }}</td>
 							<td>{{ $comment->body }}</td>
 							<td>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
 							<td>{{ date('jS M Y', strtotime($comment->created_at)) }}</td>
@@ -44,7 +44,7 @@
 				</table>
 			</div>
 		</div>
-		@if ($comments_count > 10) 
+		@if($comments->hasPages())
 		<div class="card-footer">
 			{!! $comments->withQueryString()->links() !!}
 		</div>

@@ -9,11 +9,19 @@ class CommentController extends Controller
 {
   
 	public function index() {
+		// Total number of comments
 		$comments_count =  Comment::count();
-		$comments = Comment::orderBy('id', 'desc')->paginate(10)->onEachSide(1);
+
+		// Comments per page
+		$per_page = 10;
+
+		// The comments
+		$comments = Comment::orderBy('id', 'desc')->paginate($per_page)->onEachSide(1);
 
 		return view('dashboard/article-comments',
 			[
+				'per_page' => $per_page,
+				'current_page' => $comments->currentPage(),
 				'comments' => $comments,
 				'comments_count' => $comments_count
 			]
