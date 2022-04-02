@@ -21,6 +21,24 @@ label {
 }
 
 
+// Search form {
+#search_form {
+	.form-control[type=text] {
+		border-right: 0;
+	}
+
+	button[type=submit] {
+		border: 1px solid #ced4da;
+		border-left: 0;
+		border-bottom-left-radius: 0;
+		border-top-left-radius: 0;
+		background: #f8fafc;
+		box-shadow: none !important;
+
+	}
+}
+
+
 // Switch (toggler)
 .switch-toggle {
 	display: inline-block;

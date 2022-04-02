@@ -1,62 +1,34 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@include('partials/header')
+@include('partials/navbar')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<main class="py-3">
+		@if (session('error'))
+				@include('partials.errors')
+		@endif
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+		@if (session('success'))
+				@include('partials.success')
+		@endif
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-			@include('partials/navbar')
-
-        <main class="py-3">
-            @if (session('error'))
-								@include('partials.errors')
+		<div class="container">
+			<div class="row justify-content-center">
+				{{-- 6 columns for user profile --}}
+				@if(request()->routeIs(['user','register','login','password*']))<div class="col-md-6">@else<div class="col-md-12">@endif
+						
+						@if(!request()->routeIs(['user','register','login','password*']))
+						<div class="row">
+							<div class="col-sm-4 col-md-3 d-none d-sm-block">
+								<x-sidebar/>
+							</div>
 						@endif
-
-						@if (session('success'))
-								@include('partials.success')
-						@endif
-
-            <div class="container">
-							<div class="row justify-content-center">
-								{{-- 6 columns for user profile --}}
-								@if(request()->routeIs(['user','register','login','password*']))<div class="col-md-6">@else<div class="col-md-12">@endif
-										
-										@if(!request()->routeIs(['user','register','login','password*']))
-										<div class="row">
-											<div class="col-sm-4 col-md-3 d-none d-sm-block">
-												<x-sidebar/>
-											</div>
-										@endif
-										
-										@if(!request()->routeIs(['user','register','login','password*']))<div class="col-sm-8 col-md-9">@endif
-												@yield('content')
-										@if(!request()->routeIs(['user','register','login','password*']))</div>@endif
-										</div>
-									</div>
-								</div>
+						
+						@if(!request()->routeIs(['user','register','login','password*']))<div class="col-sm-8 col-md-9">@endif
+								@yield('content')
+						@if(!request()->routeIs(['user','register','login','password*']))</div>@endif
 						</div>
-        </main>
+					</div>
+				</div>
+		</div>
+</main>
 
-				@include('partials/footer')
-    </div>
-</body>
-<script>
-    var APP_URL = "{{ env("APP_URL") }}"
-</script>
-</html>
+@include('partials/footer')

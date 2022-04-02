@@ -33,4 +33,9 @@ function deleteAvatar(e) {
 		xmlhttp.send();
 	}
 }
-document.querySelector('#delete-avatar').addEventListener('click', deleteAvatar);
+
+let deleteAvatarBtn = document.querySelector('#delete-avatar');
+
+if (deleteAvatarBtn) {
+	deleteAvatarBtn.addEventListener('click', deleteAvatar);
+};

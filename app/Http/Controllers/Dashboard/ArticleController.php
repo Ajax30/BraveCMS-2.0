@@ -32,9 +32,21 @@ class ArticleController extends Controller
 		return ArticleCategory::all();
 	}
 
-	public function index() {
+	public function index(Request $request) {
+		// Articles count
 		$article_count = Article::count();
-		$articles = Article::orderBy('id', 'desc')->paginate(10)->onEachSide(1);
+    
+		// Search query
+		$qry = $request->input('search');
+
+		$articles = Article::where('title', 'like', '%' . $qry . '%')
+												->orWhere('short_description', 'like', '%' . $qry . '%')
+												->orWhere('content', 'like', '%' . $qry . '%')
+												->orderBy('id', 'desc')
+												->paginate(10)
+                        ->onEachSide(1);
+
+
 		return view('dashboard/articles',
 			[
 				'articles' => $articles,
@@ -69,11 +81,11 @@ class ArticleController extends Controller
 			$request->image->move(public_path('images/articles'), $imageName);
 		}
 
-		// Turn the 'featured' field value into a tiny integer
-		$fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
-
 		// If no image is uploaded, use default.jpg
 		$fields['image'] = null == $request->image ? 'default.jpg' : $imageName;
+
+		// Turn the 'featured' field value into a tiny integer
+		$fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
 		// Data to be added
 		$form_data = [
