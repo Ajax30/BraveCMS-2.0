@@ -35,7 +35,7 @@ class ArticleController extends Controller
 	public function index(Request $request) {
 		// Articles count
 		$article_count = Article::count();
-
+    
 		// Search query
 		$qry = $request->input('search');
 
@@ -43,7 +43,9 @@ class ArticleController extends Controller
 												->orWhere('short_description', 'like', '%' . $qry . '%')
 												->orWhere('content', 'like', '%' . $qry . '%')
 												->orderBy('id', 'desc')
-												->paginate(10);
+												->paginate(10)
+                        ->onEachSide(1);
+
 
 		return view('dashboard/articles',
 			[

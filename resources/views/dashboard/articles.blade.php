@@ -53,10 +53,10 @@
 				</table>
 			</div>
 		</div>
-		@if ($article_count > 10) 
+		@if ($article_count > 10)
 		<div class="card-footer">
 			{!! $articles->withQueryString()->links() !!}
 		</div>
 		@endif
-	</div>     
+	</div>
 @endsection
