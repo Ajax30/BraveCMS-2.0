@@ -58,6 +58,10 @@
 														<a class="dropdown-item" href="{{ route('dashboard') }}">
 															{{ __('Dashboard') }}
 														</a>
+
+														<a class="dropdown-item" href="{{ route('dashboard.settings') }}">
+															{{ __('Site settings') }}
+														</a>
 		
 														<a class="dropdown-item" href="{{ route('user') }}">
 															{{ __('Your profile') }}
