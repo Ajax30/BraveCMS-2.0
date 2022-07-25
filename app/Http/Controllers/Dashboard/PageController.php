@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     
-    private $rules = [
+  private $rules = [
 		'title' => 'required|string|max:190',
 		'content' => 'required|string'
 	];
