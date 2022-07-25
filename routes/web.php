@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\PageController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
@@ -16,6 +17,13 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+	
+	// Settings routes
+	Route::group(['prefix' => 'settings'], function() {
+		Route::get('/', [SettingsController::class, 'index'])->name('dashboard.settings');
+		Route::post('/update', [SettingsController::class, 'update'])->name('dashboard.settings.update');
+	}); 
 
 	// Pages routes
 	Route::group(['prefix' => 'pages'], function() {
