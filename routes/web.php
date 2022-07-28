@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -10,9 +10,10 @@ use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
 
-Auth::routes();
+Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
+Route::get('/show/{slug}', [ArticlesController::class, 'show']);
 
-Route::get('/', [HomeController::class, 'index'])->name('homepage');
+Auth::routes();
 
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
