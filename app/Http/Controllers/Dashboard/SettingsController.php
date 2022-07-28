@@ -32,7 +32,7 @@ class SettingsController extends Controller {
 	];
 	
 	public function index() {
-		$settings = Settings::all()[0];
+		$settings = Settings::first();
 		return view('dashboard/settings', ['settings' => $settings]);
 	}
 
@@ -42,7 +42,7 @@ class SettingsController extends Controller {
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator->errors())->withInput();
 		} else {
-			$settings = Settings::all()[0];
+			$settings = Settings::first();
 			$settings->site_name = $request->get('site_name');
 			$settings->tagline = $request->get('tagline');
 			$settings->owner_name = $request->get('owner_name');
