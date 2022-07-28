@@ -90,9 +90,9 @@ class PageController extends Controller
 			}
     }
 
-    public function delete($id) {
-		$page = Page::find($id);
-		$page->delete();
-		return redirect()->back()->with('success', 'The page titled "' . $page->title . '" was deleted');
-	}
+		public function delete($id) {
+			$page = Page::find($id);
+			$page->delete();
+			return redirect()->back()->with('success', 'The page titled "' . $page->title . '" was deleted');
+		}
 }
