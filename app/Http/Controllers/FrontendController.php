@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Settings;
+use App\Models\ArticleCategory;
 class FrontendController extends Controller
 {
     protected $site_settings;
@@ -10,6 +11,8 @@ class FrontendController extends Controller
     protected $tagline;
     protected $owner_name;
 
+    protected $article_categories;
+
     public function __construct()
     {
         $this->site_settings = Settings::first();
@@ -17,5 +20,9 @@ class FrontendController extends Controller
         $this->site_name = $this->site_settings['site_name'] ?? null;
         $this->tagline = $this->site_settings['tagline'] ?? null;
         $this->owner_name = $this->site_settings['owner_name'] ?? null;
+
+
+        // Article categories
+        $this->article_categories = ArticleCategory::all();
     }
 }

@@ -43,13 +43,16 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/') }}">Home</a>
           </li>
-          {{-- @if (count($pages))
-            @foreach ($pages as $page)
-            <li class="nav-item">
-              <a class="nav-link" href="#">{{ $page->title}}</a>
-            </li>
-            @endforeach
-          @endif --}}
+					@if (count($categories))
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+						<div class="dropdown-menu overflow-hidden py-0">
+							@foreach ($categories as $category)
+								<a class="dropdown-item text-secondary" href="#">{{ $category->name	}}</a>
+            	@endforeach
+						</div>
+					</li>
+          @endif
         </ul>
       </div>
     </div>

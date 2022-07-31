@@ -7,7 +7,6 @@ use App\Models\Article;
 class ArticlesController extends FrontendController {
 
 	public function index(Request $request) {
-
 		
 		// Articles per page
 		$per_page = 12;
@@ -36,6 +35,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'categories' => $this->article_categories,
 				'articles' => $articles,
 				'article_count' => $article_count ?? null
 			]
@@ -51,6 +51,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'categories' => $this->article_categories,
 				'article' => $article
 			]
 		);
