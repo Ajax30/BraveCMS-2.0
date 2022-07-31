@@ -29,16 +29,16 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; {{ $owner_name }} 2022 - </p>
+          <p class="copyright text-muted">Copyright &copy; {{ $owner_name }} 2022 </p>
         </div>
       </div>
     </div>
   </footer>
 
-	<!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('themes/' . $theme_directory . '/vendor/jquery/jquery.min.js') }}"></script>
-	<script src="{{ asset('themes/' . $theme_directory . '/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <!-- Custom scripts for this template -->
-	<script src="{{ asset('themes/' . $theme_directory . '/js/clean-blog.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('themes/' . $theme_directory . '/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('themes/' . $theme_directory . '/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{{ asset('themes/' . $theme_directory . '/js/clean-blog.min.js') }}"></script>
 </body>
 </html>

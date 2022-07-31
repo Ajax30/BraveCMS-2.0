@@ -21,6 +21,10 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
+				@if ($search_query)
+					<p class="mt-0 text-muted">We found {{ $article_count }} posts containing <span class="quote-inline">{{ $search_query }}</span>:</p>
+				@endif
+
 				@if (count($articles))
 					@foreach ($articles as $article)
 						<div class="post-preview">
@@ -46,10 +50,10 @@
 					<div class="clearfix">
 						<ul class="pagination">
 							<li class="next">
-								<a class="btn btn-primary {{ $articles->onFirstPage() ? 'disabled' : '' }}" href="{{ $articles->previousPageUrl() }}">&larr; Newer Posts</a>
+								<a class="btn btn-primary {{ $articles->withQueryString()->onFirstPage() ? 'disabled' : '' }}" href="{{ $articles->previousPageUrl() }}">&larr; Newer Posts</a>
 							</li>
 							<li class="prev">
-								<a class="btn btn-primary {{ $articles->onLastPage() ? 'disabled' : '' }}" href="{{ $articles->nextPageUrl() }}">Older Posts &rarr;</a>
+								<a class="btn btn-primary {{ $articles->withQueryString()->onLastPage() ? 'disabled' : '' }}" href="{{ $articles->nextPageUrl() }}">Older Posts &rarr;</a>
 							</li>
 						</ul>
 					</div>
