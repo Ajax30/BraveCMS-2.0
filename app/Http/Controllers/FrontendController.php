@@ -10,7 +10,6 @@ class FrontendController extends Controller
     protected $site_name;
     protected $tagline;
     protected $owner_name;
-
     protected $article_categories;
 
     public function __construct()

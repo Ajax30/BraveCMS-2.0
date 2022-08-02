@@ -48,7 +48,7 @@
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
 						<div class="dropdown-menu overflow-hidden py-0">
 							@foreach ($categories as $category)
-								<a class="dropdown-item text-secondary" href="#">{{ $category->name	}}</a>
+								<a class="dropdown-item text-secondary" href="{{ url('/category/' . $category->id) }}">{{ $category->name	}}</a>
             	@endforeach
 						</div>
 					</li>

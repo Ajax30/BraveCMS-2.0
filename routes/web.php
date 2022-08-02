@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
 
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
+Route::get('/category/{category_id}', [ArticlesController::class, 'category']);
 Route::get('/show/{slug}', [ArticlesController::class, 'show']);
 
 Auth::routes();

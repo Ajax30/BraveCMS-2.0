@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
 
-				@if ($search_query)
+				@if (isset($search_query))
 					<p class="mt-0 text-muted">We found {{ $article_count }} posts containing <span class="quote-inline">{{ $search_query }}</span>:</p>
 				@endif
 
