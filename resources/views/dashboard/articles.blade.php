@@ -60,9 +60,9 @@
 			</div>
 		</div>
 		@if($articles->hasPages())
-		<div class="card-footer">
-			{!! $articles->withQueryString()->links() !!}
-		</div>
+			<div class="card-footer">
+				{!! $articles->withQueryString()->links() !!}
+			</div>
 		@endif
 	</div>
 @endsection
