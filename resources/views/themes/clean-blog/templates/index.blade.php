@@ -49,7 +49,10 @@
 								on {{ date('j F, Y', strtotime($article->created_at)) }}
 							</p>
 						</div>
-						<hr>
+
+						{{-- No <hr> after the last aricle --}}
+						@if(!$loop->last)<hr>@endif
+						
 					@endforeach
 				@endif
 
