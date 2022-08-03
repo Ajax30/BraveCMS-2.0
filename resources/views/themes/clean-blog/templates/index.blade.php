@@ -10,7 +10,13 @@
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<div class="site-heading">
 					<h1>{{ $site_name }}</h1>
-					<span class="subheading">{{ $tagline }}</span>
+					<span class="subheading">
+						@if(isset($category))
+							{{ $category->name }}
+						@else
+							{{ $tagline }}
+						@endif
+					</span>
 				</div>
 			</div>
 		</div>

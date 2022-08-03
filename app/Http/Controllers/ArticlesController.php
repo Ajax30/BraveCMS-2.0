@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\ArticleCategory;
 use App\Models\Article;
 
 class ArticlesController extends FrontendController {
@@ -43,6 +44,7 @@ class ArticlesController extends FrontendController {
 	}
 
 	public function category($category_id) {
+		$category = ArticleCategory::where('id', $category_id)->first();
 		$articles = Article::where('category_id', $category_id)->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
@@ -52,6 +54,7 @@ class ArticlesController extends FrontendController {
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
 				'categories' => $this->article_categories,
+				'category' => $category,
 				'articles' => $articles
 			]
 		);
