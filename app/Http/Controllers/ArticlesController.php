@@ -37,6 +37,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'pages' => $this->pages,
 				'categories' => $this->article_categories,
 				'articles' => $articles,
 				'article_count' => $article_count ?? null
@@ -54,6 +55,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'pages' => $this->pages,
 				'categories' => $this->article_categories,
 				'category' => $category,
 				'articles' => $articles
@@ -71,6 +73,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'pages' => $this->pages,
 				'categories' => $this->article_categories,
 				'author' => $author,
 				'articles' => $articles
@@ -87,6 +90,7 @@ class ArticlesController extends FrontendController {
 				'site_name' => $this->site_name,
 				'tagline' => $this->tagline,
 				'owner_name' => $this->owner_name,
+				'pages' => $this->pages,
 				'categories' => $this->article_categories,
 				'article' => $article
 			]

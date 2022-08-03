@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Settings;
 use App\Models\ArticleCategory;
+use App\Models\Page;
 class FrontendController extends Controller
 {
     protected $site_settings;
@@ -10,6 +11,7 @@ class FrontendController extends Controller
     protected $site_name;
     protected $tagline;
     protected $owner_name;
+		protected $pages;
     protected $article_categories;
 
     public function __construct()
@@ -23,5 +25,8 @@ class FrontendController extends Controller
 
         // Article categories
         $this->article_categories = ArticleCategory::all();
+
+				// Pages
+        $this->pages = Page::all();
     }
 }

@@ -53,6 +53,17 @@
 						</div>
 					</li>
           @endif
+
+					@if (count($pages))
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+						<div class="dropdown-menu overflow-hidden py-0">
+							@foreach ($pages as $page)
+								<a class="dropdown-item text-secondary" href="{{ url('/page/' . $page->id) }}">{{ $page->title	}}</a>
+            	@endforeach
+						</div>
+					</li>
+          @endif
         </ul>
       </div>
     </div>

@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -10,10 +11,15 @@ use App\Http\Controllers\Dashboard\ArticleCategoryController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
 
+
+// Article routes
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
 Route::get('/category/{category_id}', [ArticlesController::class, 'category']);
 Route::get('/author/{user_id}', [ArticlesController::class, 'author']);
 Route::get('/show/{slug}', [ArticlesController::class, 'show']);
+
+// Page routes
+Route::get('/page/{id}', [PagesController::class, 'page']);
 
 Auth::routes();
 
