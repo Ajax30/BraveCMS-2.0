@@ -12,7 +12,7 @@
             <h1>{{ $article->title }}</h1>
             <h2 class="subheading">{{ $article->short_description }}</h2>
             <span class="meta">Posted by
-              <a href="#">{{ $article->user->first_name }} {{ $article->user->last_name }}	</a>
+              <a href="{{ url('/author/' . $article->user->id) }}">{{ $article->user->first_name }} {{ $article->user->last_name }}	</a>
               on {{ date('j F, Y', strtotime($article->created_at)) }}</span>
           </div>
         </div>
