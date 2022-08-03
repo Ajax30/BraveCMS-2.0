@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 
@@ -55,6 +56,23 @@ class ArticlesController extends FrontendController {
 				'owner_name' => $this->owner_name,
 				'categories' => $this->article_categories,
 				'category' => $category,
+				'articles' => $articles
+			]
+		);
+	}
+
+	public function author($user_id) {
+		$author = User::where('id', $user_id)->first();
+		$articles = Article::where('user_id', $user_id)->paginate($this->per_page);
+
+		return view('themes/' . $this->theme_directory . '/templates/index', 
+			[
+				'theme_directory' => $this->theme_directory,
+				'site_name' => $this->site_name,
+				'tagline' => $this->tagline,
+				'owner_name' => $this->owner_name,
+				'categories' => $this->article_categories,
+				'author' => $author,
 				'articles' => $articles
 			]
 		);

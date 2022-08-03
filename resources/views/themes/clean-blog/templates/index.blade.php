@@ -13,6 +13,8 @@
 					<span class="subheading">
 						@if(isset($category))
 							{{ $category->name }}
+						@elseif(isset($author))
+							Articles by {{ $author->first_name }} {{ $author->last_name }}
 						@else
 							{{ $tagline }}
 						@endif
@@ -43,7 +45,7 @@
 								</h3>
 							</a>
 							<p class="post-meta">Posted by
-								<a href="#">{{ $article->user->first_name }} {{ $article->user->last_name }}</a>
+								<a href="{{ url('/author/' . $article->user->id) }}">{{ $article->user->first_name }} {{ $article->user->last_name }}</a>
 								on {{ date('j F, Y', strtotime($article->created_at)) }}
 							</p>
 						</div>
