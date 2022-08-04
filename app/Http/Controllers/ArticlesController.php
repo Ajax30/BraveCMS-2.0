@@ -47,7 +47,7 @@ class ArticlesController extends FrontendController {
 
 	public function category($category_id) {
 		$category = ArticleCategory::firstWhere('id', $category_id);
-		$articles = Article::where('category_id', $category_id)->paginate($this->per_page);
+		$articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			[
@@ -65,7 +65,7 @@ class ArticlesController extends FrontendController {
 
 	public function author($user_id) {
 		$author = User::firstWhere('id', $user_id);
-		$articles = Article::where('user_id', $user_id)->paginate($this->per_page);
+		$articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			[
