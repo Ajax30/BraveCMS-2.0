@@ -81,7 +81,9 @@
 							<div class="d-flex pb-2">
 								<input class="mt-1" type="checkbox" name="accept" id="accept">
 
-								<label class="px-1" for="accept">{{ __('Accept the terms and conditions') }}</label>
+								<label class="px-1" for="accept">
+									Accept the <a href="{{ url('/page/1') }}">Terms and conditions</a>
+								</label>
 
 									@error('accept')
 										<span class="invalid-feedback accept" role="alert">

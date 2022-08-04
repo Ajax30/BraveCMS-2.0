@@ -27,7 +27,7 @@ class PageController extends Controller
 		$per_page = 10;
 
 		// The Pages
-		$pages = Page::orderBy('id', 'desc')->paginate($per_page);
+		$pages = Page::orderBy('id', 'asc')->paginate($per_page);
 
 		return view('dashboard/pages',
 			[
