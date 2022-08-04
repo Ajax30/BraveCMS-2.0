@@ -16,18 +16,15 @@ class ArticlesController extends FrontendController {
 		// Search query
 		$qry = $request->input('search');
 
-		$articles = Article::where('title', 'like', '%' . $qry . '%')
-												->orWhere('short_description', 'like', '%' . $qry . '%')
-												->orWhere('content', 'like', '%' . $qry . '%')
-												->orderBy('id', 'desc')
-												->paginate($this->per_page);
+		$articlesQuery = Article::where('title', 'like', '%' . $qry . '%')
+											->orWhere('short_description', 'like', '%' . $qry . '%')
+											->orWhere('content', 'like', '%' . $qry . '%');
+
+		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);
 
 		// Search results count
-		if ($request->input('search')){
-			$article_count = Article::where('title', 'like', '%' . $qry . '%')
-												->orWhere('short_description', 'like', '%' . $qry . '%')
-												->orWhere('content', 'like', '%' . $qry . '%')
-												->count();
+		if ($request->input('search')) {
+			$article_count = $articlesQuery->count();
 		}		
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
