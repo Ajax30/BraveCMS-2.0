@@ -50,7 +50,7 @@
 							</p>
 						</div>
 
-						{{-- No <hr> after the last aricle --}}
+						{{-- 	 --}}
 						@if(!$loop->last)<hr>@endif
 						
 					@endforeach

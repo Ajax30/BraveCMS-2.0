@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class PagesController extends FrontendController
 {
   public function page($id) {
-		$page = Page::where('id', $id)->first();
+		$page = Page::firstWhere('id', $id);
 		return view('themes/' . $this->theme_directory . '/templates/page', 
 			[
 				'theme_directory' => $this->theme_directory,
