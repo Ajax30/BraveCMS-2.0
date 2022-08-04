@@ -83,7 +83,7 @@ class ArticlesController extends FrontendController {
 
 	public function show($slug) {
 		// Single article
-		$article = Article::where('slug', $slug)->first();
+		$article = Article::firstWhere('slug', $slug);
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			[
 				'theme_directory' => $this->theme_directory,
