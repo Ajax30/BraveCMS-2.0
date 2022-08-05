@@ -66,7 +66,8 @@ class ArticlesController extends FrontendController {
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
 				'categories' => $this->article_categories,
-				'article' => $article
+				'article' => $article,
+				'tagline' => $article->title,
 				])
 			);
 	}
