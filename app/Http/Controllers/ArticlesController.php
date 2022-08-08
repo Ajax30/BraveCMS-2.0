@@ -20,12 +20,12 @@ class ArticlesController extends FrontendController {
 											->orWhere('short_description', 'like', '%' . $qry . '%')
 											->orWhere('content', 'like', '%' . $qry . '%');
 
-		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);
-
 		// Search results count
-		if ($request->input('search')) {
+		if ($qry) {
 			$article_count = $articlesQuery->count();
-		}		
+		}	
+
+		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);	
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			array_merge($this->data, [
