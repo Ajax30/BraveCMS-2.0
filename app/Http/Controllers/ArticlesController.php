@@ -20,25 +20,19 @@ class ArticlesController extends FrontendController {
 											->orWhere('short_description', 'like', '%' . $qry . '%')
 											->orWhere('content', 'like', '%' . $qry . '%');
 
-		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);
-
 		// Search results count
-		if ($request->input('search')) {
+		if ($qry) {
 			$article_count = $articlesQuery->count();
-		}		
+		}	
+
+		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);	
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
-			[
-				'theme_directory' => $this->theme_directory,
+			array_merge($this->data, [
 				'search_query' => $qry,
-				'site_name' => $this->site_name,
-				'tagline' => $this->tagline,
-				'owner_name' => $this->owner_name,
-				'pages' => $this->pages,
-				'categories' => $this->article_categories,
 				'articles' => $articles,
 				'article_count' => $article_count ?? null
-			]
+			])
 		);
 	}
 
@@ -47,17 +41,11 @@ class ArticlesController extends FrontendController {
 		$articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
-			[
-				'theme_directory' => $this->theme_directory,
-				'site_name' => $this->site_name,
-				'tagline' => $this->tagline,
-				'owner_name' => $this->owner_name,
-				'pages' => $this->pages,
-				'categories' => $this->article_categories,
+			array_merge($this->data, [
 				'category' => $category,
 				'articles' => $articles
-			]
-		);
+				])
+			);
 	}
 
 	public function author($user_id) {
@@ -65,33 +53,23 @@ class ArticlesController extends FrontendController {
 		$articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
-			[
-				'theme_directory' => $this->theme_directory,
-				'site_name' => $this->site_name,
-				'tagline' => $this->tagline,
-				'owner_name' => $this->owner_name,
-				'pages' => $this->pages,
-				'categories' => $this->article_categories,
+			array_merge($this->data, [
 				'author' => $author,
 				'articles' => $articles
-			]
-		);
+				])
+			);
 	}
 
 	public function show($slug) {
 		// Single article
 		$article = Article::firstWhere('slug', $slug);
 		return view('themes/' . $this->theme_directory . '/templates/single', 
-			[
-				'theme_directory' => $this->theme_directory,
-				'site_name' => $this->site_name,
-				'tagline' => $this->tagline,
-				'owner_name' => $this->owner_name,
-				'pages' => $this->pages,
+			array_merge($this->data, [
 				'categories' => $this->article_categories,
-				'article' => $article
-			]
-		);
+				'article' => $article,
+				'tagline' => $article->title,
+				])
+			);
 	}
 	
 }

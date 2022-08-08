@@ -50,7 +50,6 @@
 							</p>
 						</div>
 
-						{{-- 	 --}}
 						@if(!$loop->last)<hr>@endif
 						
 					@endforeach
@@ -61,10 +60,10 @@
 					<div class="clearfix">
 						<ul class="pagination">
 							<li class="next">
-								<a class="btn btn-primary {{ $articles->withQueryString()->onFirstPage() ? 'disabled' : '' }}" href="{{ $articles->previousPageUrl() }}">&larr; Newer Posts</a>
+								<a class="btn btn-primary {{ $articles->onFirstPage() ? 'disabled' : '' }}" href="{{ $articles->withQueryString()->previousPageUrl() }}">&larr; Newer Posts</a>
 							</li>
 							<li class="prev">
-								<a class="btn btn-primary {{ $articles->withQueryString()->onLastPage() ? 'disabled' : '' }}" href="{{ $articles->nextPageUrl() }}">Older Posts &rarr;</a>
+								<a class="btn btn-primary {{ $articles->onLastPage() ? 'disabled' : '' }}" href="{{ $articles->withQueryString()->nextPageUrl() }}">Older Posts &rarr;</a>
 							</li>
 						</ul>
 					</div>
