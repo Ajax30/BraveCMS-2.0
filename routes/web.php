@@ -22,8 +22,9 @@ Route::get('/show/{slug}', [ArticlesController::class, 'show']);
 // Page routes
 Route::get('/page/{id}', [PagesController::class, 'page']);
 
-// Contact page controller
+// Contact page routes
 Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 Auth::routes();
 
