@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -20,6 +21,9 @@ Route::get('/show/{slug}', [ArticlesController::class, 'show']);
 
 // Page routes
 Route::get('/page/{id}', [PagesController::class, 'page']);
+
+// Contact page controller
+Route::get('/contact', [ContactController::class, 'index']);
 
 Auth::routes();
 
