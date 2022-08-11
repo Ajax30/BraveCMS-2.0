@@ -40,11 +40,11 @@
     <script src="{{ asset('themes/' . $theme_directory . '/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     
     @if (Request::is('contact'))
-      <!-- Contact Form JavaScript -->
-      <script type="text/javascript">
+      <!-- Contact Form JavaScript -->  
+      {{-- <script type="text/javascript">
         var APP_URL = {!! json_encode(url('/')) !!}
       </script>
-      <script src="{{ asset('themes/' . $theme_directory . '/js/jqBootstrapValidation.js') }}"></script>
+      <script src="{{ asset('themes/' . $theme_directory . '/js/jqBootstrapValidation.js') }}"></script> --}}
       <script src="{{ asset('themes/' . $theme_directory . '/js/contact_me.js') }}"></script>
     @endif
 
