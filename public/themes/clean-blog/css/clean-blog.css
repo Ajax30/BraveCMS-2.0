@@ -417,6 +417,15 @@ header.masthead .post-heading .meta a {
   display: none;
 }
 
+.alert-dismissible {
+  padding-right: 2rem;
+}
+
+.alert-dismissible .close {
+  padding: 0 0.25rem;
+  line-height: 1;
+}
+
 .floating-label-form-group {
   font-size: 14px;
   position: relative;
