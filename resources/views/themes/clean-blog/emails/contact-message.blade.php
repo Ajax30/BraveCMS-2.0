@@ -20,7 +20,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>{{ $msg }}</td>
+			<td style="padding-top: 25px">{!! $msg !!}</td>
 		</tr>
 	</table>	
 </body>

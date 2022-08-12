@@ -43,7 +43,7 @@ class ContactController extends FrontendController
 				'name' => $request->name,
 				'email' => $request->email,
 				'phone' => $request->phone,
-				'msg' => $request->message,
+				'msg' => nl2br($request->message),
 			],
 			function($mail) use($request){
 				$mail->from($request->email, $request->name);
