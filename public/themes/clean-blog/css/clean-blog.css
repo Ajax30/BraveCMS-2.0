@@ -424,6 +424,7 @@ header.masthead .post-heading .meta a {
 .alert-dismissible .close {
   padding: 0 0.25rem;
   line-height: 1;
+  border: none !important;
 }
 
 .floating-label-form-group {
