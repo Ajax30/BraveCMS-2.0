@@ -36,7 +36,7 @@ class ContactController extends FrontendController
 		$validator = Validator::make($request->all(), $rules, $messages);
 
 		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator->errors())->withInput();
+			return redirect()->back()->withErrors($validator->errors())->withInput()->with('error', 'There are invalid fields in the form.');
 		} else {
 			Mail::send('themes/' . $this->theme_directory . '/emails/contact-message', [
 				'site_name' => $this->data['site_name'],

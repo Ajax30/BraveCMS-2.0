@@ -29,7 +29,7 @@
         @endif
 
         @if (session('error'))
-          @include('themes/' .$theme_directory . '/partials/success')
+          @include('themes/' .$theme_directory . '/partials/errors')  
         @endif
 
         <form method="POST" action="{{ route('contact.submit') }}" name="sentMessage" id="contactForm" novalidate>
