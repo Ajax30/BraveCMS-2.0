@@ -25,17 +25,11 @@
 
 
         @if (session('success'))
-          <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <p class="my-0 text-center">{{ session('success') }}</p>
-          </div>
+          @include('themes/' .$theme_directory . '/partials/success')
         @endif
 
         @if (session('error'))
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <p class="my-0 text-center">{{ session('error') }}</p>
-          </div>
+          @include('themes/' .$theme_directory . '/partials/success')
         @endif
 
         <form method="POST" action="{{ route('contact.submit') }}" name="sentMessage" id="contactForm" novalidate>
