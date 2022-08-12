@@ -38,4 +38,12 @@
       });
   }
 
+  if ($("#form_alert").length){
+    $("html, body").animate({ 
+      scrollTop: $('#form_alert').offset().top - 20
+  }, 1000);
+  }
+  
+  
+
 })(jQuery); // End of use strict

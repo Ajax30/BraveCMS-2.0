@@ -39,6 +39,7 @@
     <script src="{{ asset('themes/' . $theme_directory . '/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('themes/' . $theme_directory . '/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Custom scripts for this template -->
-    <script src="{{ asset('themes/' . $theme_directory . '/js/clean-blog.min.js') }}"></script>
+    <script src="{{ asset('themes/' . $theme_directory . '/js/clean-blog.js') }}"></script>
+
 </body>
 </html>
