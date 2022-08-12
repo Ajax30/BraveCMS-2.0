@@ -425,6 +425,7 @@ header.masthead .post-heading .meta a {
   padding: 0 0.25rem;
   line-height: 1;
   border: none !important;
+  outline: none;
 }
 
 .floating-label-form-group {
