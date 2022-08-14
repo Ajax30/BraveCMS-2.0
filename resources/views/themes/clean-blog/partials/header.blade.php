@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $site_name }} | {{ $tagline }}</title>
 
+			@if ($is_cookieconsent)
+				<link href="{{ asset('lib/cookieconsent/css/cookies.css') }}" rel="stylesheet">
+				<script src="{{ asset('lib/cookieconsent/js/cookieconsent.min.js') }}"></script>
+			@endif
+
 		  <!-- Bootstrap core CSS -->
 			<link href="{{ asset('themes/' . $theme_directory . '/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -16,6 +21,7 @@
 		
 			<!-- Custom styles for this template -->
 			<link href="{{ asset('themes/' . $theme_directory . '/css/clean-blog.min.css') }}" rel="stylesheet">
+
 </head>
 <body>
 
