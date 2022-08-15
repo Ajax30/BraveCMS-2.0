@@ -1,4 +1,11 @@
 # Brave CMS 2.0
+
+# What is this about? 
+
+This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. It is currently a *work in progress*.
+
+![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/master/preview.png)
+
 ## License
 
 MIT License
