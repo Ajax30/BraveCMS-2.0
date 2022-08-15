@@ -15,15 +15,15 @@ use App\Http\Controllers\Dashboard\CommentController;
 
 // Article routes
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
-Route::get('/category/{category_id}', [ArticlesController::class, 'category']);
-Route::get('/author/{user_id}', [ArticlesController::class, 'author']);
-Route::get('/show/{slug}', [ArticlesController::class, 'show']);
+Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->name('category');
+Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
+Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 
 // Page routes
-Route::get('/page/{id}', [PagesController::class, 'page']);
+Route::get('/page/{id}', [PagesController::class, 'page'])->name('page');
 
 // Contact page routes
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 Auth::routes();

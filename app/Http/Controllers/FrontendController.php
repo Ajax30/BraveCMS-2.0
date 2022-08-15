@@ -38,7 +38,7 @@ class FrontendController extends Controller
 
         // Article categories
         $this->article_categories = ArticleCategory::all();
-
+       
 				// Pages
         $this->pages = Page::all();
 
