@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $site_name }} | {{ $tagline }}</title>
 
-			@if ($is_cookieconsent)
+			@if (boolval($is_cookieconsent))
 				<link href="{{ asset('lib/cookieconsent/css/cookies.css') }}" rel="stylesheet">
 				<script src="{{ asset('lib/cookieconsent/js/cookieconsent.min.js') }}"></script>
 			@endif
