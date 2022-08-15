@@ -4,7 +4,7 @@
 
 This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. It is currently a *work in progress*.
 
-![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/raw/master/preview.png)
+![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/preview.png)
 
 ## License
 
