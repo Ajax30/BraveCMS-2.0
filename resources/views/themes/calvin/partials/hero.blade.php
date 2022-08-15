@@ -42,10 +42,21 @@
             <p>Follow</p>
             <span></span>
             <ul class="s-hero__social-icons">
-                <li><a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                <li><a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="#0"><i class="fab fa-dribbble" aria-hidden="true"></i></a></li>
+                <li>
+									<a href="{{ $facebook }}" target="_blank">
+										<i class="fab fa-facebook-f" aria-hidden="true"></i>
+									</a>
+								</li>
+                <li>
+									<a href="{{ $twitter }}" target="_blank">
+										<i class="fab fa-twitter" aria-hidden="true"></i>
+									</a>
+								</li>
+                <li>
+									<a href="{{ $instagram }}" target="_blank">
+										<i class="fab fa-instagram" aria-hidden="true"></i>
+									</a>
+								</li>
             </ul>
         </div> <!-- end s-hero__social -->
 
