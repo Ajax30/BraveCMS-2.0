@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ArticleCategory;
 use App\Models\Article;
+use App\Models\Comment;
 
 class ArticlesController extends FrontendController {
 
@@ -26,11 +27,13 @@ class ArticlesController extends FrontendController {
 		}	
 
 		$articles = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);	
+		$featured_articles = Article::where('featured', 1)->orderBy('id', 'desc')->get();
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			array_merge($this->data, [
 				'search_query' => $qry,
 				'articles' => $articles,
+				'featured_articles' => $featured_articles,
 				'article_count' => $article_count ?? null
 			])
 		);
@@ -63,10 +66,13 @@ class ArticlesController extends FrontendController {
 	public function show($slug) {
 		// Single article
 		$article = Article::firstWhere('slug', $slug);
+		$comments = Comment::where('article_id', $article->id)->orderBy('id', 'desc')->get();
+
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
 				'categories' => $this->article_categories,
 				'article' => $article,
+				'comments' => $comments,
 				'tagline' => $article->title,
 				])
 			);
