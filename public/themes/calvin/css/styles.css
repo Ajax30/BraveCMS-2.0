@@ -513,6 +513,29 @@ legend {
     /* 1 */
 }
 
+.form-field {
+    position: relative;
+}
+
+.form-field .help-block {
+    position: absolute;
+    bottom: -4px;
+    margin: 0;
+    font-size: 10px;
+}
+
+.form-field .text-danger {
+ color: #c00;
+}
+
+.with-success {
+    margin-bottom: 0;
+}
+
+.text-success {
+    color: rgb(56, 124, 92);
+}
+
 /* Add the correct vertical alignment in Chrome, Firefox, and Opera. */
 
 progress {
@@ -4354,7 +4377,7 @@ body.search-is-visible {
 }
 
 .s-content__form {
-    margin-top: var(--vspace-2);
+    margin-top: var(--vspace-1);
 }
 
 /* ------------------------------------------------------------------- 

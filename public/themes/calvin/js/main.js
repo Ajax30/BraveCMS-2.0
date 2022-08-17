@@ -269,6 +269,15 @@
     }; // end ssSmoothScroll
 
 
+    // Scroll to form if there are errors
+
+    if ($(".with-errors, .with-success").length){
+        $("html, body").animate({ 
+          scrollTop: $('.with-errors, .with-success').offset().top - 20
+      }, 1000);
+      }
+
+
    /* Back to Top
     * ------------------------------------------------------ */
     const ssBackToTop = function() {

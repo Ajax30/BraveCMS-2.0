@@ -59,7 +59,7 @@
                 <h3 class="s-header__nav-heading h6">Navigate to</h3>
 
                 <ul class="s-header__nav">
-                    <li><a href="{{ url('/') }}" title="">Home</a></li>
+                    <li><a href="{{ url('/') }}" title="Home">Home</a></li>
                     <li class="has-children">
 											<a href="#0">Categories</a>
 											@if (count($categories))
@@ -81,6 +81,10 @@
 											</ul>
 											@endif
                     </li>
+
+										<li>
+											<a href="{{ url('/contact') }}">Contact</a>
+										</li>
                 </ul> <!-- end s-header__nav -->
 
                 <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Close</a>
