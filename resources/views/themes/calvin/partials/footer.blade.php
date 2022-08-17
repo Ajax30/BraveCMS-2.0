@@ -39,11 +39,9 @@
                     <h5>Follow Us</h5>
 
                     <ul>
-                        <li><a href="#0">Twitter</a></li>
-                        <li><a href="#0">Facebook</a></li>
-                        <li><a href="#0">Dribbble</a></li>
-                        <li><a href="#0">Pinterest</a></li>
-                        <li><a href="#0">Instagram</a></li>
+                        <li><a href="{{ $twitter }}">Twitter</a></li>
+                        <li><a href="{{ $facebook }}">Facebook</a></li>
+                        <li><a href="{{ $instagram }}">Instagram</a></li>
                     </ul>
 
                 </div> <!-- end s-footer__social links --> 
