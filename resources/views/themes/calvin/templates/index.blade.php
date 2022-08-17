@@ -73,28 +73,10 @@
 							<div class="row">
 								<div class="column large-12">
 										<nav class="pgn">
-												<ul>
-														<li>
-																<a class="pgn__prev" href="{{ $articles->withQueryString()->previousPageUrl() }}">
-																		Prev
-																</a>
-														</li>
-														<li><a class="pgn__num" href="#0">1</a></li>
-														<li><span class="pgn__num current">2</span></li>
-														<li><a class="pgn__num" href="#0">3</a></li>
-														<li><a class="pgn__num" href="#0">4</a></li>
-														<li><a class="pgn__num" href="#0">5</a></li>
-														<li><span class="pgn__num dots">…</span></li>
-														<li><a class="pgn__num" href="#0">8</a></li>
-														<li>
-																<a class="pgn__next" href="{{ $articles->withQueryString()->nextPageUrl() }}">
-																		Next
-																</a>
-														</li>
-												</ul>
-										</nav> <!-- end pgn -->
-								</div> <!-- end column -->
-							</div> <!-- end row -->
+											{!! $articles->onEachSide(1)->withQueryString()->links() !!}
+										</nav><!-- end pgn -->
+								</div><!-- end column -->
+							</div><!-- end row -->
 						@endif
 
         </div> <!-- end s-bricks -->
