@@ -2805,13 +2805,15 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 /* -------------------------------------------------------------------
  * ## pagination
  * ------------------------------------------------------------------- */
+
+
  .pgn {
-    --pgn-num-height: calc(var(--vspace-1) + .4rem);
-    margin: var(--vspace-1_5) auto var(--vspace-2);
+    margin-top: 0;
+    margin-bottom: 6rem;
     text-align: center;
 }
 
-.pgn ul {
+.pgn ul.pagination {
     display: -ms-inline-flexbox;
     display: -webkit-inline-box;
     display: inline-flex;
@@ -2823,6 +2825,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     -webkit-box-pack: center;
     justify-content: center;
     list-style: none;
+    margin-bottom: 0;
     margin-left: 0;
     padding: 0 8.8rem;
     text-align: center;
@@ -2837,7 +2840,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .pgn ul li a, .pgn ul li span {
     font-family: var(--font-1);
     font-weight: 400;
-    font-size: var(--text-size);
+    font-size: calc(var(--text-size) * 0.95);
     line-height: var(--vspace-1);
     display: inline-block;
     padding: .2rem 1.2rem;
@@ -2875,8 +2878,8 @@ a[rel="next"]::before {
  * pagination
  * ------------------------------------------------------------------- */
 @media screen and (max-width: 600px) {
-    .pgn ul {
-        padding: 0 6.4rem;
+    .pgn ul.pagination {
+        padding: 0 .5rem;
     }
     .pgn__num {
         margin: .2rem .2rem;
@@ -3023,10 +3026,6 @@ a[rel="next"]::before {
     width: 94%;
     margin: 0 auto var(--vspace-2);
     overflow: hidden;
-}
-
-.s-bricks .pagination {
-    margin-top: 6rem;
 }
 
 .bricks-wrapper {
