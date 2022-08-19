@@ -70,15 +70,11 @@
               <!-- end s-content__pagenav -->
             </div>
             <!-- end s-content__primary -->
-          </article>
-          <!-- end entry -->
-        </div>
-        <!-- end column -->
-      </div>
-      <!-- end row -->
+          </article><!-- end entry -->
+        </div><!-- end column -->
+      </div><!-- end row -->
 
 			@include('themes/' . $theme_directory . '/partials/comments')
-
     </section>
 
     @endsection
