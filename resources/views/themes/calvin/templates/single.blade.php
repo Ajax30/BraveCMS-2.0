@@ -53,7 +53,7 @@
                 <div class="next-nav">
                   <a href="{{ url('/show/' . $old_article->slug) }}">
                   <span>Older</span>
-                  {{ $old_article->title }}
+                    {{ $old_article->title }}
                   </a>
                 </div>
                 @endif
@@ -62,7 +62,7 @@
                 <div class="next-nav">
                   <a href="{{ url('/show/' . $new_article->slug) }}">
                   <span>Newer</span>
-                  {{ $new_article->title }}
+                  {{ $new_article->title }} 
                   </a>
                 </div>
                 @endif

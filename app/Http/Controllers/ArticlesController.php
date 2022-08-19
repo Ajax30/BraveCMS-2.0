@@ -66,8 +66,8 @@ class ArticlesController extends FrontendController {
 	public function show($slug) {
 		// Single article
 		$article = Article::firstWhere('slug', $slug);
-		$old_article = Article::firstWhere('id', $article->id - 1);
-		$new_article = Article::firstWhere('id', $article->id + 1);
+		$old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
+		$new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
 		$comments = Comment::where('article_id', $article->id)->orderBy('id', 'desc')->get();
 
 		return view('themes/' . $this->theme_directory . '/templates/single', 
