@@ -10,13 +10,7 @@
 
                     <h5>About Our Site</h5>
 
-                    <p>
-                    Lorem ipsum Ut velit dolor Ut labore id fugiat in ut 
-                    fugiat nostrud qui in dolore commodo eu magna Duis 
-                    cillum dolor officia esse mollit proident Excepteur 
-                    exercitation nulla. Lorem ipsum In reprehenderit 
-                    commodo aliqua irure.
-                    </p>
+                    <p>Theme by StyleShout. Programming by Razvan Zamfir.</p>
 
                 </div> <!-- end s-footer__info -->
 
