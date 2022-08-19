@@ -11,7 +11,7 @@
 	<div class="subscribe-form">
 		<form method="POST" action="{{ route('newsletter.subscribe') }}" id="newsletterForm" mclass="group" novalidate>
 			@csrf
-			<input type="email" value="" name="subscriber_email" class="email" placeholder="Your Email Address"> 
+			<input type="email" value="" name="subscriber_email" class="email" placeholder="Your Email Address" required> 
 			<input type="submit" name="subscribe" value="Subscribe">
 		</form>
 	</div>
