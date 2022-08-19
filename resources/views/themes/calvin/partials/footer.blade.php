@@ -35,9 +35,7 @@
                 </div> <!-- end s-footer__site-links -->  
 
                 <div class="column large-2 medium-3 tab-6 s-footer__social-links">
-
                     <h5>Follow Us</h5>
-
                     <ul>
                         <li><a href="{{ $twitter }}">Twitter</a></li>
                         <li><a href="{{ $facebook }}">Facebook</a></li>
@@ -46,27 +44,7 @@
 
                 </div> <!-- end s-footer__social links --> 
 
-                <div class="column large-3 medium-6 tab-12 s-footer__subscribe">
-
-                    <h5>Sign Up for Newsletter</h5>
-
-                    <p>Signup to get updates on articles, interviews and events.</p>
-
-                    <div class="subscribe-form">
-                
-                        <form id="mc-form" class="group" novalidate="true">
-
-                            <input type="email" value="" name="dEmail" class="email" id="mc-email" placeholder="Your Email Address" required=""> 
-                
-                            <input type="submit" name="subscribe" value="subscribe" >
-                
-                            <label for="mc-email" class="subscribe-message"></label>
-                
-                        </form>
-
-                    </div>
-
-                </div> <!-- end s-footer__subscribe -->
+								@include('themes/' . $theme_directory . '/partials/newsletter-form')
 
             </div> <!-- end row -->
 
@@ -96,8 +74,9 @@
     ================================================== -->
     <script src="{{ asset('themes/' . $theme_directory . '/js/jquery-3.5.0.min.js') }}"></script>
     <script src="{{ asset('themes/' . $theme_directory . '/js/plugins.js') }}"></script>
-    <script src="{{ asset('themes/' . $theme_directory . '/js/main.js') }}"></script>
-
+		<script src="{{ asset('themes/' . $theme_directory . '/js/main.js') }}"></script> 
+		<script src="{{ asset('themes/' . $theme_directory . '/js/jquery.validate.min.js') }}"></script> 
+		<script src="{{ asset('themes/' . $theme_directory . '/js/newsletter.js') }}"></script>   
 </body>
 
 </html>

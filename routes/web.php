@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -25,6 +26,9 @@ Route::get('/page/{id}', [PagesController::class, 'page'])->name('page');
 // Contact page routes
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+
+// Newsletter subscription
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Auth::routes();
 
@@ -73,7 +77,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 	Route::group(['prefix' => 'comments'], function() {
 		Route::get('/', [CommentController::class, 'index'])->name('dashboard.comments');
 		Route::get('/delete/{id}', [CommentController::class, 'delete'])->name('dashboard.comments.delete');
-	}); 
+	});
 
 	// User routes
 	Route::group(['prefix' => 'user'], function() {
