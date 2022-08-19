@@ -26,7 +26,7 @@
 										@if (count($pages))	
 											<ul>
 												@foreach ($pages as $page)
-													<li><a href="{{ url('/pages/' . $page->id) }}">{{ $page->title }}</a></li>
+													<li><a href="{{ url('/page/' . $page->id) }}">{{ $page->title }}</a></li>
 												@endforeach
 											</ul>
 										@endif
