@@ -66,12 +66,16 @@ class ArticlesController extends FrontendController {
 	public function show($slug) {
 		// Single article
 		$article = Article::firstWhere('slug', $slug);
+		$old_article = Article::firstWhere('id', $article->id - 1);
+		$new_article = Article::firstWhere('id', $article->id + 1);
 		$comments = Comment::where('article_id', $article->id)->orderBy('id', 'desc')->get();
 
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
 				'categories' => $this->article_categories,
 				'article' => $article,
+				'old_article' => $old_article,
+				'new_article' => $new_article,
 				'comments' => $comments,
 				'tagline' => $article->title,
 				])

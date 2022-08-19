@@ -2886,12 +2886,12 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     cursor: default;
 }
 
-a[rel="prev"]::after {
+.pgn a[rel="prev"]::after {
     content: 'Newer';
     padding-left: 5px;
 }
   
-a[rel="next"]::before {
+.pgn a[rel="next"]::before {
     content: 'Older';
     padding-right: 5px;
 }

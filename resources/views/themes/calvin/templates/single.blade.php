@@ -36,30 +36,36 @@
 										</a>
                   </div>
                 </div>
+
                 <div class="meta-bottom">
                   <div class="entry-cat-links meta-blk">
                     <div class="cat-links">
                       <span>In</span> 
-                      <a href="#0">{{ $article->category->name }}</a>
+                      <a href="{{ url('/category/' . $article->category->id) }}">{{ $article->category->name }}</a>
                     </div>
                     <span>On</span>
                     {{ date('j F, Y', strtotime($article->created_at)) }}
                   </div>
-              </div>
-              <!-- s-content__entry-meta -->
+                </div>
+              </div><!-- s-content__entry-meta -->
               <div class="s-content__pagenav">
-                <div class="prev-nav">
-                  <a href="#" rel="prev">
-                  <span>Previous</span>
-                  Tips on Minimalist Design 
-                  </a>
-                </div>
+                @if($old_article)
                 <div class="next-nav">
-                  <a href="#" rel="next">
-                  <span>Next</span>
-                  A Practical Guide to a Minimalist Lifestyle.
+                  <a href="{{ url('/show/' . $old_article->slug) }}">
+                  <span>Older</span>
+                  {{ $old_article->title }}
                   </a>
                 </div>
+                @endif
+
+                @if($new_article)
+                <div class="next-nav">
+                  <a href="{{ url('/show/' . $new_article->slug) }}">
+                  <span>Newer</span>
+                  {{ $new_article->title }}
+                  </a>
+                </div>
+                @endif
               </div>
               <!-- end s-content__pagenav -->
             </div>
@@ -75,5 +81,5 @@
 
     </section>
 
-	@endsection
+    @endsection
     
