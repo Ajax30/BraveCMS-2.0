@@ -21,16 +21,15 @@
                 </div> <!-- end s-footer__info -->
 
                 <div class="column large-2 medium-3 tab-6 s-footer__site-links">
-
                     <h5>Site Links</h5>
 
-                    <ul>
-                        <li><a href="#0">About Us</a></li>
-                        <li><a href="#0">Blog</a></li>
-                        <li><a href="#0">FAQ</a></li>
-                        <li><a href="#0">Terms</a></li>
-                        <li><a href="#0">Privacy Policy</a></li>
-                    </ul>
+										@if (count($pages))	
+											<ul>
+												@foreach ($pages as $page)
+													<li><a href="{{ url('/pages/' . $page->id) }}">{{ $page->title }}</a></li>
+												@endforeach
+											</ul>
+										@endif
 
                 </div> <!-- end s-footer__site-links -->  
 
