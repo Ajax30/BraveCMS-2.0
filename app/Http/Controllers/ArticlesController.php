@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 use App\Models\Comment;
@@ -68,7 +70,7 @@ class ArticlesController extends FrontendController {
 		$article = Article::firstWhere('slug', $slug);
 		$old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
 		$new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
-		$comments = Comment::where('article_id', $article->id)->orderBy('id', 'desc')->get();
+		$comments = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc')->get();
 
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
@@ -80,6 +82,45 @@ class ArticlesController extends FrontendController {
 				'tagline' => $article->title,
 				])
 			);
+	}
+
+	public function add_comment(Request $request){
+
+    $rules = [
+      'msg' => 'required',
+    ];
+
+    $messages = [
+      'msg.required' => 'Please enter a message'
+    ];
+
+		$validator = Validator::make($request->all(), $rules, $messages);
+
+		if ($validator->fails()) {
+			return redirect()->back()
+                      ->withErrors($validator->errors())
+                      ->withInput()
+                      ->with('error', 'Please correct the errors below');
+		}
+
+		$fields = $validator->validated();
+
+
+    $comment = [
+			'user_id' => Auth::user()->id,
+      'article_id' => $request->get('article_id'),
+			'body' => $fields['msg'],
+      'approved' => 0
+		];
+
+    // Insert comment in the 'comments' table
+		$query = Comment::create($comment);
+
+		if ($query) {
+			return redirect()->back()->with('success', 'Your comment is pending.');
+		} else {
+			return redirect()->back()->with('error', 'Adding comment failed');
+		}
 	}
 	
 }

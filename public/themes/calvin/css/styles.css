@@ -4369,7 +4369,7 @@ body.search-is-visible {
 }
 
 .s-content__entry {
-    padding-bottom: var(--vspace-4);
+    padding-bottom: var(--vspace-2);
 }
 
 .s-content__blocks h4 {
@@ -5084,7 +5084,7 @@ body.search-is-visible {
 }
 
 .comment-respond form {
-    padding-top: var(--vspace-1_75);
+    padding-top: var(--vspace-1);
 }
 
 /* ------------------------------------------------------------------- 
@@ -5158,11 +5158,5 @@ body.search-is-visible {
 @media screen and (max-width: 500px) {
     .comment ul.children li {
         border-left: none;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .comment-respond form {
-        padding-top: var(--vspace-1);
     }
 }
