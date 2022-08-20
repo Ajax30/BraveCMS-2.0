@@ -30,8 +30,18 @@ class CommentController extends Controller
 	}
 
 	public function delete($id) {
-		$article = Comment::find($id);
-		$article->delete();
+		Comment::find($id)->delete();
 		return redirect()->back()->with('success', 'The comment was deleted');
 	}
+
+  public function approve($id) {
+		Comment::find($id)->update(['approved' => 1]);
+		return redirect()->back()->with('success', 'The comment was approved');
+	}
+
+  public function unapprove($id) {
+		Comment::find($id)->update(['approved' => 0]);
+		return redirect()->back()->with('success', 'The comment was unapproved');
+	}
+
 }
