@@ -20,17 +20,17 @@
         data: data,
         cache: false,
         success: function(response) {
-          $('#messags').slideDown(250).delay(2500).slideUp(250);
+          $('#messages').slideDown(250).delay(2500).slideUp(250);
           $fields.val('');
           if (response.is_new_subscriber === true) {
-            $('#messags .success').show();
-            $('#messags .notnew').hide();
+            $('#messages .success').show();
+            $('#messages .notnew').hide();
           } else {
-            $('#messags .notnew').show();
+            $('#messages .notnew').show();
           }
         },
         error: function() {
-          $('#messags .fail').show();
+          $('#messages .fail').show();
         }
       });
     }
