@@ -270,12 +270,20 @@
 
 
     // Scroll to form if there are errors
-
     if ($(".with-errors, .with-success").length){
-        $("html, body").animate({ 
-          scrollTop: $('.with-errors, .with-success').offset().top - 20
-      }, 1000);
-      }
+      $("html, body").animate({ 
+        scrollTop: $('.with-errors, .with-success').offset().top - 20
+      }, 100);
+    }
+
+    // Scroll to comments form if there are alerts
+    if ($("#respond").find(".alert-box").length){
+      $("html, body").animate({ 
+        scrollTop: $('#respond').offset().top - 20
+      }, 100);
+    }
+
+      
 
 
    /* Back to Top

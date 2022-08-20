@@ -20,6 +20,9 @@ Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->
 Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 
+// Add comments
+Route::post('/comment/submit', [ArticlesController::class, 'add_comment'])->name('comment.submit');
+
 // Page routes
 Route::get('/page/{id}', [PagesController::class, 'page'])->name('page');
 
