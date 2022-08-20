@@ -17,9 +17,7 @@ class ArticlesController extends FrontendController {
 		// Search query
 		$qry = $request->input('search');
 
-		$articlesQuery = Article::where('title', 'like', '%' . $qry . '%')
-											->orWhere('short_description', 'like', '%' . $qry . '%')
-											->orWhere('content', 'like', '%' . $qry . '%');
+		$articlesQuery = Article::search($qry);
 
 		// Search results count
 		if ($qry) {
@@ -39,9 +37,8 @@ class ArticlesController extends FrontendController {
 		);
 	}
 
-	public function category($category_id) {
-		$category = ArticleCategory::firstWhere('id', $category_id);
-		$articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
+	public function category(ArticleCategory $category) {
+		$articles = Article::where('category_id', $category->id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			array_merge($this->data, [
@@ -51,21 +48,19 @@ class ArticlesController extends FrontendController {
 			);
 	}
 
-	public function author($user_id) {
-		$author = User::firstWhere('id', $user_id);
-		$articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
+	public function author(User $user) {
+		$articles = Article::where('user_id', $user->id)->orderBy('id', 'desc')->paginate($this->per_page);
 
 		return view('themes/' . $this->theme_directory . '/templates/index', 
 			array_merge($this->data, [
-				'author' => $author,
+				'author' => $user,
 				'articles' => $articles
 				])
 			);
 	}
 
-	public function show($slug) {
+	public function show(Article $article) {
 		// Single article
-		$article = Article::firstWhere('slug', $slug);
 		$old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
 		$new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
 		$comments = Comment::where('article_id', $article->id)->orderBy('id', 'desc')->get();

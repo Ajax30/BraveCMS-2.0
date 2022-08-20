@@ -29,4 +29,10 @@ class Article extends Model
 		public function category() {
 			return $this->belongsTo(ArticleCategory::class);
 		}
+
+		public function scopeSearch($query, $searchText) {
+			return $query->where('title', 'like', '%' . $searchText . '%')
+				->orWhere('short_description', 'like', '%' . $searchText . '%')
+				->orWhere('content', 'like', '%' . $searchText . '%');
+		}
 }

@@ -2,23 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\PageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    
-  private $rules = [
-		'title' => 'required|string|max:190',
-		'content' => 'required|string'
-	];
-
-	private $messages = [	
-		'title.required' => 'Please provide a title for the article',
-		'content.required' => 'Please add content'
-	];
-    
 	public function index() {
 		// Total number of pages
 		$page_count =  Page::count();
@@ -43,55 +32,31 @@ class PageController extends Controller
 			return view('dashboard/add-page');
     }
 
-    public function save(Request $request) {
-			$validator = Validator::make($request->all(), $this->rules, $this->messages);
-	
-			if ($validator->fails()) {
-				return redirect()->back()->withErrors($validator->errors())->withInput();
-			}
-	
-			$fields = $validator->validated();
-	
-			// Data to be added
-			$form_data = [
-				'title' => $fields['title'],
-				'content' => $fields['content']
-			];
-	
-			// Insert data in the 'pages' table
-			$query = Page::create($form_data);
+    public function save(PageRequest $request) {	
+			$payload = $request->validated();
+
+			$query = Page::create($payload);
 	
 			if ($query) {
-				return redirect()->route('dashboard.pages')->with('success', 'The page titled "' . $form_data['title'] . '" was added');
+				return redirect()->route('dashboard.pages')->with('success', 'The page titled "' . $payload['title'] . '" was added');
 			} else {
 				return redirect()->back()->with('error', 'Adding a new page failed');
 			}
 		}
 
-    public function edit($id) {
-			$page = Page::find($id);
+    public function edit(Page $page) {
 			return view('dashboard/edit-page',
 				['page' => $page]
 			);
     }
 
-    public function update(Request $request, $id) {
-			$validator = Validator::make($request->all(), $this->rules, $this->messages);
+    public function update(PageRequest $request, Page $page) {
+			$page->update($request->validated());
 
-			if ($validator->fails()) {
-				return redirect()->back()->withErrors($validator->errors())->withInput();
-			} else {
-				$page = Page::find($id);
-				$page->title = $request->get('title');
-				$page->content = $request->get('content');
-				
-				$page->save();
-				return redirect()->route('dashboard.pages')->with('success', 'The page titled "' . $page->title . '" was updated');
-			}
+			return redirect()->route('dashboard.pages')->with('success', 'The page titled "' . $page->title . '" was updated');
     }
 
-		public function delete($id) {
-			$page = Page::find($id);
+		public function delete(Page $page) {
 			$page->delete();
 			return redirect()->back()->with('success', 'The page titled "' . $page->title . '" was deleted');
 		}

@@ -2,32 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-	
-	private $rules = [
-		'category_id' => 'required|exists:article_categories,id',
-		'title' => 'required|string|max:190',
-		'short_description' => 'required|string|max:190',
-		'image' =>  'image|mimes:jpeg,png,jpg|max:2048',
-		'content' => 'required|string'
-	];
-
-	private $messages = [
-		'category_id.required' => 'Please pick a category for the article',
-		'title.required' => 'Please provide a title for the article',
-		'short_description.required' => 'The article needs a short description',
-		'short_description.max' => 'The short description field is too long',
-		'content.required' => 'Please add content'
-	];
-
 	public function categories() {
 		return ArticleCategory::all();
 	}
@@ -41,9 +24,7 @@ class ArticleController extends Controller
 		// Search query
 		$qry = $request->input('search');
 
-		$articles = Article::where('title', 'like', '%' . $qry . '%')
-												->orWhere('short_description', 'like', '%' . $qry . '%')
-												->orWhere('content', 'like', '%' . $qry . '%')
+		$articles = Article::search($qry)
 												->orderBy('id', 'desc')
 												->paginate($per_page)
                         ->onEachSide(1);
@@ -64,16 +45,8 @@ class ArticleController extends Controller
 		);
 	}
 
-	public function save(Request $request) {
-
-		// Validate form (with custom messages)
-		$validator = Validator::make($request->all(), $this->rules, $this->messages);
-
-		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator->errors())->withInput();
-		}
-
-		$fields = $validator->validated();
+	public function save(ArticleRequest $request) {
+		$fields = $request->validated();
 
 		// Upload article image
 		$current_user = Auth::user();
@@ -112,25 +85,14 @@ class ArticleController extends Controller
 
 	}
 
-	public function edit($id) {
-		$article = Article::find($id);
+	public function edit(Article $article) {
 		return view('dashboard/edit-article',
 			['categories' => $this->categories(),
 			'article' => $article]
 		);
 	}
 
-	public function update(Request $request, $id) {
-		$validator = Validator::make($request->all(), $this->rules, $this->messages);
-
-		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator->errors())->withInput();
-		}
-
-		$fields = $validator->validated();
-
-		$article = Article::find($id);
-
+	public function update(ArticleRequest $request, Article $article) {
 		// If a new image is uploaded, set it as the article image
 		// Otherwise, set the old image...
 		if (isset($request->image)) {
@@ -153,8 +115,7 @@ class ArticleController extends Controller
 
 	}
 
-	public function delete($id) {
-		$article = Article::find($id);
+	public function delete(Article $article) {
 		$article->delete();
 		return redirect()->back()->with('success', 'The article titled "' . $article->title . '" was deleted');
 	}

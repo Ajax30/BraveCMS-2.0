@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Models\UserProfile;
 
 class UserController extends Controller
 {
 
-	public function index(UserProfile $user)
+	public function index()
 	{
 		return view('dashboard/user-profile',
 			['current_user' => Auth::user()] 
 		);
 	}
 
-	public function update(Request $request)
+	public function update(UserRequest $request)
 	{
 
 		if ($request->isMethod('GET')) {
@@ -25,14 +26,6 @@ class UserController extends Controller
 		}
 
 		$current_user = Auth::user();
-
-		$request->validate([
-			'first_name' => ['required', 'string', 'max:255'],
-			'last_name' => ['required', 'string', 'max:255'],
-			'email' => ['required', 'email', 'max:100', 'unique:users,email,' . $current_user->id],
-			'avatar' => ['mimes:jpeg, jpg, png, gif', 'max:2048'],
-		]);
-
 		$current_user->first_name = $request->get('first_name');
 		$current_user->last_name = $request->get('last_name');
 		$current_user->email = $request->get('email');
@@ -46,17 +39,17 @@ class UserController extends Controller
 		}
 
 		// Update user
-		$current_user->update();
+		$current_user->save();
+		
 		return redirect('dashboard/user')
 			->with('success', 'User data updated successfully');
 	}
 
 	// Delete avatar
-	public function deleteavatar($id, $fileName)
+	public function deleteavatar(User $user, $fileName)
 	{
-		$current_user = Auth::user();
-		$current_user->avatar = "default.png";
-		$current_user->save();
+		$user->avatar = "default.png";
+		$user->save();
 
 		if (File::exists(public_path('images/avatars/' . $fileName))) {
 			File::delete(public_path('images/avatars/' . $fileName));

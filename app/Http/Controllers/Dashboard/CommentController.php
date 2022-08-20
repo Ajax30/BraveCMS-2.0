@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Article;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -29,9 +28,8 @@ class CommentController extends Controller
 		);
 	}
 
-	public function delete($id) {
-		$article = Comment::find($id);
-		$article->delete();
+	public function delete(Comment $comment) {
+		$comment->delete();
 		return redirect()->back()->with('success', 'The comment was deleted');
 	}
 }
