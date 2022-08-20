@@ -26,14 +26,23 @@
 							<td>{{ $per_page * ($current_page - 1) + $index + 1 }}</td>
 							<td>{{ $comment->body }}</td>
 							<td>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
-							<td>{{ $comment->article->title }}</td>
+							<td>
+                <a href="{{ url('/show/' . $comment->article->slug) }}" class="text-decoration-none" target="_black">
+                  {{ $comment->article->title }}
+                </a>
+              </td>
 							<td>{{ date('jS M Y', strtotime($comment->created_at)) }}</td>
 							<td class="text-end">
-								<div class="btn-group btn-group-sm">
-									{{-- <a href="{{ route('dashboard.comments.status', [$comment->id]) }}" class="btn btn-primary">
-										<i class="fa-solid fa-pen-to-square"></i> Aprove
-									</a> --}}
-
+								<div class="btn-group btn-group-sm w-100">
+                  @if (boolval($comment->approved))
+                  <a href="{{ route('dashboard.comments.unapprove', [$comment->id]) }}" class="btn btn-primary">
+										<i class="fa-solid fa-pen-to-square"></i> Unapprove
+									</a>
+                  @else
+                  <a href="{{ route('dashboard.comments.approve', [$comment->id]) }}" class="btn btn-primary">
+										<i class="fa-solid fa-pen-to-square"></i> Approve
+									</a>
+                  @endif
 									<a href="{{ route('dashboard.comments.delete', [$comment->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this comment?')" title="Delete comment">
 										<i class="fa-solid fa-trash"></i> Delete
 									</a>
