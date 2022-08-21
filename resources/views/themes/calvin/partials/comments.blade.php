@@ -54,10 +54,10 @@
     <div class="column large-12">
       @if ($comments)
         <h3>
-          @if (count($comments) === 0)
+          @if ($comments_count === 0)
             No comments for this article yet
           @else
-            {{ count($comments) }} comemnt{{ count($comments) > 1 ? 's': ''}}
+            {{ $comments_count }} comment{{ $comments_count > 1 ? 's': ''}}
           @endif
         </h3>
         <!-- START commentlist -->
