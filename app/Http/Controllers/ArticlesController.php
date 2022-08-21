@@ -70,7 +70,11 @@ class ArticlesController extends FrontendController {
 		$article = Article::firstWhere('slug', $slug);
 		$old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
 		$new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
-		$comments = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc')->get();
+
+    // Comments
+    $commentsQuery = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc');
+    $comments = $commentsQuery->paginate(10);
+		$comments_count = $commentsQuery->count();
 
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
@@ -79,15 +83,15 @@ class ArticlesController extends FrontendController {
 				'old_article' => $old_article,
 				'new_article' => $new_article,
 				'comments' => $comments,
+        'comments_count' => $comments_count,
 				'tagline' => $article->title,
 				])
 			);
 	}
 
-	public function add_comment(Request $request){
-
+	public function add_comment(Request $request) {
     $rules = [
-      'msg' => 'required',
+      'msg' => 'required'
     ];
 
     $messages = [
@@ -104,7 +108,6 @@ class ArticlesController extends FrontendController {
 		}
 
 		$fields = $validator->validated();
-
 
     $comment = [
 			'user_id' => Auth::user()->id,

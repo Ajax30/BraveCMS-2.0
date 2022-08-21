@@ -80,6 +80,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 	Route::group(['prefix' => 'comments'], function() {
 		Route::get('/', [CommentController::class, 'index'])->name('dashboard.comments');
 		Route::get('/delete/{id}', [CommentController::class, 'delete'])->name('dashboard.comments.delete');
+    Route::get('/approve/{id}', [CommentController::class, 'approve'])->name('dashboard.comments.approve');
+    Route::get('/unapprove/{id}', [CommentController::class, 'unapprove'])->name('dashboard.comments.unapprove');
 	});
 
 	// User routes
