@@ -73,8 +73,15 @@ class ArticlesController extends FrontendController {
 
     // Comments
     $commentsQuery = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc');
-    $comments = $commentsQuery->paginate(10);
-		$comments_count = $commentsQuery->count();
+
+    $comments_count = $commentsQuery->count();
+    
+    // If no infinite scroll, show all comments, else, paginate them
+    if (boolval($this->is_infinitescroll)) {
+      $comments = $commentsQuery->paginate(10);
+    } else {
+      $comments = $commentsQuery->get();
+    }
 
 		return view('themes/' . $this->theme_directory . '/templates/single', 
 			array_merge($this->data, [
