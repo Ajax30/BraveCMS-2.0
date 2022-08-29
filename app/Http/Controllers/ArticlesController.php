@@ -66,27 +66,33 @@ class ArticlesController extends FrontendController {
 	}
 
 	public function show($slug) {
-		// Single article
-		$article = Article::firstWhere('slug', $slug);
-		$old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
-		$new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
+        try{
+            // Single article
+            $article = Article::firstWhere('slug', $slug);
+            $old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
+            $new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
 
-    // Comments
-    $commentsQuery = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc');
-    $comments = $commentsQuery->paginate(10);
-		$comments_count = $commentsQuery->count();
+        // Comments
+        $commentsQuery = Comment::where(['article_id' => $article->id, 'approved' => 1])->orderBy('id', 'desc');
+        $comments = $commentsQuery->paginate(10);
+            $comments_count = $commentsQuery->count();
 
-		return view('themes/' . $this->theme_directory . '/templates/single', 
-			array_merge($this->data, [
-				'categories' => $this->article_categories,
-				'article' => $article,
-				'old_article' => $old_article,
-				'new_article' => $new_article,
-				'comments' => $comments,
-        'comments_count' => $comments_count,
-				'tagline' => $article->title,
-				])
-			);
+            return view('themes/' . $this->theme_directory . '/templates/single', 
+                array_merge($this->data, [
+                    'categories' => $this->article_categories,
+                    'article' => $article,
+                    'old_article' => $old_article,
+                    'new_article' => $new_article,
+                    'comments' => $comments,
+            'comments_count' => $comments_count,
+                    'tagline' => $article->title,
+                    ])
+                );
+        }
+        catch(\Exception $e){
+           \Log::error("Error in file: ".$e->getFile()." , Error Message: ".$e->getMessage());
+           return abort(500);
+       }
 	}
 
 	public function add_comment(Request $request) {
