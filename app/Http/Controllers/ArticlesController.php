@@ -90,7 +90,7 @@ class ArticlesController extends FrontendController {
                 );
         }
         catch(\Exception $e){
-           \Log::error("Error in file: ".$e->getFile()." , Error Message: ".$e->getMessage());
+           \Log::error("Error in file: ".$e->getFile()."Error in file: ".$e->getLine()."." , Error Message: ".$e->getMessage());
            return abort(500);
        }
 	}
