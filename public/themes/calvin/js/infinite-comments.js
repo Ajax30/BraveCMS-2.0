@@ -1,9 +1,9 @@
     /* Infinite comments
   * ------------------------------------------------------ */
     function infiniteComments() {
-      var page = 1;
+      var page = 1; 
       $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() < $(document).height()) {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - $('.s-footer').height()) {
           page++;
           loadMoreData(page);
         }
@@ -29,7 +29,6 @@
         })
         .fail(function(jqXHR, ajaxOptions, thrownError) {
           console.log('The server is not responding...');
-          console.log(thrownError);
         });
     }
 

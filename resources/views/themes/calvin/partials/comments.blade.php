@@ -83,6 +83,11 @@
             </li>
             @endforeach
           </ol>
+
+          @if (!boolval($is_infinitescroll))  
+            {!! $comments->links() !!}
+          @endif
+          
           
           <div class="ajax-load text-center is-hidden">
             loading...
