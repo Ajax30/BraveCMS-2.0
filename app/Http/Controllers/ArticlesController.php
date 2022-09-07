@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use http\Client\Request;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -100,22 +101,47 @@ class ArticlesController extends FrontendController {
 		);
 	}
 
-	public function get_comments_ajax(Request $request){
+	public function get_comments_ajax( Request $request ) {
+		if ( !$request->ajax() ) {
+			// Redirect to Home Page or just BOMB OUT!
+			exit();
+		}
 
-		if($request->ajax()){
-			$content =  "Request is of Ajax Type";
+		$no_more_comments = FALSE;
+		$page_number   = 0;
+		$article_id = 0;
+		$limit  = 10;
+
+		// Check that it is an AJAX Call
+
+		if ( $request->ajax() ) {
+			$content = "Adding Comments";
+			$article_id  = $request->post( 'article_id' );
+			$page_number = $request->post( 'page' );
+			$offset = $limit * $page_number;
+
+			$data['comments']        = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'desc' )->offset( $offset )->limit( $limit )->get();
+
+			if($data['comments']->count()) {
+				$content .= view( 'themes/' . $this->theme_directory . '/partials/comments-list',
+				                  array_merge( $data, [
+					                  'is_infinitescroll' => $this->is_infinitescroll
+				                  ] )
+				);
+			} else {
+				$no_more_comments = true;
+			}
+
 		} else {
 			$content = "Request is of Http type";
 		}
 
-
-		echo json_encode(['html' => $content]);
-		exit();
-		// Check that it is an AJAX Call
-
 		// Get the Page Value.
 
 		// Check the max page for the content.
+
+		echo json_encode( [ 'html' => $content, 'page' => $page_number, 'no_more_comments' => $no_more_comments, 'article_id' => $article_id ] );
+		exit();
 
 
 	}
