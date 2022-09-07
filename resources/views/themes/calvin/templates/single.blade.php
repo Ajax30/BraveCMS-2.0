@@ -2,7 +2,7 @@
   @extends('themes/' .$theme_directory . '/layout')
 
 	@section('content')
-		
+
 		<section class="s-content">
       <div class="row">
         <div class="column large-12">
@@ -40,7 +40,7 @@
                 <div class="meta-bottom">
                   <div class="entry-cat-links meta-blk">
                     <div class="cat-links">
-                      <span>In</span> 
+                      <span>In</span>
                       <a href="{{ url('/category/' . $article->category->id) }}">{{ $article->category->name }}</a>
                     </div>
                     <span>On</span>
@@ -62,7 +62,7 @@
                 <div class="next-nav">
                   <a href="{{ url('/show/' . $new_article->slug) }}">
                   <span>Newer</span>
-                  {{ $new_article->title }} 
+                  {{ $new_article->title }}
                   </a>
                 </div>
                 @endif
@@ -76,6 +76,8 @@
 
 			@include('themes/' . $theme_directory . '/partials/comments')
     </section>
-
+<script>
+  let article_id = '{{$article->id}}';
+  let token = "{{ csrf_token() }}";
+</script>
     @endsection
-    
