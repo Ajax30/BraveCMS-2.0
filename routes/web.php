@@ -20,7 +20,6 @@ Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->
 Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');
-Route::get('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');
 
 // Add comments
 Route::post('/comment/submit', [ArticlesController::class, 'add_comment'])->name('comment.submit');

@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use http\Client\Request;
-use DB;
 use Illuminate\Http\Request;
-
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -101,49 +98,41 @@ class ArticlesController extends FrontendController {
 		);
 	}
 
+	/**
+	 * AJAX Call for Loading extra comments
+	 *
+	 * @param Request $request
+	 *
+	 * @return void
+	 */
 	public function get_comments_ajax( Request $request ) {
-		if ( !$request->ajax() ) {
+		if ( ! $request->ajax() ) {
 			// Redirect to Home Page or just BOMB OUT!
 			exit();
 		}
 
-		$no_more_comments = FALSE;
-		$page_number   = 0;
-		$article_id = 0;
-		$limit  = 10;
+		$more_comments_to_display = TRUE;
+		$limit         = 10; /** @todo - 5 - This should\could be a setting */
 
-		// Check that it is an AJAX Call
+		$article_id  = $request->post( 'article_id' );
+		$page_number = $request->post( 'page' );
+		$offset      = $limit * $page_number;
 
-		if ( $request->ajax() ) {
-			$content = "Adding Comments";
-			$article_id  = $request->post( 'article_id' );
-			$page_number = $request->post( 'page' );
-			$offset = $limit * $page_number;
+		$data['comments'] = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'desc' )->offset( $offset )->limit( $limit )->get();
 
-			$data['comments']        = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'desc' )->offset( $offset )->limit( $limit )->get();
-
-			if($data['comments']->count()) {
-				$content .= view( 'themes/' . $this->theme_directory . '/partials/comments-list',
-				                  array_merge( $data, [
-					                  'is_infinitescroll' => $this->is_infinitescroll
-				                  ] )
-				);
-			} else {
-				$no_more_comments = true;
-			}
-
+//		$content     = "Adding Comments Page $page_number"; // DEBUG
+		$content = '';
+		if ( $data['comments']->count() ) {
+			$content .= view( 'themes/' . $this->theme_directory . '/partials/comments-list',
+			                  array_merge( $data, [
+				                  'is_infinitescroll' => $this->is_infinitescroll
+			                  ] )
+			);
 		} else {
-			$content = "Request is of Http type";
+			$more_comments_to_display = FALSE;
 		}
-
-		// Get the Page Value.
-
-		// Check the max page for the content.
-
-		echo json_encode( [ 'html' => $content, 'page' => $page_number, 'no_more_comments' => $no_more_comments, 'article_id' => $article_id ] );
+		echo json_encode( [ 'html' => $content, 'page' => $page_number, 'more_comments_to_display' => $more_comments_to_display, 'article_id' => $article_id ] );
 		exit();
-
-
 	}
 
 	public function add_comment( Request $request ) {
