@@ -1,9 +1,6 @@
 @include('themes/' . $theme_directory . '/partials/header')
 
-@if (!isset($category) && !isset($author))
-    @include('themes/' . $theme_directory . '/partials/hero')
-@endif
-
+@yield('hero')
 <!-- Main Content -->
 @yield('content')
 
