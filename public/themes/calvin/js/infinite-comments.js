@@ -1,37 +1,53 @@
-    /* Infinite comments
-  * ------------------------------------------------------ */
-    function infiniteComments() {
-      var page = 1; 
-      $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - $('.s-footer').height()) {
-          page++;
-          loadMoreData(page);
-        }
-      });
-    }
+/* Infinite comments
+* ------------------------------------------------------ */
+$(document).ready(function () {
 
-    function loadMoreData(page){
-      var base_url = window.location.href.split('?')[0];
-      $.ajax({
-          url: `${base_url}?page=${page}`,
-          type: "get",
-          beforeSend: function() {
-            $('.ajax-load').show();
-          }
-        })
-        .done(function(data) {
-          if (data.html == "") {
-            $('.ajax-load').hide();
-            return;
-          }
-          $('.ajax-load').hide();
-          $(".infinite-scroll").append(data.html);
-        })
-        .fail(function(jqXHR, ajaxOptions, thrownError) {
-          console.log('The server is not responding...');
+    // console.log('Loaded infinite-comments.js');
+
+    let flagMoreCommentsToDisplay = true;
+    let flagCommentsBlockNewRequest = false;
+    let domInfiniteScroll = $(".infinite-scroll");
+
+    infiniteComments();
+
+    function infiniteComments() {
+        let page = 1;
+        $(window).scroll(function () {
+            if (flagCommentsBlockNewRequest === false) {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - $('.s-footer').height()) {
+                    if (flagMoreCommentsToDisplay) {
+                        flagCommentsBlockNewRequest = true;
+                        page++;
+                        loadMoreData(page);
+                    }
+                }
+            }
         });
     }
 
-    $(document).ready(function(){
-      infiniteComments();
-    });
+    function loadMoreData(page) {
+        let base_url = window.location.origin
+        $.ajax({
+            url: base_url + '/load_comments',
+            type: 'POST', dataType: 'json',
+            data: {'_token': token, 'page': page, 'article_id': article_id},
+            beforeSend: function () {
+                $('.ajax-load').show();
+            }
+        })
+            .done(function (data) {
+                $('.ajax-load').hide();
+                let commentHtml = data.html;
+                flagMoreCommentsToDisplay = data.more_comments_to_display;
+                if (flagMoreCommentsToDisplay) {
+                    if (commentHtml !== '') {
+                        domInfiniteScroll.append(commentHtml);
+                    }
+                }
+                flagCommentsBlockNewRequest = false;
+            })
+            .fail(function () {
+                flagCommentsBlockNewRequest = false;
+            });
+    }
+});
