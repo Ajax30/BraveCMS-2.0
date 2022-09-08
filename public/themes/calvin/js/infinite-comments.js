@@ -2,8 +2,6 @@
 * ------------------------------------------------------ */
 $(document).ready(function () {
 
-    // console.log('Loaded infinite-comments.js');
-
     let flagMoreCommentsToDisplay = true;
     let flagCommentsBlockNewRequest = false;
     let domInfiniteScroll = $(".infinite-scroll");
@@ -35,19 +33,19 @@ $(document).ready(function () {
                 $('.ajax-load').show();
             }
         })
-            .done(function (data) {
-                $('.ajax-load').hide();
-                let commentHtml = data.html;
-                flagMoreCommentsToDisplay = data.more_comments_to_display;
-                if (flagMoreCommentsToDisplay) {
-                    if (commentHtml !== '') {
-                        domInfiniteScroll.append(commentHtml);
-                    }
+        .done(function (data) {
+            $('.ajax-load').hide();
+            let commentHtml = data.html;
+            flagMoreCommentsToDisplay = data.more_comments_to_display;
+            if (flagMoreCommentsToDisplay) {
+                if (commentHtml !== '') {
+                    domInfiniteScroll.append(commentHtml);
                 }
-                flagCommentsBlockNewRequest = false;
-            })
-            .fail(function () {
-                flagCommentsBlockNewRequest = false;
-            });
+            }
+            flagCommentsBlockNewRequest = false;
+        })
+        .fail(function () {
+            flagCommentsBlockNewRequest = false;
+        });
     }
 });

@@ -157,7 +157,7 @@ class ArticlesController extends FrontendController {
 
 		$comment = [
 			'user_id'    => Auth::user()->id,
-			'article_id' => $request->get( 'article_id' ),
+			'article_id' => $request->get('article_id'),
 			'body'       => $fields['msg'],
 			'approved'   => 0
 		];

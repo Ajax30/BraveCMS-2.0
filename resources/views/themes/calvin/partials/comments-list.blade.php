@@ -10,14 +10,14 @@
                     <div class="comment__info">
                         <div class="comment__author">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</div>
                         <div class="comment__meta">
-                            <div class="comment__time">{{ date('jS M Y', strtotime($comment->created_at)) }}</div>
-                            <div class="comment__reply">
-                                <a class="comment-reply-link" href="#0">Reply</a>
-                            </div>
+                          <div class="comment__time">{{ date('jS M Y', strtotime($comment->created_at)) }}</div>
+                          <div class="comment__reply">
+                            <a class="comment-reply-link" href="#0">Reply</a>
+                          </div>
                         </div>
                     </div>
                     <div class="comment__text">
-                        <p>{{$comment->id}} - {{ $comment->body }}</p>
+                        <p>{{ $comment->body }}</p>
                     </div>
                 </div>
             </li>
@@ -29,8 +29,8 @@
     @endif
 
 
-    <div class="ajax-load text-center is-hidden">
-        loading...
+    <div class="ajax-load">
+      <span></span>
     </div>
 </div>
 <!-- END commentlist -->
