@@ -32,13 +32,13 @@ class ArticlesController extends FrontendController {
 		$articles          = $articlesQuery->orderBy( 'id', 'desc' )->paginate( $this->per_page );
 		$featured_articles = Article::where( 'featured', 1 )->orderBy( 'id', 'desc' )->get();
 
-		return view( 'themes/' . $this->theme_directory . '/templates/index',
-		             array_merge( $this->data, [
-			             'search_query'      => $qry,
-			             'articles'          => $articles,
-			             'featured_articles' => $featured_articles,
-			             'article_count'     => $article_count ?? NULL
-		             ] )
+		return view('themes/' . $this->theme_directory . '/templates/index',
+        array_merge( $this->data, [
+          'search_query'      => $qry,
+          'articles'          => $articles,
+          'featured_articles' => $featured_articles,
+          'article_count'     => $article_count ?? NULL
+        ])
 		);
 	}
 
@@ -46,11 +46,11 @@ class ArticlesController extends FrontendController {
 		$category = ArticleCategory::firstWhere( 'id', $category_id );
 		$articles = Article::where( 'category_id', $category_id )->orderBy( 'id', 'desc' )->paginate( $this->per_page );
 
-		return view( 'themes/' . $this->theme_directory . '/templates/index',
-		             array_merge( $this->data, [
-			             'category' => $category,
-			             'articles' => $articles
-		             ] )
+		return view('themes/' . $this->theme_directory . '/templates/index',
+      array_merge( $this->data, [
+        'category' => $category,
+        'articles' => $articles
+      ])
 		);
 	}
 
@@ -58,11 +58,11 @@ class ArticlesController extends FrontendController {
 		$author   = User::firstWhere( 'id', $user_id );
 		$articles = Article::where( 'user_id', $user_id )->orderBy( 'id', 'desc' )->paginate( $this->per_page );
 
-		return view( 'themes/' . $this->theme_directory . '/templates/index',
-		             array_merge( $this->data, [
-			             'author'   => $author,
-			             'articles' => $articles
-		             ] )
+		return view('themes/' . $this->theme_directory . '/templates/index',
+      array_merge( $this->data, [
+        'author'   => $author,
+        'articles' => $articles
+      ])
 		);
 	}
 
@@ -73,28 +73,28 @@ class ArticlesController extends FrontendController {
 		$new_article = Article::where( 'id', '>', $article->id )->orderBy( 'id', 'ASC' )->first();
 
 		// Comments
-		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id', 'desc' );
+		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id');
 
 		$comments_count = $commentsQuery->count();
 
 		// If no infinite scroll, show all comments, else, paginate them
 
-		if ( boolval( $this->is_infinitescroll ) ) {
-			$comments = $commentsQuery->paginate( 10 );
+		if (boolval( $this->is_infinitescroll)) {
+			$comments = $commentsQuery->paginate(10);
 		} else {
 			$comments = $commentsQuery->get();
 		}
 
 		return view( 'themes/' . $this->theme_directory . '/templates/single',
-		             array_merge( $this->data, [
-			             'categories'     => $this->article_categories,
-			             'article'        => $article,
-			             'old_article'    => $old_article,
-			             'new_article'    => $new_article,
-			             'comments'       => $comments,
-			             'comments_count' => $comments_count,
-			             'tagline'        => $article->title,
-		             ] )
+      array_merge($this->data, [
+        'categories'     => $this->article_categories,
+        'article'        => $article,
+        'old_article'    => $old_article,
+        'new_article'    => $new_article,
+        'comments'       => $comments,
+        'comments_count' => $comments_count,
+        'tagline'        => $article->title,
+      ])
 		);
 	}
 
@@ -106,7 +106,7 @@ class ArticlesController extends FrontendController {
 	 * @return void
 	 */
 	public function get_comments_ajax( Request $request ) {
-		if ( ! $request->ajax() ) {
+		if (!$request->ajax() ) {
 			// Redirect to Home Page or just BOMB OUT!
 			exit();
 		}
