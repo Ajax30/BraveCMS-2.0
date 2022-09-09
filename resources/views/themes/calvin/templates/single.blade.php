@@ -81,6 +81,8 @@
     </script>
 @endsection
 
-@section('custom_js_files')
-    <script src="{{ asset('themes/' . $theme_directory . '/js/infinite-comments.js') }}"></script>
-@endsection
+@if ($is_infinitescroll)
+    @section('custom_js_files')
+        <script src="{{ asset('themes/' . $theme_directory . '/js/infinite-comments.js') }}"></script>
+    @endsection
+@endif
