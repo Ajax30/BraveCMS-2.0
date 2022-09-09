@@ -73,7 +73,7 @@ class ArticlesController extends FrontendController {
 		$new_article = Article::where( 'id', '>', $article->id )->orderBy( 'id', 'ASC' )->first();
 
 		// Comments
-		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id');
+		$commentsQuery = Comment::where(['article_id' => $article->id, 'approved' => 1] )->orderBy( 'id');
 
 		$comments_count = $commentsQuery->count();
 
