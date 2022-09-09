@@ -9,7 +9,7 @@ $(document).ready(function () {
     infiniteComments();
 
     function infiniteComments() {
-        let page = 1;
+        let page = 0;
         $(window).scroll(function () {
             if (flagCommentsBlockNewRequest === false) {
                 if ($(window).scrollTop() + $(window).height() >= $(document).height() - $('.s-footer').height()) {
