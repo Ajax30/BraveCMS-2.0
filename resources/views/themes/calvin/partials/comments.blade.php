@@ -62,12 +62,8 @@
                 <div id="commentsList">
                     <ol class="commentlist {{ boolval($is_infinitescroll) ? 'infinite-scroll' : '' }}">
                         @include('themes/' . $theme_directory . '/partials/comments-list')
-
                     </ol>
-                    <!-- END commentlist -->
-                    @if (!boolval($is_infinitescroll))
-                        {!! $comments->links() !!}
-                    @endif
+                
                     <div class="ajax-load">
                         <span></span>
                     </div>

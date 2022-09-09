@@ -79,14 +79,14 @@ class ArticlesController extends FrontendController {
 		$commentsQuery  = $this->get_commentQuery( $article->id );
 		$comments_count = $commentsQuery->count();
 
-		// If no infinite scroll, show all comments, else, paginate them
+		// If infinite scroll, paginate comments (to be loaded one pege per scroll),
+    // Else show them all 
 
-		if ( ! boolval( $this->is_infinitescroll ) ) {
-			$comments = $commentsQuery->paginate( $this->comments_per_page );
+		if (boolval($this->is_infinitescroll)) {
+			$comments = $commentsQuery->paginate($this->comments_per_page);
 		} else {
 			$comments = $commentsQuery->get();
 		}
-
 
 		return view( 'themes/' . $this->theme_directory . '/templates/single',
 		             array_merge( $this->data, [
@@ -126,10 +126,10 @@ class ArticlesController extends FrontendController {
 		$data['comments'] = $this->get_commentQuery( $article_id, $this->comments_per_page, $offset )->get();
 		$content          = '';
 		if ( $data['comments']->count() ) {
-			$content .= view( 'themes/' . $this->theme_directory . '/partials/comments-list',
-			                  array_merge( $data, [
-				                  'is_infinitescroll' => $this->is_infinitescroll
-			                  ] )
+			$content .= view('themes/' . $this->theme_directory . '/partials/comments-list',
+                array_merge( $data, [
+                  'is_infinitescroll' => $this->is_infinitescroll
+                ])
 			);
 		} else {
 			$more_comments_to_display = FALSE;
