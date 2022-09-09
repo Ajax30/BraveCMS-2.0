@@ -73,7 +73,7 @@ class ArticlesController extends FrontendController {
 		$new_article = Article::where( 'id', '>', $article->id )->orderBy( 'id', 'ASC' )->first();
 
 		// Comments
-		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id', 'desc' );
+		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id', 'asc' );
 
 		$comments_count = $commentsQuery->count();
 
@@ -118,7 +118,7 @@ class ArticlesController extends FrontendController {
 		$page_number = $request->post( 'page' );
 		$offset      = $limit * $page_number;
 
-		$data['comments'] = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'desc' )->offset( $offset )->limit( $limit )->get();
+		$data['comments'] = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'asc' )->offset( $offset )->limit( $limit )->get();
 
 //		$content     = "Adding Comments Page $page_number"; // DEBUG
 		$content = '';
