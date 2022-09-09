@@ -1,8 +1,10 @@
 @extends('themes/' .$theme_directory . '/layout')
 
-@if (!isset($category) && !isset($author))
-	@include('themes/' . $theme_directory . '/partials/hero') 
-@endif
+@section('hero')
+	@if (!isset($category) && !isset($author))
+		@include('themes/' . $theme_directory . '/partials/hero')
+	@endif
+@endsection
 
 @section('content')
 
@@ -28,15 +30,15 @@
 
                     @if (count($articles))
 											@foreach ($articles as $article)
-											
+
 											<article class="brick entry" data-aos="fade-up">
-			
+
 													<div class="entry__thumb">
 															<a href="{{ url('/show/' . $article->slug) }}" class="thumb-link">
 																	<img src="{{ asset('images/articles/' . $article->image) }}"  alt="{{ $article->title }}">
 															</a>
 													</div> <!-- end entry__thumb -->
-			
+
 													<div class="entry__text">
 															<div class="entry__header">
 																	<h1 class="entry__title">
@@ -44,7 +46,7 @@
 																			{{ $article->title }}
 																		</a>
 																	</h1>
-																	
+
 																	<div class="entry__meta">
 																			<span class="byline">By:
 																					<span class='author'>
@@ -61,7 +63,7 @@
 															</div>
 															<a class="entry__more-link" href="{{ url('/show/' . $article->slug) }}">Learn More</a>
 													</div> <!-- end entry__text -->
-											
+
 											</article> <!-- end article -->
 
 											@endforeach
