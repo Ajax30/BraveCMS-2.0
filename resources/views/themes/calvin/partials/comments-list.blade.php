@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="comment__text">
-                    <p>{{ $comment->body }}</p>
+                    <p>{{ $comment->body }} - {{ $comment->id }}</p>
                 </div>
             </div>
         </li>

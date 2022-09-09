@@ -14,6 +14,10 @@ class ArticlesController extends FrontendController {
 
 	// Articles per page
 	protected $per_page = 12;
+	protected $comments_per_page = 10;
+	/** @todo -10- Do Need to check this is set correctly to 'asc' or 'desc'
+	 * This will be picked during development if we make a typo     */
+	protected $comments_orderby_direction = 'asc'; // Can be either asc or desc.
 
 	public function index( Request $request ) {
 
@@ -23,7 +27,6 @@ class ArticlesController extends FrontendController {
 		$articlesQuery = Article::where( 'title', 'like', '%' . $qry . '%' )
 		                        ->orWhere( 'short_description', 'like', '%' . $qry . '%' )
 		                        ->orWhere( 'content', 'like', '%' . $qry . '%' );
-
 		// Search results count
 		if ( $qry ) {
 			$article_count = $articlesQuery->count();
@@ -73,27 +76,28 @@ class ArticlesController extends FrontendController {
 		$new_article = Article::where( 'id', '>', $article->id )->orderBy( 'id', 'ASC' )->first();
 
 		// Comments
-//		$commentsQuery = Comment::where( [ 'article_id' => $article->id, 'approved' => 1 ] )->orderBy( 'id', 'asc' );
 		$commentsQuery  = $this->get_commentQuery( $article->id );
 		$comments_count = $commentsQuery->count();
 
 		// If no infinite scroll, show all comments, else, paginate them
 
-		if ( boolval( $this->is_infinitescroll ) ) {
-			$comments = $commentsQuery->paginate( 10 );
+		if ( ! boolval( $this->is_infinitescroll ) ) {
+			$comments = $commentsQuery->paginate( $this->comments_per_page );
 		} else {
 			$comments = $commentsQuery->get();
 		}
 
+
 		return view( 'themes/' . $this->theme_directory . '/templates/single',
 		             array_merge( $this->data, [
-			             'categories'     => $this->article_categories,
-			             'article'        => $article,
-			             'old_article'    => $old_article,
-			             'new_article'    => $new_article,
-			             'comments'       => $comments,
-			             'comments_count' => $comments_count,
-			             'tagline'        => $article->title,
+			             'categories'        => $this->article_categories,
+			             'article'           => $article,
+			             'old_article'       => $old_article,
+			             'new_article'       => $new_article,
+			             'comments'          => $comments,
+			             'comments_count'    => $comments_count,
+			             'tagline'           => $article->title,
+			             'is_infinitescroll' => $this->is_infinitescroll
 		             ] )
 		);
 	}
@@ -112,15 +116,15 @@ class ArticlesController extends FrontendController {
 		}
 
 		$more_comments_to_display = TRUE;
-		$limit                    = 10;
+
 		/** @todo - 5 - This should\could be a setting */
 
 		$article_id  = $request->post( 'article_id' );
 		$page_number = $request->post( 'page' );
-		$offset      = $limit * $page_number;
+		$offset      = $this->comments_per_page * $page_number;
 
-		$data['comments'] = $this->get_commentQuery( $article_id, $limit, $offset )->get();
-		$content = '';
+		$data['comments'] = $this->get_commentQuery( $article_id, $this->comments_per_page, $offset )->get();
+		$content          = '';
 		if ( $data['comments']->count() ) {
 			$content .= view( 'themes/' . $this->theme_directory . '/partials/comments-list',
 			                  array_merge( $data, [
@@ -144,7 +148,7 @@ class ArticlesController extends FrontendController {
 	 * @return object
 	 */
 	private function get_commentQuery( int $article_id, int $limit = 0, int $offset = 0 ): object {
-		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', 'asc' );
+		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', $this->comments_orderby_direction );
 		if ( $offset > 0 ) {
 			$commentQuery = $commentQuery->offset( $offset );
 		}
