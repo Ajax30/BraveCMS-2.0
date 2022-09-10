@@ -96,6 +96,7 @@ class ArticlesController extends FrontendController {
 			             'new_article'       => $new_article,
 			             'comments'          => $comments,
 			             'comments_count'    => $comments_count,
+                   'comments_per_page' => $this->comments_per_page,
 			             'tagline'           => $article->title,
 			             'is_infinitescroll' => $this->is_infinitescroll
 		             ] )

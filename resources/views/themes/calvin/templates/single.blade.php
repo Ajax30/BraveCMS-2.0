@@ -81,7 +81,7 @@
     </script>
 @endsection
 
-@if ($is_infinitescroll)
+@if ($is_infinitescroll && $comments_count > $comments_per_page)
     @section('custom_js_files')
         <script src="{{ asset('themes/' . $theme_directory . '/js/infinite-comments.js') }}"></script>
     @endsection

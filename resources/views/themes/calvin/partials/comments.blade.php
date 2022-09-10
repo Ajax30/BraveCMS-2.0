@@ -63,10 +63,12 @@
                     <ol class="commentlist {{ boolval($is_infinitescroll) ? 'infinite-scroll' : '' }}">
                         @include('themes/' . $theme_directory . '/partials/comments-list')
                     </ol>
-                
-                    <div class="ajax-load">
+                    
+                    @if ($comments_count > $comments_per_page)
+                      <div class="ajax-load">
                         <span></span>
-                    </div>
+                      </div>
+                    @endif
                 </div>
             @endif
         </div><!-- end col-full -->
