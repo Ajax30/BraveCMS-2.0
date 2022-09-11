@@ -4992,7 +4992,7 @@ body.search-is-visible {
 }
 
 .comments-wrap {
-    padding-bottom: var(--vspace-4);
+    padding-bottom: var(--vspace-2);
     background-color: white;
 }
 
@@ -5160,7 +5160,7 @@ body.search-is-visible {
 
 @media screen and (max-width: 800px) {
     .comments-wrap {
-        padding-bottom: var(--vspace-3);
+        padding-bottom: var(--vspace-1);
     }
     .comment__avatar img {
         margin-top: 0;
