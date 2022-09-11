@@ -19,6 +19,7 @@ Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
 Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->name('category');
 Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
+Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');
 
 // Add comments
 Route::post('/comment/submit', [ArticlesController::class, 'add_comment'])->name('comment.submit');
@@ -39,12 +40,12 @@ Auth::routes();
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-	
+
 	// Settings routes
 	Route::group(['prefix' => 'settings'], function() {
 		Route::get('/', [SettingsController::class, 'index'])->name('dashboard.settings');
 		Route::post('/update', [SettingsController::class, 'update'])->name('dashboard.settings.update');
-	}); 
+	});
 
 	// Pages routes
 	Route::group(['prefix' => 'pages'], function() {
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 		Route::post('/update/{id}', [PageController::class, 'update'])->name('dashboard.pages.update');
 		Route::get('/delete/{id}', [PageController::class, 'delete'])->name('dashboard.pages.delete');
 	});
-	
+
 	// Category routes
 	Route::group(['prefix' => 'categories'], function() {
 		Route::get('/', [ArticleCategoryController::class, 'index'])->name('dashboard.categories');
@@ -74,7 +75,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 		Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit');
 		Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
 		Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete');
-	}); 
+	});
 
 	// Comments routes
 	Route::group(['prefix' => 'comments'], function() {

@@ -4960,6 +4960,37 @@ body.search-is-visible {
 /* -------------------------------------------------------------------
  * ## blog comments 
  * ------------------------------------------------------------------- */
+
+ /* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ajax-load {
+  height: 60px;
+  display: none;
+}
+
+.ajax-load span {
+  display: inline-block;
+  border: 5px solid #cbcbcb;
+  border-radius: 50%;
+  border-top: 5px solid transparent;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
 .comments-wrap {
     padding-bottom: var(--vspace-4);
     background-color: white;
