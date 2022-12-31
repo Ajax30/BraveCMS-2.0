@@ -17,7 +17,7 @@
     "laravel/tinker": "^2.5",
     "laravel/ui": "^3.4",
     "spatie/laravel-newsletter": "^4.11",
-    "ext-json": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "facade/ignition": "^2.5",

@@ -78,7 +78,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // All registred users have the role "Basic User",
+        // except the first, which is a "Superadmin"
+        $role_id = User::count() == 0 ? 4 : 1;
+
         return User::create([
+          'role_id' => $role_id,
 					'first_name' => $data['first_name'],
 					'last_name' => $data['last_name'],
 					'email' => $data['email'],
