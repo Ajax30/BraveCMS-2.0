@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Settings;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 use App\Models\Comment;
@@ -20,6 +21,11 @@ class ArticlesController extends FrontendController {
 	protected $comments_orderby_direction = 'asc'; // Can be either asc or desc.
 
 	public function index( Request $request ) {
+
+    // If there are no site settings, redirect to Dashboard
+    if (Settings::count() == 0) {
+      return redirect()->route('dashboard');
+    }
 
 		// Search query
 		$qry = $request->input( 'search' );
