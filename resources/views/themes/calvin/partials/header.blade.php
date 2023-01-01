@@ -60,27 +60,28 @@
 
                 <ul class="s-header__nav">
                     <li><a href="{{ url('/') }}" title="Home">Home</a></li>
+
+                    @if (count($categories))
                     <li class="has-children">
 											<a href="#0">Categories</a>
-											@if (count($categories))
 											<ul class="sub-menu">
 												@foreach ($categories as $category)
 													<li><a href="{{ url('/category/' . $category->id) }}">{{ $category->name }}</a></li>
 												@endforeach
 											</ul>
-											@endif
                     </li>
+                    @endif
 
+                    @if (count($pages))
 										<li class="has-children">
 											<a href="#0">Pages</a>
-											@if (count($pages))
 											<ul class="sub-menu">
 												@foreach ($pages as $page)
 													<li><a href="{{ url('/page/' . $page->id) }}">{{ $page->title }}</a></li>
 												@endforeach
 											</ul>
-											@endif
                     </li>
+                    @endif
 
 										<li>
 											<a href="{{ url('/contact') }}">Contact</a>
