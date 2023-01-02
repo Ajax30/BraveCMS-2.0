@@ -42,7 +42,7 @@ class UserRightsController extends Controller
 
   public function activate_user($id){
     User::find($id)->update(['active' => 1]);
-		return redirect()->back()->with('success', 'The user is now active');
+    return redirect()->back()->with('success', 'The user is now active');
   }
 
 }
