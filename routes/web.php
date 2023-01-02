@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\UserRightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\PageController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
@@ -85,7 +86,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
     Route::get('/unapprove/{id}', [CommentController::class, 'unapprove'])->name('dashboard.comments.unapprove');
 	});
 
-	// User routes
+  // User management routes
+	Route::group(['prefix' => 'users'], function() {
+		Route::get('/rights', [UserRightsController::class, 'index'])->name('user-rights');
+    Route::get('/rights/change-role/{id}', [UserRightsController::class, 'change_role'])->name('change-role');
+    Route::post('/rights/update-role/{id}', [UserRightsController::class, 'update_role'])->name('update-role');
+    Route::get('/rights/ban/{id}', [UserRightsController::class, 'ban_user'])->name('ban-user');
+    Route::get('/rights/activate/{id}', [UserRightsController::class, 'activate_user'])->name('activate-user');
+	});
+
+	// Profile routes
 	Route::group(['prefix' => 'user'], function() {
 		Route::get('/', [UserController::class, 'index'])->name('user');
 		Route::match(['get', 'post'],'/update', [UserController::class, 'update'])->name('user.update');
