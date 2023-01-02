@@ -1,16 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 
 class UserRightsController extends Controller
 {
-  
   public function roles() {
 		return Role::all();
 	}
@@ -44,5 +41,4 @@ class UserRightsController extends Controller
     User::find($id)->update(['active' => 1]);
     return redirect()->back()->with('success', 'The user is now active');
   }
-
 }

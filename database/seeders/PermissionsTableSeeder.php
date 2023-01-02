@@ -38,7 +38,6 @@ class PermissionsTableSeeder extends Seeder
         'description' => 'Gives a user the permission to delete her/his own articles.'
       ]);
 
-
       // Article categories permissions
       Permission::create([
         'slug' => 'view-categories',

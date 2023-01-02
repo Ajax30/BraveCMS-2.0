@@ -36,6 +36,5 @@ class RolesTableSeeder extends Seeder
           'label' => 'Super-admin',
           'description' => 'The Super-admin can do everything that the Admin can do. Additionally, the Site owner can give/revoke user roles and ban users. The website has only one Super-admin.'
       ]);
-
   }
 }
