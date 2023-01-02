@@ -41,7 +41,6 @@ Auth::routes();
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
   Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-
 	// Settings routes
   Route::group(['prefix' => 'settings', 'middleware' => ['checkUserPermissions:edit-settings']], function() {
 		Route::get('/', [SettingsController::class, 'index'])->name('dashboard.settings');

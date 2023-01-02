@@ -3,7 +3,7 @@
 @section('content')
   <div class="card shadow-sm">
     <div class="card-header">{{ __('User roles and permissions') }}</div>
-    <div class="card-body">
+    <div class="card-body p-0">
       <div class="table-responsive">
         <table class="table table-hover mb-0">
           <thead>
@@ -51,5 +51,10 @@
         </table>
       </div>
     </div>
+    @if ($users_count > 10)
+      <div class="card-footer">
+        {!! $users->withQueryString()->links() !!}
+      </div>
+		@endif
   </div>
 @endsection
