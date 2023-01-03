@@ -25,8 +25,7 @@ class CheckUserPermissions
       // Check user permissions
         foreach ($permissions as $permission) {
           if (!$this->hasPermissionTo($permission)) { 
-            $permission_label = join(' ',  explode('-', $permission));
-            return redirect()->back()->with('error', 'You do not have permission to ' . $permission_label);
+            return redirect()->back()->with('error', 'You do not have permission to '  . str_replace('-', ' ', $permission));
           }
         }
 
