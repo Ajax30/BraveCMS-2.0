@@ -1,4 +1,3 @@
-
 @foreach ($comments as $comment)
   <li class="depth-1 comment">
       <div class="comment__avatar">

@@ -63,6 +63,7 @@ class RegisterController extends Controller
             'last_name.required' => 'The "Last name" field is required',
             'email.required' => 'Please provide a valid email address',
             'email.email' => 'The email address you provided is not valid',
+            'email.unique' => 'The email address you provided is already in use',
             'password.required' => 'A password is required',
             'accept.required' => 'You must accept the Terms & conditions of service'
         ];
@@ -78,11 +79,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // All registered users have the role "Basic User",
+        // except the first, which is a "Super-admin"
+        $role_id = User::count() == 0 ? 4 : 1;
+
         return User::create([
-					'first_name' => $data['first_name'],
-					'last_name' => $data['last_name'],
-					'email' => $data['email'],
-					'password' => Hash::make($data['password']),
+          'role_id' => $role_id,
+          'first_name' => $data['first_name'],
+          'last_name' => $data['last_name'],
+          'email' => $data['email'],
+          'password' => Hash::make($data['password']),
+          'active' => 1
         ]);
     }
 }

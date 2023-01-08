@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
@@ -22,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->longText('bio')->nullable();
             $table->string('avatar')->default('default.png');
             $table->string('password');
+            $table->tinyInteger('active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,0 +1,7 @@
+// Disabled button groups
+.btn-group.disabled {
+  .btn {
+    pointer-events: none;
+    opacity: .65;
+  }
+}

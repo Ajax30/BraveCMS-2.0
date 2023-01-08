@@ -19818,6 +19818,11 @@ label {
   left: 150px;
 }
 
+.btn-group.disabled .btn {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
 .sidebar {
   overflow: hidden;
 }

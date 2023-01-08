@@ -33,7 +33,7 @@
 									</td>
 									<td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
 									<td class="text-end">
-										<div class="btn-group btn-group-sm">
+										<div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
 											<a href="#" class="btn btn-primary">
 												<i class="fa-solid fa-eye"></i> View
 											</a>

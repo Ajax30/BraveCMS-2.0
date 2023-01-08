@@ -49,6 +49,18 @@ class ArticleController extends Controller
                         ->onEachSide(1);
 
 
+    /* Add 'allowActions' boolean to each article
+    Check if current user is the article's owner or an admin to allow actions */
+    foreach ($articles as $article) {
+      if (Auth::user()->role->name == 'author') {
+        $article->allowActions = $article->user_id == Auth::user()->id;
+      } else {
+        $article->allowActions = true;
+      }
+    }
+
+    //dd($articles->all());
+
 		return view('dashboard/articles',
 			[
 				'articles' => $articles,
