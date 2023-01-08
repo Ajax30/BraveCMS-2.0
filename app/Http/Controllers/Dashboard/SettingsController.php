@@ -43,14 +43,14 @@ class SettingsController extends Controller {
     }
     return $themes;
   } 
-	
-	public function index() {
-		$settings = Settings::first();
-		return view('dashboard/settings', [
+  
+  public function index() {
+    $settings = Settings::first();
+    return view('dashboard/settings', [
       'settings' => $settings, 
       'themes' => $this->themes()
     ]);
-	}
+  }
 
 	public function update(Request $request) {
 		$validator = Validator::make($request->all(), $this->rules, $this->messages);
