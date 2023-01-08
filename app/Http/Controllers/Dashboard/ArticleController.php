@@ -48,7 +48,6 @@ class ArticleController extends Controller
 												->paginate($per_page)
                         ->onEachSide(1);
 
-
     /* Add 'allowActions' boolean to each article
     Check if current user is the article's owner or an admin to allow actions */
     foreach ($articles as $article) {

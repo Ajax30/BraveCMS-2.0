@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Settings;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
 class SettingsController extends Controller {
     
@@ -16,7 +18,7 @@ class SettingsController extends Controller {
 		'twitter' => 'required|string|max:190',
 		'facebook' => 'required|string|max:190',
 		'instagram' => 'required|string|max:190',
-		'theme_directory' => 'required|string|max:190',
+		'theme_directory' => 'required',
 	];
 
 	private $messages = [
@@ -25,15 +27,30 @@ class SettingsController extends Controller {
 		'owner_name.required' => 'Please provide a site owner/company name',
 		'owner_email.required' => 'A valid email is required',
 		'owner_email.email' => 'The email you provided is not valid',
-		'twitter.required' => 'required|string|max:190',
-		'facebook.required' => 'required|string|max:190',
-		'instagram.required' => 'required|string|max:190',
-		'theme_directory.required' => 'required|string|max:190',
+		'twitter.required' => 'Please provide a Twitter account',
+		'facebook.required' => 'Please provide a Facebook account',
+		'instagram.required' => 'Please provide an Instagram account',
+		'theme_directory.required' => 'Please pick a theme',
 	];
+
+  public function themes() {
+    $themes = [];
+    $themes_path = Config::get('view.paths')[0] . '\themes';
+    foreach(File::directories($themes_path) as $theme) {
+      $slug = array_reverse(explode('\\', $theme))[0];
+      $name = ucwords(str_replace('-', ' ', $slug));
+      $themes[] = (object)compact('slug', 'name');
+    }
+    return $themes;
+  } 
 	
 	public function index() {
+    //dd($this->themes());
 		$settings = Settings::first();
-		return view('dashboard/settings', ['settings' => $settings]);
+		return view('dashboard/settings', [
+      'settings' => $settings, 
+      'themes' => $this->themes()
+    ]);
 	}
 
 	public function update(Request $request) {

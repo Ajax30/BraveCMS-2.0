@@ -106,16 +106,22 @@
             </div>
 
             <div class="row mb-2">
-              <label for="theme_directory" class="col-md-12">{{ __('Theme directory') }}</label>
+              <label for="theme" class="col-md-12">{{ __('Theme directory') }}</label>
           
               <div class="col-md-12 @error('theme_directory') has-error @enderror">
-                    <input id="theme_directory" type="text" placeholder="Theme directory" class="form-control @error('theme_directory') is-invalid @enderror" name="theme_directory" value="{{ old('theme_directory', $settings->theme_directory) }}" autocomplete="theme_directory" autofocus>
+                    
+                <select name="theme_directory" id="theme" class="form-control @error('theme_directory') is-invalid @enderror">
+                  <option value="">Pick a theme</option>
+                  @foreach($themes as $theme)
+                    <option value="{{ $theme->slug }}" {{ $theme->slug == $settings->theme_directory  ? 'selected' : '' }}>{{ $theme->name }}</option>
+                  @endforeach
+                </select>
         
-                    @error('theme_directory')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                  @error('theme_directory')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
               </div>
             </div>
 
