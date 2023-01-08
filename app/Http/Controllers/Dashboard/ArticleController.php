@@ -137,9 +137,8 @@ class ArticleController extends Controller
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator->errors())->withInput();
 		}
-
+    
 		$fields = $validator->validated();
-
 		$article = Article::find($id);
 
 		// If a new image is uploaded, set it as the article image
@@ -157,9 +156,7 @@ class ArticleController extends Controller
 		$article->featured = $request->has('featured');
 		$article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
 		$article->content = $request->get('content');
-
 		$article->save();
-
 		return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
 
 	}
