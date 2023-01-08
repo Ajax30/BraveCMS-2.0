@@ -23,6 +23,11 @@
     <script src="{{ asset('themes/' . $theme_directory . '/js/modernizr.js') }}"></script>
     <script src="{{ asset('themes/' . $theme_directory . '/js/fontawesome/all.min.js') }}"></script>
 
+    @if (boolval($is_cookieconsent))
+      <link href="{{ asset('lib/cookieconsent/css/cookies.css') }}" rel="stylesheet">
+      <script src="{{ asset('lib/cookieconsent/js/cookieconsent.min.js') }}"></script>
+    @endif
+
     <!-- favicons
     ================================================== -->
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">

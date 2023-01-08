@@ -59,7 +59,8 @@
 <script src="{{ asset('themes/' . $theme_directory . '/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('themes/' . $theme_directory . '/js/newsletter.js') }}"></script>
 @yield('custom_js_files')
-
+@if (boolval($is_cookieconsent))
+  @include('partials/cookieconsent')
+@endif
 </body>
-
 </html>
