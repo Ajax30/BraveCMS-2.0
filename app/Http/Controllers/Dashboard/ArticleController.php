@@ -52,10 +52,9 @@ class ArticleController extends Controller
     /* Add 'allowActions' boolean to each article
     Check if current user is the article's owner or an admin to allow actions */
     foreach ($articles as $article) {
+      $article->allowActions = true;
       if (Auth::user()->role->name == 'author') {
         $article->allowActions = $article->user_id == Auth::user()->id;
-      } else {
-        $article->allowActions = true;
       }
     }
 
