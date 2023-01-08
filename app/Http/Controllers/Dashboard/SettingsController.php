@@ -45,7 +45,6 @@ class SettingsController extends Controller {
   } 
 	
 	public function index() {
-    //dd($this->themes());
 		$settings = Settings::first();
 		return view('dashboard/settings', [
       'settings' => $settings, 
