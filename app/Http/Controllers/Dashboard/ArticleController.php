@@ -58,8 +58,6 @@ class ArticleController extends Controller
       }
     }
 
-    //dd($articles->all());
-
 		return view('dashboard/articles',
 			[
 				'articles' => $articles,
@@ -76,7 +74,6 @@ class ArticleController extends Controller
 	}
 
 	public function save(Request $request) {
-
 		// Validate form (with custom messages)
 		$validator = Validator::make($request->all(), $this->rules, $this->messages);
 
@@ -120,7 +117,6 @@ class ArticleController extends Controller
 		} else {
 			return redirect()->back()->with('error', 'Adding article failed');
 		}
-
 	}
 
 	public function edit($id) {
@@ -137,7 +133,7 @@ class ArticleController extends Controller
 		if ($validator->fails()) {
 			return redirect()->back()->withErrors($validator->errors())->withInput();
 		}
-    
+
 		$fields = $validator->validated();
 		$article = Article::find($id);
 
