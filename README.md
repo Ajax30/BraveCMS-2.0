@@ -12,7 +12,15 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. It 
 
 ![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
 
-## License
+# How to use Brave CMS
+
+I have created a simple installation process: after creating a database and providing credentials (the appropriate values for `DB_DATABASE`, `DB_USERNAME` and `DB_PASSWORD`) in the `.env` file (placed in the root directory), you can run the `Install` controller which will create all the necessary tables.
+
+After that, you will be invited to *sign up*. After a successful sign-up, because you are the *first user*, you will be given the role of `super-admin`.
+
+You will be able to sign in and write articles, add or delete categories, etc.   
+
+# License
 
 MIT License
 
