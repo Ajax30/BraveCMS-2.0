@@ -39,4 +39,11 @@ class UserRightsController extends Controller
     User::find($id)->update(['active' => 1]);
     return redirect()->back()->with('success', 'The user is now active');
   }
+
+  // Available permissions
+  public function permissions(){
+    return view('dashboard/permissions', ['roles' => $this->roles()]);
+  }
+
+
 }

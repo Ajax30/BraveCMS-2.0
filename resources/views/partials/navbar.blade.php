@@ -70,6 +70,12 @@
 															{{ __('Manage users') }}
 														</a>
                             @enduserCan
+
+                            @userCan('manage-user-rights')
+                            <a class="dropdown-item" href="{{ route('available-permissions') }}">
+															{{ __('Permissions') }}
+														</a>
+                            @enduserCan
 		
 														<a class="dropdown-item" href="{{ route('user') }}">
 															{{ __('Your profile') }}

@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="card shadow-sm">
-    <div class="card-header">{{ __('User roles and permissions') }}</div>
+    <div class="card-header">{{ __('User roles') }}</div>
     <div class="card-body p-0">
       <div class="table-responsive">
         <table class="table table-hover mb-0">
@@ -43,7 +43,7 @@
             @else
             <tr>
               <td colspan="6" class="text-danger text-center">
-                No articles found
+                No users found
               </td>
             </tr>	
             @endif
