@@ -2,7 +2,7 @@
 
 ## What is this about? 
 
-This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. It is currently a *work in progress*. Laravel masters are invited to *contribute*.
+This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Laravel masters are invited to *contribute*.
 
 ### Dashboard
 
