@@ -59,13 +59,17 @@
 															{{ __('Dashboard') }}
 														</a>
 
+                            @userCan('edit-settings')
 														<a class="dropdown-item" href="{{ route('dashboard.settings') }}">
 															{{ __('Site settings') }}
 														</a>
+                            @enduserCan
 
+                            @userCan('manage-user-rights')
                             <a class="dropdown-item" href="{{ route('user-rights') }}">
 															{{ __('Manage users') }}
 														</a>
+                            @enduserCan
 		
 														<a class="dropdown-item" href="{{ route('user') }}">
 															{{ __('Your profile') }}
