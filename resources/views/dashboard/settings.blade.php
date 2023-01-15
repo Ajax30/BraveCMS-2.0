@@ -110,7 +110,7 @@
             
                 <div class="col-md-12 @error('theme_directory') has-error @enderror">
                       
-                  <select name="theme_directory" id="theme" class="form-control @error('theme_directory') is-invalid @enderror">
+                  <select class="form-select" name="theme_directory" id="theme" class="form-control @error('theme_directory') is-invalid @enderror">
                     <option value="">Pick a theme</option>
                     @foreach($themes as $theme)
                       <option value="{{ $theme->slug }}" {{ $theme->slug == $settings->theme_directory  ? 'selected' : '' }}>{{ $theme->name }}</option>
