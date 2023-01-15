@@ -8,6 +8,12 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Lar
 
 ![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/dashboard.png)
 
+### Site settings
+
+The **super-admin** has access to the *Settings* section.
+
+![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/settings.png)
+
 ### Homepage
 
 ![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
