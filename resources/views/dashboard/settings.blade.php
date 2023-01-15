@@ -106,7 +106,7 @@
             </div>
 
               <div class="row mb-2">
-                <label for="theme" class="col-md-12">{{ __('Theme directory') }}</label>
+                <label for="theme" class="col-md-12">{{ __('Active theme') }}</label>
             
                 <div class="col-md-12 @error('theme_directory') has-error @enderror">
                       
