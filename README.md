@@ -12,11 +12,11 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Lar
 
 The **super-admin** has access to the *Settings* section.
 
-![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/settings.png)
+![Settings preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/settings.png)
 
 ### Homepage
 
-![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
+![Homepage preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
 
 # How to use Brave CMS
 
