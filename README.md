@@ -22,6 +22,8 @@ The **super-admin** has access to the *Settings* section.
 
 I have created a simple installation process: after creating a database and providing credentials (the appropriate values for `DB_DATABASE`, `DB_USERNAME` and `DB_PASSWORD`) in the `.env` file (placed in the root directory), you can run the `Install` controller which will create all the necessary tables.
 
+Alternatively, you can import `minimal.sql`, which contains all the necessary tables. You can find it in the root of the repository.
+
 After that, you will be invited to *sign up*. After a successful sign-up, because you are the *first user*, you will be given the role of `super-admin`.
 
 You will be able to sign in and write articles, add or delete categories, etc.   
