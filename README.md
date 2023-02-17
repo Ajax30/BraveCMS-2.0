@@ -18,6 +18,14 @@ The **super-admin** has access to the *Settings* section.
 
 ![Homepage preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
 
+
+# Demo video
+
+I have created a short demo **video**.
+
+[![Demo video](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/video-thumbnail.png)](https://www.youtube.com/watch?v=AEMUFTxO4uc)
+
+
 # How to use Brave CMS
 
 I have created a simple installation process: after creating a database and providing credentials (the appropriate values for `DB_DATABASE`, `DB_USERNAME` and `DB_PASSWORD`) in the `.env` file (placed in the root directory), you can run the `Install` controller which will create all the necessary tables.
