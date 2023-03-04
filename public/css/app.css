@@ -19668,6 +19668,11 @@ textarea.form-control-lg {
     max-width: 100%;
   }
 }
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .navbar-toggler {
   background-color: #f8fafc;
 }

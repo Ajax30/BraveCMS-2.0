@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
 			
-        <a class="navbar-brand" href="{{ url('/') }}">Brave CMS</a>
+        <a class="navbar-brand" href="{{ url('/') }}">
+          <img src="{{asset('images/logo-black.png')}}" alt="Brave CMS">
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -16,10 +18,10 @@
 
 							<ul class="navbar-nav me-auto">
 								<li class="nav-item">
-									<a class="nav-link {{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">Articles</a>
+									<a class="nav-link text-uppercase {{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">Articles</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link {{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">Categories</a>
+									<a class="nav-link text-uppercase {{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">Categories</a>
 								</li>
 							</ul>
 
