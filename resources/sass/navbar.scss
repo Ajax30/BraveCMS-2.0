@@ -1,0 +1,31 @@
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar-toggler {
+	background-color: #f8fafc;
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+@media (max-width: 767px) {
+  .profile-menu {
+    flex-wrap: wrap;
+    .dropdown-toggle {
+      margin-top: 0;
+    }
+    .dropdown-menu {
+      display: block !important;
+      flex: 0 1 100%;
+      border: none;
+      margin-top: -0.25rem;
+      padding: 0 0 0 37px;
+
+      .dropdown-item {
+        padding: 0.25rem 0;
+      }
+    }
+  }
+}

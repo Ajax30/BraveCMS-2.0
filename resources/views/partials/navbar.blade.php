@@ -46,7 +46,7 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown d-flex">
+                    <li class="nav-item profile-menu dropdown d-flex">
 
 											<img class="rounded-circle avatar-top" id="top_avatar" src="{{asset('images/avatars')}}/{{auth()->user()->avatar}}" alt="{{auth()->user()->first_name}} {{auth()->user()->last_name}}">
 

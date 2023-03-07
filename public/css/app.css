@@ -19656,6 +19656,12 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.card-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #565656;
+}
+
 #app {
   height: auto;
   min-height: 100vh;
@@ -19668,18 +19674,6 @@ textarea.form-control-lg {
     max-width: 100%;
   }
 }
-.navbar-brand {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.navbar-toggler {
-  background-color: #f8fafc;
-}
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
 .dashboard-footer {
   margin-top: auto;
   padding: 10px;
@@ -19696,12 +19690,36 @@ textarea.form-control-lg {
   justify-content: center;
 }
 
-.card-header {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #565656;
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
+.navbar-toggler {
+  background-color: #f8fafc;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  .profile-menu {
+    flex-wrap: wrap;
+  }
+  .profile-menu .dropdown-toggle {
+    margin-top: 0;
+  }
+  .profile-menu .dropdown-menu {
+    display: block !important;
+    flex: 0 1 100%;
+    border: none;
+    margin-top: -0.25rem;
+    padding: 0 0 0 37px;
+  }
+  .profile-menu .dropdown-menu .dropdown-item {
+    padding: 0.25rem 0;
+  }
+}
 label {
   color: #777;
   font-size: 14px;

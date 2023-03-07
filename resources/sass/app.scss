@@ -12,11 +12,14 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 // Bootstrap 5
 @import '~bootstrap/scss/bootstrap';
 
+// Typography
+@import './typography.scss';
+
 // Layout
 @import './layout.scss';
 
-// Typography
-@import './typography.scss';
+// Navbar
+@import './navbar.scss';
 
 // Forms
 @import './forms.scss';
