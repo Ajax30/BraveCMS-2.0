@@ -6,7 +6,17 @@
 			var APP_URL = "{{ env("APP_URL") }}";
 		</script>
 		@if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit', 'dashboard.pages.new', 'dashboard.pages.edit']))
-			<script>CKEDITOR.replace('content');</script>
+			<script>
+        CKEDITOR.replace('content');
+        CKEDITOR.on("instanceReady", function(event) {
+          event.editor.on("beforeCommandExec", function(event) {
+              // Show the paste dialog for the paste buttons and right-click paste
+              if (event.data.name == "paste") {
+                  event.editor._.forcePasteDialog = true;
+              }
+          })
+        });
+      </script>
 		@endif
 
 	</body>
