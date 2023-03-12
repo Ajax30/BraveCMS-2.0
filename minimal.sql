@@ -198,7 +198,7 @@ INSERT INTO `permissions` (`id`, `slug`, `label`, `description`, `created_at`, `
 (3, 'edit-articles', 'Edit articles', 'Gives a user the permission to edit her/his own articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
 (4, 'delete-articles', 'Delete articles', 'Gives a user the permission to delete her/his own articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
 (5, 'view-categories', 'View categories', 'Gives a user the permission to view the list of categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(6, 'create-categories', 'Create categories', 'Gives a user the permission to create article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
+(6, 'add-categories', 'Add categories', 'Gives a user the permission to create article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
 (7, 'edit-categories', 'Edit categories', 'Gives a user the permission to edit article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
 (8, 'delete-categories', 'Delete categories', 'Gives a user the permission to delete article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
 (9, 'view-comments', 'View comments on the dashboard', 'Gives a user the permission to view article comments on the dashboard', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),

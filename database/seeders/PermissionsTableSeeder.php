@@ -46,8 +46,8 @@ class PermissionsTableSeeder extends Seeder
       ]);
 
       Permission::create([
-        'slug' => 'create-categories',
-        'label' => 'Create categories',
+        'slug' => 'add-categories',
+        'label' => 'Add categories',
         'description' => 'Gives a user the permission to create article categories.'
       ]);
 
