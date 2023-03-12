@@ -63,7 +63,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 	// Category routes
 	Route::group(['prefix' => 'categories'], function() {
 		Route::get('/', [ArticleCategoryController::class, 'index'])->name('dashboard.categories')->middleware('checkUserPermissions:view-categories');
-		Route::get('/new', [ArticleCategoryController::class, 'create'])->name('dashboard.categories.new')->middleware('checkUserPermissions:add-categories');
+		Route::get('/new', [ArticleCategoryController::class, 'create'])->name('dashboard.categories.new')->middleware('checkUserPermissions:create-categories');
 		Route::post('/add', [ArticleCategoryController::class, 'save'])->name('dashboard.categories.add');
 		Route::get('/edit/{id}', [ArticleCategoryController::class, 'edit'])->name('dashboard.categories.edit')->middleware('checkUserPermissions:edit-categories');
 		Route::post('/update/{id}', [ArticleCategoryController::class, 'update'])->name('dashboard.categories.update');
