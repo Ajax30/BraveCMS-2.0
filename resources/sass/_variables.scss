@@ -6,7 +6,7 @@ $medium-gray:#ced4da;
 $dark:       #00030a;
 $primary:    #116cd3;
 $secondary:  #545657;
-$info:       #7b75cc;
+$info:       #736dc4;
 $success:    #3ba96e;
 $warning:    #e1ce39;
 $danger:     #dc2215;
@@ -18,6 +18,6 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Forms
-$label-color: #777;
+$label-color: $secondary;
 
 

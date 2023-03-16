@@ -21,7 +21,7 @@
                   <td class="text-nowrap">{{ $role->label }}</td>
                   <td>
                     @foreach ($role->permissions as $permission)
-                      <span class="badge bg-primary">{{ $permission->slug }}</span>
+                      <span class="badge bg-info">{{ $permission->slug }}</span>
                     @endforeach
                   </td>
                 </tr>
