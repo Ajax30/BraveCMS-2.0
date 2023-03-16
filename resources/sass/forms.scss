@@ -28,11 +28,11 @@ label {
 	}
 
 	button[type=submit] {
-		border: 1px solid #ced4da;
+		border: 1px solid $medium-gray;
 		border-left: 0;
 		border-bottom-left-radius: 0;
 		border-top-left-radius: 0;
-		background: #f8fafc;
+		background: $body-bg;
 		box-shadow: none !important;
 
 	}
