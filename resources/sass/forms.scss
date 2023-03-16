@@ -70,10 +70,10 @@ label {
 			left: 2px;
 			width: 26px;
 			height: 26px;
-			background: #f6f6f6;
-			background: -moz-linear-gradient(top, #f6f6f6 0%, #efefef 100%);
-			background: -webkit-linear-gradient(top, #f6f6f6 0%, #efefef 100%);
-			background: linear-gradient(to bottom, #f6f6f6 0%, #efefef 100%);
+			background: $light-gray;
+			background: -moz-linear-gradient(top, $light-gray 0%, $light 100%);
+			background: -webkit-linear-gradient(top, $light-gray 0%, $light 100%);
+			background: linear-gradient(to bottom, $light-gray 0%, $light 100%);
 			border-radius: 50%;
 			border: 1px solid rgba(0, 0, 0, 0.2);
 			transition: 0.2s;
@@ -84,7 +84,7 @@ label {
 	  &:checked {
 		+ {
 		  label, input + label {
-			background: #0d6efd;
+			background: $primary;
 		  }
   
 		  label:after {
@@ -103,7 +103,7 @@ label {
 				border-radius: 50%;
 				transition: 0.2s;
 				text-indent: 0;
-				color: #fff;
+				color: $white;
 		  }
   
 		  label:after, input + label:after {
@@ -124,7 +124,7 @@ label {
 		  border-radius: 50%;
 		  transition: 0.2s;
 		  text-indent: 0;
-		  color: #fff;
+		  color: $white;
 		}
 	  }
 	}
@@ -140,7 +140,7 @@ label {
 		left: 20px;
 		width: auto;
 		display: inline-block;
-		color: #dc3545;
+		color: $danger;
 		font-size: 10px;
 
 		&.accept {
