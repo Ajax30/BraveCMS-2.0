@@ -4,7 +4,7 @@
 }
 
 .navbar-toggler {
-	background-color: #f8fafc;
+	background-color: $body-bg;
 	&:focus {
 		box-shadow: none;
 	}

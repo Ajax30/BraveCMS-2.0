@@ -1,0 +1,20 @@
+// Variables
+@import 'variables';
+
+// Color scheme
+$theme-colors: (
+  "light":      $light,
+  "dark":       $dark,
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "info":       $info,
+  "success":    $success,
+  "warning":    $warning,
+  "danger":     $danger,
+);
+
+// Set small radius
+$btn-border-radius-sm: 3px;
+
+// Pagination
+$pagination-active-bg: $primary !default;

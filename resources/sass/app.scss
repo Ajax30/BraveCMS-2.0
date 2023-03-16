@@ -9,6 +9,9 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 // Variables
 @import 'variables';
 
+//  Overwrite default scheme
+@import  './overwrites';
+
 // Bootstrap 5
 @import '~bootstrap/scss/bootstrap';
 
