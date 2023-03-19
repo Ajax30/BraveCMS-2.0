@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
 			
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ route('homepage') }}">
           <img src="{{asset('images/logo-black.png')}}" alt="Brave CMS">
         </a>
 
@@ -56,6 +56,10 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                          <a class="dropdown-item" href="{{ route('homepage') }}">
+                            {{ __('Website') }}
+                          </a>
                             
 														<a class="dropdown-item" href="{{ route('dashboard') }}">
 															{{ __('Dashboard') }}
