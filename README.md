@@ -9,8 +9,8 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Lar
 1. It's written in Laravel 8.
 2. It's scalable.
 3. The code is DRY and easy-to-follow, so contributors will have no headaches.
-4. The newsletter form is integrated with Mailchimp.
-5. It's Admin is designed with Bootstrap 5 SASS and very easy to customize.
+4. The newsletter form is integrated with **Mailchimp**.
+5. It's Admin is designed with **Bootstrap 5 SASS** and very easy to customize.
 6. It is free (but patrons will be appreciated).
 
 ### Dashboard
