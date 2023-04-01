@@ -19926,8 +19926,6 @@ label {
   height: 34px;
   margin-top: 2px;
   width: auto;
-  padding: 1px;
-  border: 1px solid #ced4da;
 }
 @media (max-width: 767px) {
   .avatar-top {
