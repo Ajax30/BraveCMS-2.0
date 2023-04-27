@@ -2232,7 +2232,7 @@ select {
 }
 
 textarea {
-    min-height: 25.6rem;
+    min-height: 15rem;
 }
 
 input[type="email"]:focus, 
@@ -5036,6 +5036,16 @@ body.search-is-visible {
     padding: 2rem 0 0 0;
     padding-left: 14%;
 }
+
+.commentlist form {
+  margin-left: 2rem;
+  display: none;
+}
+
+.commentlist  .children  {
+  
+}
+
 
 .comment__avatar {
     position: absolute;

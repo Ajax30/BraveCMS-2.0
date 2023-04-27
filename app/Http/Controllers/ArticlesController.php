@@ -85,7 +85,7 @@ class ArticlesController extends FrontendController {
 		$commentsQuery  = $this->get_commentQuery( $article->id );
 		$comments_count = $commentsQuery->count();
 
-		// If infinite scroll, paginate comments (to be loaded one pege per scroll),
+		// If infinite scroll, paginate comments (to be loaded one page per scroll),
     // Else show them all 
 
 		if (boolval($this->is_infinitescroll)) {
@@ -156,6 +156,7 @@ class ArticlesController extends FrontendController {
 	 */
 	private function get_commentQuery( int $article_id, int $limit = 0, int $offset = 0 ): object {
 		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', $this->comments_orderby_direction );
+
 		if ( $offset > 0 ) {
 			$commentQuery = $commentQuery->offset( $offset );
 		}
@@ -189,6 +190,7 @@ class ArticlesController extends FrontendController {
 		$comment = [
 			'user_id'    => Auth::user()->id,
 			'article_id' => $request->get( 'article_id' ),
+      'parent_id' => $request->get( 'parent_id' ),
 			'body'       => $fields['msg'],
 			'approved'   => 0
 		];
