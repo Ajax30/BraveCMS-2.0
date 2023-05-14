@@ -118,13 +118,10 @@ class ArticlesController extends FrontendController {
 	 */
 	public function get_comments_ajax( Request $request ) {
 		if ( ! $request->ajax() ) {
-			// Redirect to Home Page or just BOMB OUT!
 			exit();
 		}
 
 		$more_comments_to_display = TRUE;
-
-		/** @todo - 5 - This should\could be a setting */
 
 		$article_id  = $request->post( 'article_id' );
 		$page_number = $request->post( 'page' );
@@ -198,11 +195,12 @@ class ArticlesController extends FrontendController {
 		// Insert comment in the 'comments' table
 		$query = Comment::create( $comment );
 
-		if ( $query ) {
+    if ( $query ) {
 			return redirect()->back()->with( 'success', 'Your comment is pending.' );
 		} else {
 			return redirect()->back()->with( 'error', 'Adding comment failed' );
 		}
+
 	}
 
 }

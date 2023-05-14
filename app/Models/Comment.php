@@ -29,6 +29,6 @@ class Comment extends Model
 
     // Join comment replies to comments
     public function replies() {
-        return $this->hasMany(Comment::class, 'parent_id');
+      return $this->hasMany(Comment::class, 'parent_id');
     }
 }

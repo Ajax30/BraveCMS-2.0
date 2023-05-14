@@ -308,6 +308,11 @@
 
     }; // end ssBackToTop
 
+    // Show comment reply form
+    $('.comment-reply-link').on('click', function(){
+      $(this).closest('.depth-1').find('form').slideDown(250);
+    });
+
 
 
    /* initialize
