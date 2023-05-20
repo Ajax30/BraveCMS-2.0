@@ -2,8 +2,7 @@
     @if (null == $comment->parent_id)
         <li class="depth-1 comment">
             <div class="comment__avatar">
-                <img class="avatar" src="{{ asset('images/avatars/' . $comment->user->avatar) }}" alt=""
-                    width="50" height="50">
+              <img class="avatar" src="{{ asset('images/avatars/' . $comment->user->avatar) }}" alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" width="50" height="50">
             </div>
             <div class="comment__content">
                 <div class="comment__info">

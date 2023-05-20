@@ -195,12 +195,16 @@ class ArticlesController extends FrontendController {
 		// Insert comment in the 'comments' table
 		$query = Comment::create( $comment );
 
-    if ( $query ) {
-			return redirect()->back()->with( 'success', 'Your comment is pending.' );
-		} else {
-			return redirect()->back()->with( 'error', 'Adding comment failed' );
+    if ($query) {
+			return redirect()->back()->with([
+        'success' => 'Your comment is pending.',
+        'success_comment_id' => $request->get('parent_id'),
+      ]);
 		}
 
+    if (!$query) {
+      return redirect()->back()->with( 'error', 'Adding comment failed' );
+    }
 	}
 
 }

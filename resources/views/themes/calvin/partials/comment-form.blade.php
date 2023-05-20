@@ -1,4 +1,4 @@
-@if (session('success'))
+@if (session('success') && session('success_comment_id') == ($comment->id ?? null))
     @include('themes/' .$theme_directory . '/partials/success')
 @endif
 
