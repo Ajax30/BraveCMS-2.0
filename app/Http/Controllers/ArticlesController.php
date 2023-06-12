@@ -152,7 +152,11 @@ class ArticlesController extends FrontendController {
 	 * @return object
 	 */
 	private function get_commentQuery( int $article_id, int $limit = 0, int $offset = 0 ): object {
-		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', $this->comments_orderby_direction );
+		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )
+        ->orderBy( 'id', $this->comments_orderby_direction )
+        ->with('replies', function($query){
+             $query->where('approved', 1);
+        });
 
 		if ( $offset > 0 ) {
 			$commentQuery = $commentQuery->offset( $offset );
