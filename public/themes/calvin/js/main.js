@@ -283,9 +283,6 @@
       }, 100);
     }
 
-      
-
-
    /* Back to Top
     * ------------------------------------------------------ */
     const ssBackToTop = function() {
@@ -309,7 +306,7 @@
     }; // end ssBackToTop
 
     // Show comment reply form
-    $('.comment-reply-link').on('click', function(){
+    $(document).on('click', '.comment-reply-link', function(event) { 
       $(this).closest('.depth-1').find('form').slideDown(250);
     });
 

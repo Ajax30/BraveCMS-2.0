@@ -122,19 +122,20 @@ class ArticlesController extends FrontendController {
 		}
 
 		$more_comments_to_display = TRUE;
-
-		$article_id  = $request->post( 'article_id' );
+    $article_id  = $request->post( 'article_id' );
 		$page_number = $request->post( 'page' );
 		$offset      = $this->comments_per_page * $page_number;
 
 		$data['comments'] = $this->get_commentQuery( $article_id, $this->comments_per_page, $offset )->get();
 		$content          = '';
-		if ( $data['comments']->count() ) {
+		if ($data['comments']->count()) {
 			$content .= view('themes/' . $this->theme_directory . '/partials/comments-list',
-                array_merge( $data, [
-                  'is_infinitescroll' => $this->is_infinitescroll
-                ])
-			);
+      array_merge( $data, [
+        'is_infinitescroll' => $this->is_infinitescroll,
+        'theme_directory' => $this->theme_directory,
+        'article_id' => $article_id
+      ])
+    );
 		} else {
 			$more_comments_to_display = FALSE;
 		}
