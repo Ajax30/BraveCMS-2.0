@@ -268,21 +268,6 @@
 
     }; // end ssSmoothScroll
 
-
-    // Scroll to form if there are errors
-    if ($(".with-errors, .with-success").length){
-      $("html, body").animate({ 
-        scrollTop: $('.with-errors, .with-success').offset().top - 20
-      }, 100);
-    }
-
-    // Scroll to comments form if there are alerts
-    if ($("#respond").find(".alert-box").length){
-      $("html, body").animate({ 
-        scrollTop: $('#respond').offset().top - 20
-      }, 100);
-    }
-
    /* Back to Top
     * ------------------------------------------------------ */
     const ssBackToTop = function() {
@@ -305,12 +290,41 @@
 
     }; // end ssBackToTop
 
+   // Scroll to top form if there are errors
+   if ($(".with-errors, .with-success").length){
+    $("html, body").animate({ 
+      scrollTop: $('.with-errors, .with-success').offset().top - 20
+    }, 100);
+  }
+
+  // Scroll to comments form if there are alerts
+  if ($("#respond").find(".alert-box").length){
+    $("html, body").animate({ 
+      scrollTop: $('#respond').offset().top - 20
+    }, 100);
+  }
+
     // Show comment reply form
     $(document).on('click', '.comment-reply-link', function(event) { 
       $(this).closest('.depth-1').find('form').slideDown(250);
     });
 
+    // Validate comment form
+    $(".commentForm").each(function(){
+      $(this).validate({
+        errorElement: 'p',
+        errorClass: "help-block text-danger"
+      });
+    });
 
+    function scrollToCommentAlertSuccess(){
+      // Scroll to comment alert
+      if ($("#alertSuccess").length){
+        $('html, body').animate({
+          scrollTop: $("#alertSuccess").offset().top - 20
+        }, 200);
+      }
+    }
 
    /* initialize
     * ------------------------------------------------------ */
@@ -325,6 +339,7 @@
         ssAlertBoxes();
         ssSmoothScroll();
         ssBackToTop();
+        scrollToCommentAlertSuccess();
 
     })();
 

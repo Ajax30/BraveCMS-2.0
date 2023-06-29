@@ -2,18 +2,14 @@
     @include('themes/' .$theme_directory . '/partials/success')
 @endif
 
-@if (session('error'))
-    @include('themes/' .$theme_directory . '/partials/errors')
-@endif
-
-<form method="post" action="{{ route('comment.submit') }}" autocomplete="off">
+<form class="commentForm" method="post" action="{{ route('comment.submit') }}" autocomplete="off">
   @csrf
     <fieldset>
       <input type="hidden" name="article_id" value="{{ isset($article->id) ? $article->id : $article_id }}">
       <input type="hidden" name="parent_id" value="{{ $comment->id ?? '' }}">
 
       <div class="message form-field">
-          <textarea name="msg" id="message" class="h-full-width" placeholder="Your Message"></textarea>
+          <textarea name="msg" id="message" class="h-full-width" placeholder="Your Message" required></textarea>
 
           @error('msg')
           <p class="help-block text-danger">{{ $message }}</p>
