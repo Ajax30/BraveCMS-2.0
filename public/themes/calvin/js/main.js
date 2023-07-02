@@ -311,20 +311,32 @@
 
     // Validate comment form
     $(".commentForm").each(function(){
-      $(this).validate({
+      var form = $(this);
+      form.validate({
         errorElement: 'p',
-        errorClass: "help-block text-danger"
+        errorClass: "help-block text-danger",
+
+        submitHandler: function(form) {
+          var $fields = form.find('textarea'),
+          url = form.attr('action'),
+          data = form.serialize();
+          $.ajax({
+            dataType: "json",
+            type: "post",
+            url: url,
+            data: data,
+            cache: false,
+            success: function(response) {
+              $('#commentSuccess').slideDown(250).delay(2500).slideUp(250);
+              $fields.val('');
+            },
+            error: function() {
+              $('#commentFail').slideDown(250).delay(2500).slideUp(250);
+            }
+          });
+        }
       });
     });
-
-    function scrollToCommentAlertSuccess(){
-      // Scroll to comment alert
-      if ($("#alertSuccess").length){
-        $('html, body').animate({
-          scrollTop: $("#alertSuccess").offset().top - 20
-        }, 200);
-      }
-    }
 
    /* initialize
     * ------------------------------------------------------ */
@@ -339,7 +351,6 @@
         ssAlertBoxes();
         ssSmoothScroll();
         ssBackToTop();
-        scrollToCommentAlertSuccess();
 
     })();
 
