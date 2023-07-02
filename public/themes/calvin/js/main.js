@@ -316,7 +316,8 @@
         errorElement: 'p',
         errorClass: "help-block text-danger",
 
-        submitHandler: function(form) {
+        submitHandler: function(event) {
+          event.preventDefault();
           var $fields = form.find('textarea'),
           url = form.attr('action'),
           data = form.serialize();
