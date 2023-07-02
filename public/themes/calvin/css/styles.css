@@ -2233,6 +2233,7 @@ select {
 
 textarea {
     min-height: 15rem;
+    position: relative !important;
 }
 
 input[type="email"]:focus, 
