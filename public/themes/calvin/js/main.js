@@ -316,7 +316,7 @@
         errorElement: 'p',
         errorClass: "help-block text-danger",
 
-        submitHandler: function(event) {
+        submitHandler: function(_form, event) { 
           event.preventDefault();
           var $fields = form.find('textarea'),
           url = form.attr('action'),
@@ -328,11 +328,11 @@
             data: data,
             cache: false,
             success: function(response) {
-              $('#commentSuccess').slideDown(250).delay(2500).slideUp(250);
+              $('#commentSuccess-' + data.article_id).slideDown(250).delay(2500).slideUp(250);
               $fields.val('');
             },
             error: function() {
-              $('#commentFail').slideDown(250).delay(2500).slideUp(250);
+              $('#commentFail-' + data.article_id).slideDown(250).delay(2500).slideUp(250);
             }
           });
         }

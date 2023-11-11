@@ -2,6 +2,14 @@
     @include('themes/' .$theme_directory . '/partials/success')
 @endif
 
+<div id="commentSuccess-{{ $comment->id ?? '' }}" class="alert-box-ajax alert-box alert-box--success">
+  Your comment is pending
+</div>
+
+<div id="commentFail-{{ $comment->id ?? '' }}" class="alert-box-ajax alert-box alert-box--error">
+  Failed to add comment!
+</div>
+
 <form class="commentForm" method="post" action="{{ route('comment.submit') }}" autocomplete="off">
   @csrf
     <fieldset>

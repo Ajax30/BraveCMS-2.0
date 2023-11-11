@@ -2826,6 +2826,10 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     transition: all .5s;
 }
 
+.alert-box-ajax {
+  display: none;
+}
+
 /* -------------------------------------------------------------------
  * ## pagination
  * ------------------------------------------------------------------- */
