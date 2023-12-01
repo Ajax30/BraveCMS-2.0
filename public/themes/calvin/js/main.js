@@ -299,7 +299,7 @@
         $(this).closest(".depth-1").find("form").slideDown(250);
     });
 
-    // Validate comment form
+    // Validate comment form  
     $(".commentForm").each(function () {
         var form = $(this);
         form.validate({
@@ -334,7 +334,7 @@
             },
         });
     });
-    /* initialize
+    /* initialize 
      * ------------------------------------------------------ */
     (function ssInit() {
         ssPreloader();
