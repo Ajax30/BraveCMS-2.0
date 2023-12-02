@@ -317,18 +317,22 @@
                     url: url,
                     data: data,
                     cache: false,
-                    success: function () {
-                      form.closest(".form-wrapper").find(".alert-box--success").slideDown(250).delay(2500).slideUp(250)
+                    success: function (response) {
+                      if (response.status === 'success') {
+                        form.closest(".form-wrapper").find(".alert-box--success").slideDown(250).delay(2500).slideUp(250)
                             .slideDown(250)
                             .delay(2500)
                             .slideUp(250);
                       $fields.val("");
-                    },
-                    error: function () {    
-                      form.closest(".form-wrapper").find(".alert-box--error").slideDown(250).delay(2500).slideUp(250)
+                      } else {
+                        form.closest(".form-wrapper").find(".alert-box--error").slideDown(250).delay(2500).slideUp(250)
                             .slideDown(250)
                             .delay(2500)
                             .slideUp(250);
+                      }
+                    },
+                    error: function (err) {    
+                      console.log(err);
                     },
                 });
             },

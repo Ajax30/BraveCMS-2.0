@@ -201,14 +201,30 @@ class ArticlesController extends FrontendController {
 		$query = Comment::create( $comment );
 
     if ($query) {
-			return redirect()->back()->with([
-        'success' => 'Your comment is pending.',
-        'success_comment_id' => $request->get('parent_id'),
+			if ($request->expectsJson()) {
+        return response()->json([
+          'status'    => 'success',
+          'message'   => 'Your comment is pending.'
       ]);
+      } else {
+        return redirect()->back()->with([
+          'success' => 'Your comment is pending.',
+          'success_comment_id' => $request->get('parent_id'),
+        ]);
+      }
+      
 		}
 
     if (!$query) {
-      return redirect()->back()->with( 'error', 'Adding comment failed' );
+      if ($request->expectsJson()) {
+        return response()->json([
+          'status'    => 'fail',
+          'message'   => 'Adding comment failed.'
+      ]);
+      } else {
+        return redirect()->back()->with('error', 'Adding comment failed.');
+      }
+      
     }
 	}
 
