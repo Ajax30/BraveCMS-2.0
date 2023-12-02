@@ -85,7 +85,7 @@ class ArticlesController extends FrontendController {
 		$commentsQuery  = $this->get_commentQuery( $article->id );
 		$comments_count = $commentsQuery->count();
 
-		// If infinite scroll, paginate comments (to be loaded one pege per scroll),
+		// If infinite scroll, paginate comments (to be loaded one page per scroll),
     // Else show them all 
 
 		if (boolval($this->is_infinitescroll)) {
@@ -118,26 +118,24 @@ class ArticlesController extends FrontendController {
 	 */
 	public function get_comments_ajax( Request $request ) {
 		if ( ! $request->ajax() ) {
-			// Redirect to Home Page or just BOMB OUT!
 			exit();
 		}
 
 		$more_comments_to_display = TRUE;
-
-		/** @todo - 5 - This should\could be a setting */
-
-		$article_id  = $request->post( 'article_id' );
+    $article_id  = $request->post( 'article_id' );
 		$page_number = $request->post( 'page' );
 		$offset      = $this->comments_per_page * $page_number;
 
 		$data['comments'] = $this->get_commentQuery( $article_id, $this->comments_per_page, $offset )->get();
 		$content          = '';
-		if ( $data['comments']->count() ) {
+		if ($data['comments']->count()) {
 			$content .= view('themes/' . $this->theme_directory . '/partials/comments-list',
-                array_merge( $data, [
-                  'is_infinitescroll' => $this->is_infinitescroll
-                ])
-			);
+      array_merge( $data, [
+        'is_infinitescroll' => $this->is_infinitescroll,
+        'theme_directory' => $this->theme_directory,
+        'article_id' => $article_id
+      ])
+    );
 		} else {
 			$more_comments_to_display = FALSE;
 		}
@@ -155,7 +153,12 @@ class ArticlesController extends FrontendController {
 	 * @return object
 	 */
 	private function get_commentQuery( int $article_id, int $limit = 0, int $offset = 0 ): object {
-		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )->orderBy( 'id', $this->comments_orderby_direction );
+		$commentQuery = Comment::where( [ 'article_id' => $article_id, 'approved' => 1 ] )
+        ->orderBy( 'id', $this->comments_orderby_direction )
+        ->with('replies', function($query){
+             $query->where('approved', 1);
+        });
+
 		if ( $offset > 0 ) {
 			$commentQuery = $commentQuery->offset( $offset );
 		}
@@ -189,6 +192,7 @@ class ArticlesController extends FrontendController {
 		$comment = [
 			'user_id'    => Auth::user()->id,
 			'article_id' => $request->get( 'article_id' ),
+      'parent_id' => $request->get( 'parent_id' ),
 			'body'       => $fields['msg'],
 			'approved'   => 0
 		];
@@ -196,11 +200,32 @@ class ArticlesController extends FrontendController {
 		// Insert comment in the 'comments' table
 		$query = Comment::create( $comment );
 
-		if ( $query ) {
-			return redirect()->back()->with( 'success', 'Your comment is pending.' );
-		} else {
-			return redirect()->back()->with( 'error', 'Adding comment failed' );
+    if ($query) {
+			if ($request->expectsJson()) {
+        return response()->json([
+          'status'    => 'success',
+          'message'   => 'Your comment is pending.'
+      ]);
+      } else {
+        return redirect()->back()->with([
+          'success' => 'Your comment is pending.',
+          'success_comment_id' => $request->get('parent_id'),
+        ]);
+      }
+      
 		}
+
+    if (!$query) {
+      if ($request->expectsJson()) {
+        return response()->json([
+          'status'    => 'fail',
+          'message'   => 'Adding comment failed.'
+      ]);
+      } else {
+        return redirect()->back()->with('error', 'Adding comment failed.');
+      }
+      
+    }
 	}
 
 }
