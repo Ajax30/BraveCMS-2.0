@@ -56,9 +56,9 @@
 <script src="{{ asset('themes/' . $theme_directory . '/js/jquery-3.5.0.min.js') }}"></script>
 <script src="{{ asset('themes/' . $theme_directory . '/js/plugins.js') }}"></script>
 <script src="{{ asset('themes/' . $theme_directory . '/js/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('themes/' . $theme_directory . '/js/main.js') }}"></script>
 <script src="{{ asset('themes/' . $theme_directory . '/js/newsletter.js') }}"></script>
-@yield('custom_js_files')
+@yield('custom_js_files') 
+<script src="{{ asset('themes/' . $theme_directory . '/js/main.js') }}"></script>
 @if (boolval($is_cookieconsent))
   @include('partials/cookieconsent')
 @endif
