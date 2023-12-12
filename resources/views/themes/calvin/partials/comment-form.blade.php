@@ -11,7 +11,7 @@
     Failed to add comment!
   </div>
 
-  <form class="commentForm" method="post" action="{{ route('comment.submit') }}" autocomplete="off">
+  <form class="commentForm" method="post" action="{{ route('comment.submit') }}" autocomplete="off" novalidate >
     @csrf
       <fieldset>
         <input type="hidden" name="article_id" value="{{ isset($article->id) ? $article->id : $article_id }}">

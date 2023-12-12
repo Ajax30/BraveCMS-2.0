@@ -304,6 +304,22 @@
     event.preventDefault();
 
     var form = $(this);
+    form.validate({
+      errorElement: "p",
+      errorClass: "help-block text-danger",
+      rules: {
+        msg: "required",
+      },
+      messages: {
+        msg: "Enter a comment",
+      }
+    });
+
+    // Check if the form is valid
+    if (!form.valid()) {
+      return;
+    }
+
     var $fields = form.find("textarea"),
       url = form.attr("action"),
       data = form.serialize();
