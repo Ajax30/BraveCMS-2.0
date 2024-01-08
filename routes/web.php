@@ -25,8 +25,9 @@ Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('au
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');
 
-// Add comments
+// Comments
 Route::post('/comment/submit', [ArticlesController::class, 'add_comment'])->name('comment.submit');
+Route::post('/comment/delete/{id}', [ArticlesController::class, 'delete_comment'])->name('comment.delete');
 
 // Page routes
 Route::get('/page/{id}', [PagesController::class, 'page'])->name('page');

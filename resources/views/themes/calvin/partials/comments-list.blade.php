@@ -2,7 +2,8 @@
     @if (null == $comment->parent_id)
         <li class="depth-1 comment">
             <div class="comment__avatar">
-              <img class="avatar" src="{{ asset('images/avatars/' . $comment->user->avatar) }}" alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" width="50" height="50">
+                <img class="avatar" src="{{ asset('images/avatars/' . $comment->user->avatar) }}"
+                    alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" width="50" height="50">
             </div>
             <div class="comment__content">
                 <div class="comment__info">
@@ -10,9 +11,22 @@
                     <div class="comment__meta">
                         <div class="comment__time">{{ date('jS M Y', strtotime($comment->created_at)) }}</div>
                         @auth
-                          <div class="comment__reply">
-                              <a class="comment-reply-link" href="#0">Reply</a>
-                          </div>
+                            <div class="comment__reply">
+                                <a class="comment-reply-link" href="#0">
+                                    <i class="fa fa-comment"></i>
+                                    Reply
+                                </a>
+                                @if ($comment->user->id == Auth::user()->id)
+                                    <form class="commentDeleteForm" onsubmit="return confirm('Delete this comment?')"
+                                        method="post" action="{{ route('comment.delete', $comment->id) }}" novalidate>
+                                        @csrf
+                                        <button type="submit" class="comment-delete-btn">
+                                            <i class="fa fa-trash"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         @endauth
                     </div>
                 </div>
@@ -42,6 +56,21 @@
                                     <div class="comment__meta">
                                         <div class="comment__time">{{ date('jS M Y', strtotime($reply->created_at)) }}
                                         </div>
+                                        @auth
+                                            <div class="comment__reply">
+                                                @if ($reply->user->id == Auth::user()->id)
+                                                    <form class="commentDeleteForm"
+                                                        onsubmit="return confirm('Delete this comment?')" method="post"
+                                                        action="{{ route('comment.delete', $reply->id) }}" novalidate>
+                                                        @csrf
+                                                        <button type="submit" class="comment-delete-btn">
+                                                            <i class="fa fa-trash"></i>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        @endauth
                                     </div>
                                 </div>
                                 <div class="comment__text">

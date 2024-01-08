@@ -228,4 +228,14 @@ class ArticlesController extends FrontendController {
     }
 	}
 
+  public function delete_comment($id) {
+    $comment = Comment::find($id);
+
+    if($comment->user_id === auth()->user()->id) {
+      $comment->replies()->delete();
+      $comment->delete();
+      return redirect()->back()->with('success', 'The comment was deleted');
+    }
+	}
+
 }

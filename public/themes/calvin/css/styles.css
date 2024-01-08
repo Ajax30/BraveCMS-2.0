@@ -5047,6 +5047,28 @@ body.search-is-visible {
   display: none;
 }
 
+.commentlist form.commentDeleteForm {
+  display: inline-block;
+  background: transparent;
+  margin: 0;
+}
+
+.comment__meta .comment__reply a,
+.comment__meta .comment__reply .comment-delete-btn {
+  font-size: var(--text-xs);
+  font-family: var(--font-1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: var(--color-text-light);
+  padding: 2px 3px;
+  background: transparent;
+  margin: 0;
+  border: none;
+  height: 22px;
+  line-height: 22px;
+}
+
 .comment__avatar {
     position: absolute;
     left: 0;
@@ -5089,15 +5111,6 @@ body.search-is-visible {
     text-transform: uppercase;
     letter-spacing: .1rem;
     color: var(--color-text-light);
-}
-
-.comment__meta .comment__reply a {
-    font-size: var(--text-xs);
-    font-family: var(--font-1);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .2rem;
-    color: black;
 }
 
 .comment__text {
