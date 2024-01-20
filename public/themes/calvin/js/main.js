@@ -296,7 +296,13 @@
 
   // Show comment reply form
   $(document).on("click", ".comment-reply-link", function () {
-    $(this).closest(".depth-1").find("form").slideDown(250);
+    $(this).closest(".depth-1").find(".commentForm").slideDown(250);
+  });
+
+  $(document).on("click", ".comment-edit-link", function () {
+    var container = $(this).closest(".depth-1");
+    container.find(".commentEditForm").slideDown(250);
+    container.find(".comment__text").slideUp(250);
   });
 
   // Submit forms  

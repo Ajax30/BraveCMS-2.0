@@ -19,7 +19,7 @@ class ArticlesController extends FrontendController
   protected $comments_per_page = 10;
   /** @todo -10- Do Need to check this is set correctly to 'asc' or 'desc'
    * This will be picked during development if we make a typo     */
-  protected $comments_orderby_direction = 'asc'; // Can be either asc or desc.
+  protected $comments_orderby_direction = 'desc'; // Can be either asc or desc.
 
   public function index(Request $request)
   {
@@ -237,6 +237,16 @@ class ArticlesController extends FrontendController
         return redirect()->back()->with('error', 'Adding comment failed.');
       }
     }
+  }
+
+  public function update_comment(Request $request, $id) {
+    $comment = Comment::find($id);
+
+    if ($comment->user_id === auth()->user()->id) {
+      $comment->body = $request->get('msg');
+      $comment->save();
+      return redirect()->back()->with('success', 'The comment was updated.');
+    } 
   }
 
   public function delete_comment($id)

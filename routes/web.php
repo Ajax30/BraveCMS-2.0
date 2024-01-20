@@ -27,6 +27,7 @@ Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])-
 
 // Comments
 Route::post('/comment/submit', [ArticlesController::class, 'add_comment'])->name('comment.submit');
+Route::post('/comment/update/{id}', [ArticlesController::class, 'update_comment'])->name('comment.update');
 Route::post('/comment/delete/{id}', [ArticlesController::class, 'delete_comment'])->name('comment.delete');
 
 // Page routes
