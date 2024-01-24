@@ -245,7 +245,16 @@ class ArticlesController extends FrontendController
     if ($comment->user_id === auth()->user()->id) {
       $comment->body = $request->get('msg');
       $comment->save();
-      return redirect()->back()->with('success', 'The comment was updated.');
+      
+      if ($request->expectsJson()) {
+        return response()->json([
+          'status'    => 'success',
+          'message'   => 'The comment was updated.'
+        ]);
+      } else {
+        return redirect()->back()->with('success', 'The comment was updated.');
+      }
+      
     } 
   }
 
