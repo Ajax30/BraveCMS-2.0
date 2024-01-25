@@ -346,7 +346,7 @@
 
             if (form.hasClass('commentEditForm')) {
               form.slideUp();
-              form.closest(".depth-1").find(".comment__text").slideDown();
+              form.closest(".depth-1").find(".comment__text").text(response.body).slideDown();
             }
 
         } else {

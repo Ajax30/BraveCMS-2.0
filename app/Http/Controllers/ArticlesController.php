@@ -249,7 +249,8 @@ class ArticlesController extends FrontendController
       if ($request->expectsJson()) {
         return response()->json([
           'status'    => 'success',
-          'message'   => 'The comment was updated.'
+          'message'   => 'The comment was updated.',
+          'body'=>$request->get('msg')
         ]);
       } else {
         return redirect()->back()->with('success', 'The comment was updated.');

@@ -2737,7 +2737,7 @@
   * ------------------------------------------------------------------- */
   .alert-box {
       padding: var(--vspace-0_75) 4rem var(--vspace-0_75) 3.2rem;
-      margin-bottom: var(--vspace-1);
+      margin-bottom: var(--vspace-0_5);
       border-radius: 4px;
       font-family: var(--font-1);
       font-weight: 500;

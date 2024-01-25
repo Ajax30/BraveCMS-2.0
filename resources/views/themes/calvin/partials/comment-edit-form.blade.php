@@ -3,9 +3,6 @@
 @endif
 
 <div class="form-wrapper">
-  <div class="h-text-center alert-box-ajax alert-box alert-box--success">
-    The comment was updated. Refresh the page to see the changes.
-  </div>
 
   <form class="commentEditForm" method="post" action="{{ route('comment.update', $commentOrReply->id) }}" autocomplete="off" novalidate> 
     @csrf
