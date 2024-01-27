@@ -3,13 +3,13 @@
 @endif
 
 <div class="form-wrapper">
-  <div class="alert-box-ajax alert-box alert-box--success">
+  <div class="h-text-center alert-box-ajax alert-box alert-box--success">
     Your comment is pending
   </div>
 
-  <div class="alert-box-ajax alert-box alert-box--error">
+  <div class="h-text-center alert-box-ajax alert-box alert-box--error">
     Failed to add comment!
-  </div>
+  </div>  
 
   <form class="commentForm" method="post" action="{{ route('comment.submit') }}" autocomplete="off" novalidate >
     @csrf

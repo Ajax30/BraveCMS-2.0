@@ -1,45 +1,52 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 
 class CommentController extends Controller
 {
-  
-	public function index() {
-		// Total number of comments
-		$comments_count =  Comment::count();
 
-		// Comments per page
-		$per_page = 10;
+  public function index()
+  {
+    // Total number of comments
+    $comments_count =  Comment::count();
 
-		// The comments
-		$comments = Comment::orderBy('id', 'desc')->paginate($per_page)->onEachSide(1);
+    // Comments per page
+    $per_page = 10;
 
-		return view('dashboard/article-comments',
-			[
-				'per_page' => $per_page,
-				'current_page' => $comments->currentPage(),
-				'comments' => $comments,
-				'comments_count' => $comments_count
-			]
-		);
-	}
+    // The comments
+    $comments = Comment::orderBy('id', 'desc')->paginate($per_page)->onEachSide(1);
 
-	public function delete($id) {
-		Comment::find($id)->delete();
-		return redirect()->back()->with('success', 'The comment was deleted');
-	}
+    return view(
+      'dashboard/article-comments',
+      [
+        'per_page' => $per_page,
+        'current_page' => $comments->currentPage(),
+        'comments' => $comments,
+        'comments_count' => $comments_count
+      ]
+    );
+  }
 
-  public function approve($id) {
-		Comment::find($id)->update(['approved' => 1]);
-		return redirect()->back()->with('success', 'The comment was approved');
-	}
+  public function delete($id)
+  {
+    $comment = Comment::find($id);
+    $comment->replies()->delete();
+    $comment->delete();
+    return redirect()->back()->with('success', 'The comment was deleted');
+  }
 
-  public function unapprove($id) {
-		Comment::find($id)->update(['approved' => 0]);
-		return redirect()->back()->with('success', 'The comment was unapproved');
-	}
+  public function approve($id)
+  {
+    Comment::find($id)->update(['approved' => 1]);
+    return redirect()->back()->with('success', 'The comment was approved');
+  }
 
+  public function unapprove($id)
+  {
+    Comment::find($id)->update(['approved' => 0]);
+    return redirect()->back()->with('success', 'The comment was unapproved');
+  }
 }
