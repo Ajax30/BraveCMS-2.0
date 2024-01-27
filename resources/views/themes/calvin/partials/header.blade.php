@@ -28,6 +28,8 @@
       <script src="{{ asset('lib/cookieconsent/js/cookieconsent.min.js') }}"></script>
     @endif
 
+    <script src="{{ asset('js/share-buttons.js') }}"></script>
+
     <!-- favicons
     ================================================== -->
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
