@@ -13,7 +13,7 @@
                     </div>
                     <!-- end s-content__media -->
                     <div class="s-content__entry-header">
-                        <h1 class="s-content__title s-content__title--post">
+                        <h1 class="article-title s-content__title s-content__title--post">
                             {{ $article->title }}
                         </h1>
                     </div>
@@ -21,7 +21,10 @@
                     <div class="s-content__primary">
                         <div class="s-content__entry-content">
                             {!! $article->content !!}
+
+                            @include('themes/' . $theme_directory . '/partials/share')
                         </div>
+
                         <!-- end s-entry__entry-content -->
                         <div class="s-content__entry-meta">
                             <div class="entry-author meta-blk">
