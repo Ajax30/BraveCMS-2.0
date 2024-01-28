@@ -2574,7 +2574,6 @@ input::-moz-focus-inner {
 .social-buttons .btn {
     color: #fff !important;
     white-space: nowrap;
-    border-radius: 4px;
     border-color: inherit;
     font-size: var(--text-sm);
     margin: 0;
