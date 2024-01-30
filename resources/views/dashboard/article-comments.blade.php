@@ -3,8 +3,14 @@
 @section('content')
 	<div class="card shadow-sm">
 		<div class="card-header d-flex justify-content-between px-2">
-			<span class="align-self-center">{{ __('Comments') }}</span>
-			</a>
+			<span class="align-self-center position-relative">
+        @if ($unapproved_comments_count > 0)
+          <span class="count-bubble">{{ $unapproved_comments_count <= 9 ? $unapproved_comments_count : '9+' }}</span>
+        @endif
+        {{ __('Comments') }}
+      </span>
+
+      @include('partials.comments-fillter')
 		</div>
 		<div class="card-body p-0">
 			<div class="table-responsive">
