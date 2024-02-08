@@ -244,6 +244,7 @@ class ArticlesController extends FrontendController
 
     if ($comment->user_id === auth()->user()->id) {
       $comment->body = $request->get('msg');
+      $comment->approved = 0;
       $comment->save();
       
       if ($request->expectsJson()) {
