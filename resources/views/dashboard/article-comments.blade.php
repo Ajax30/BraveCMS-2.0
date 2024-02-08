@@ -6,7 +6,7 @@
 			<span class="align-self-center position-relative">
         @if ($unapproved_comments_count > 0)
           <i class="bell-icon fa-regular fa-bell"></i>
-          <span class="count-bubble">{{ $unapproved_comments_count <= 9 ? $unapproved_comments_count : '9+' }}</span>
+          <span class="count-bubble" title="{{ $unapproved_comments_count }} comments waiting for approval">{{ $unapproved_comments_count <= 9 ? $unapproved_comments_count : '9+' }}</span>
         @endif
         {{ __('Comments') }}
       </span>
