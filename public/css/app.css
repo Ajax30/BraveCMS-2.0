@@ -19908,6 +19908,13 @@ label {
   justify-content: center;
 }
 
+.bell-icon {
+  position: absolute;
+  top: -3px;
+  right: -24px;
+  font-size: 20px;
+}
+
 .sidebar {
   overflow: hidden;
 }
