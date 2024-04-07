@@ -8,11 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ArticleController extends Controller
 {
 	
-	private $rules = [
+  private $rules = [
 		'category_id' => 'required|exists:article_categories,id',
 		'title' => 'required|string|max:190',
 		'short_description' => 'required|string|max:190',
@@ -72,6 +73,27 @@ class ArticleController extends Controller
 		);
 	}
 
+  public function ckupload(Request $request)
+  {
+      if ($request->hasFile('upload')) {
+        $originName = $request->file('upload')->getClientOriginalName();
+        $fileName = pathinfo($originName, PATHINFO_FILENAME);
+        $extension = $request->file('upload')->getClientOriginalExtension();
+        $fileName = md5(time()) . Auth::user()->id . '.' . $extension;
+        $path = public_path('images/articles');
+        $fileName = $request->file('upload')->move($path, $fileName)->getFilename();
+
+        $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+        $url = asset('images/articles/' . $fileName);
+        $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url')</script>";
+
+        @header('Content-type: text/html; charset=utf-8');
+        echo $response;
+      }
+
+      return false;
+  }
+
 	public function save(Request $request) {
 		// Validate form (with custom messages)
 		$validator = Validator::make($request->all(), $this->rules, $this->messages);
@@ -83,10 +105,9 @@ class ArticleController extends Controller
 		$fields = $validator->validated();
 
 		// Upload article image
-		$current_user = Auth::user();
 
 		if (isset($request->image)) {
-			$imageName = md5(time()) . $current_user->id . '.' . $request->image->extension();
+			$imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
 			$request->image->move(public_path('images/articles'), $imageName);
 		}
 

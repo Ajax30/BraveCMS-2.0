@@ -34,7 +34,7 @@
 									<td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
 									<td class="text-end">
 										<div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
-											<a href="#" class="btn btn-primary">
+											<a href="{{ route('show', [$article->slug]) }}" class="btn btn-primary">
 												<i class="fa-solid fa-eye"></i> View
 											</a>
 											<a href="{{ route('dashboard.articles.edit', [$article->id]) }}" class="btn btn-primary">

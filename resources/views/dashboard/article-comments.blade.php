@@ -34,7 +34,7 @@
 							<td>{{ $comment->body }}</td>
 							<td>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
 							<td>
-                <a href="{{ url('/show/' . $comment->article->slug) }}" class="text-decoration-none" target="_black">
+                <a href="{{ route('show', [$comment->article->slug]) }}" class="text-decoration-none" target="_black">
                   {{ $comment->article->title }}
                 </a>
               </td>

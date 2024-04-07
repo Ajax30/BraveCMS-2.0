@@ -77,6 +77,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function() {
 		Route::get('/', [ArticleController::class, 'index'])->name('dashboard.articles')->middleware('checkUserPermissions:view-articles');
 		Route::get('/new', [ArticleController::class, 'create'])->name('dashboard.articles.new')->middleware('checkUserPermissions:add-articles');
 		Route::post('/add', [ArticleController::class, 'save'])->name('dashboard.articles.add');
+    Route::post('/ckupload', [ArticleController::class, 'ckupload'])->name('dashboard.articles.ckupload');
 		Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit')->middleware('checkUserPermissions:edit-articles');
 		Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
 		Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete')->middleware('checkUserPermissions:delete-articles');
