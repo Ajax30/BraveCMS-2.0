@@ -93,7 +93,6 @@ class ArticleController extends Controller
       $url = asset('images/articles/' . $fileName);
       $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url')</script>";
 
-      @header('Content-type: text/html; charset=utf-8');
       echo $response;
     }
 
