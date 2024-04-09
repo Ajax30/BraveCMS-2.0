@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="byline">
                                     <span class="bytext">Posted By</span>
-                                    <a href="#0">
+                                    <a href="{{ url('/author/' . $article->user->id) }}">
                                         {{ $article->user->first_name }} {{ $article->user->last_name }}
                                     </a>
                                 </div>
