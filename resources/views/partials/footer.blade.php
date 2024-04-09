@@ -8,7 +8,7 @@
 		@if(request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit', 'dashboard.pages.new', 'dashboard.pages.edit']))
 			<script>
         CKEDITOR.replace('content', {
-          filebrowserUploadUrl: "{{route('dashboard.articles.ckupload').'?_token='.csrf_token()}}",
+          filebrowserUploadUrl: "{{ route('dashboard.ckupload').'?_token='.csrf_token() }}",
           filebrowserUploadMethod: 'form'
         });
         CKEDITOR.on("instanceReady", function(event) {
