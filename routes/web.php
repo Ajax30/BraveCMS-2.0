@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\CkEditorController;
 use App\Http\Controllers\Dashboard\UserRightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\PageController;
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::post('/update', [SettingsController::class, 'update'])->name('dashboard.settings.update');
   });
 
+  Route::post('/ckupload', [CkEditorController::class, 'ckupload'])->name('dashboard.ckupload');
+
   // Pages routes
   Route::group(['prefix' => 'pages'], function () {
     Route::get('/', [PageController::class, 'index'])->name('dashboard.pages')->middleware('checkUserPermissions:view-pages');
@@ -78,7 +81,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/', [ArticleController::class, 'index'])->name('dashboard.articles')->middleware('checkUserPermissions:view-articles');
     Route::get('/new', [ArticleController::class, 'create'])->name('dashboard.articles.new')->middleware('checkUserPermissions:add-articles');
     Route::post('/add', [ArticleController::class, 'save'])->name('dashboard.articles.add');
-    Route::post('/ckupload', [ArticleController::class, 'ckupload'])->name('dashboard.articles.ckupload');
     Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit')->middleware('checkUserPermissions:edit-articles');
     Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
     Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete')->middleware('checkUserPermissions:delete-articles');
