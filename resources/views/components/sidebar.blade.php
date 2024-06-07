@@ -4,25 +4,33 @@
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.pages*') ? 'active' : '' }}" href="{{ route('dashboard.pages') }}">
-					Pages
+					<span>
+            <i class="far fa-file-alt pe-1"></i> Pages
+          </span>
 					<span class="badge">{{ $page_count }}</span>
 				</a>
-			</li>
+			</li> 
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.articles*') ? 'active' : '' }}" href="{{ route('dashboard.articles') }}">
-					Articles
+					<span>
+            <i class="far fa-newspaper pe-1"></i> Articles
+          </span>
 					<span class="badge">{{ $article_count }}</span>
 				</a>
 			</li>
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}" href="{{ route('dashboard.categories') }}">
-					Categories
+					<span>
+            <i class="far fa-list-alt pe-1"></i> Categories
+          </span>
 					<span class="badge">{{ $category_count }}</span>
 				</a>
 			</li>
 			<li class="list-group-item">
 				<a class="{{ request()->routeIs('dashboard.comments*') ? 'active' : '' }}" href="{{ route('dashboard.comments') }}">
-					Comments
+					<span>
+            <i class="far fa-comments pe-1"></i> Comments
+          </span>
 					<span class="badge">{{ $comments_count }}</span>
 				</a>
 			</li>
