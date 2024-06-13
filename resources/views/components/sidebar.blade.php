@@ -1,5 +1,5 @@
 <div class="sidebar card shadow-sm">
-	<div class="card-header px-2">{{ __('Sidebar') }}</div>
+	<div class="card-header px-2">{{ __('Menu') }}</div>
 	<div class="card-body p-0">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item">
