@@ -19930,6 +19930,7 @@ label {
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .sidebar .list-group-item a.active {
   color: rgba(0, 0, 0, 0.9);
