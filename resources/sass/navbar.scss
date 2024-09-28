@@ -1,6 +1,11 @@
 .navbar-brand {
   padding-top: 0;
   padding-bottom: 0;
+
+  img {
+    height: 32px;
+    width: auto;
+  }
 }
 
 .navbar-toggler {

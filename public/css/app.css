@@ -19694,6 +19694,10 @@ textarea.form-control-lg {
   padding-top: 0;
   padding-bottom: 0;
 }
+.navbar-brand img {
+  height: 32px;
+  width: auto;
+}
 
 .navbar-toggler {
   background-color: #f8fafc;
