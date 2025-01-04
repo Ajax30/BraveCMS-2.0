@@ -13,6 +13,10 @@
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Share meta
+    ================================================== -->
+    <meta property="og:image" content="{{ asset('images/articles/' . $article->image) }}" />
+
     <!-- CSS
     ================================================== -->
     <link href="{{ asset('themes/' . $theme_directory . '/css/vendor.css') }}" rel="stylesheet">
