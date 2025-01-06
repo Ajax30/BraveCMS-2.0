@@ -53,19 +53,21 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'password_confirmation' => ['required', 'same:password', 'min:6'],
+            'password' => ['required', 'string', 'min:6', 'confirmed', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/'],
+            'password_confirmation' => ['required', 'same:password'],
             'accept' => ['accepted'],
         ];
 
         $messages = [
-            'first_name.required' => 'The "First name" field is required',
-            'last_name.required' => 'The "Last name" field is required',
-            'email.required' => 'Please provide a valid email address',
-            'email.email' => 'The email address you provided is not valid',
-            'email.unique' => 'The email address you provided is already in use',
+            'first_name.required' => 'The "First name" field is required.',
+            'last_name.required' => 'The "Last name" field is required.',
+            'email.required' => 'Please provide a valid email address.',
+            'email.email' => 'The email address you provided is not valid.',
+            'email.unique' => 'The email address you provided is already in use.',
             'password.required' => 'A password is required',
-            'accept.required' => 'You must accept the Terms & conditions of service'
+            'password.min' => 'The password must have at least :min characters.',
+            'password.regex' => 'Include uppercase and lowercase letters, at least one number and one symbol (special character).',
+            'accept.required' => 'You must accept the Terms & conditions of service.'
         ];
         
         return Validator::make($data, $rules, $messages);
