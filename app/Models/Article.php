@@ -29,4 +29,10 @@ class Article extends Model
 		public function category() {
 			return $this->belongsTo(ArticleCategory::class);
 		}
+
+    // Add tags to post 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->as('tags');
+    }
 }

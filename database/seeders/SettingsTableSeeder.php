@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Settings;
-use Illuminate\Support\Facades\Schema;
 
 class SettingsTableSeeder extends Seeder
 {
