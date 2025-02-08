@@ -15,7 +15,10 @@
 
     <!-- Share meta
     ================================================== -->
-    <meta property="og:image" content="{{ asset('images/articles/' . $article->image) }}" />
+
+    @if(isset($article))
+      <meta property="og:image" content="{{ asset('images/articles/' . $article->image) }}" />
+    @endif
 
     <!-- CSS
     ================================================== -->
