@@ -53,7 +53,7 @@
                                   <span class="tagtext">Tags</span>
 
                                   @foreach ($article->tags as $tag)
-                                    <a href="#">{{ $tag->name }}</a>
+                                    <a href="{{ url('/tag/' . $tag->id) }}">{{ $tag->name }}</a>
                                   @endforeach
                                 </div>
                             </div>

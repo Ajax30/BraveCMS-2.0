@@ -1,7 +1,21 @@
 @extends('themes/' .$theme_directory . '/layout')
 
 @section('hero')
-	@if (!isset($category) && !isset($author))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@if (!isset($category) && !isset($author) && !isset($tag))
 		@include('themes/' . $theme_directory . '/partials/hero')
 	@endif
 @endsection

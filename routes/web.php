@@ -23,6 +23,7 @@ Route::get('/install', [InstallController::class, 'index']);
 // Article routes
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
 Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->name('category');
+Route::get('/tag/{tag_id}', [ArticlesController::class, 'tag'])->name('tag');
 Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');

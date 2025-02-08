@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Settings;
 use App\Models\ArticleCategory;
+use App\Models\Tag;
 use App\Models\Article;
 use App\Models\Comment;
 
@@ -59,6 +61,8 @@ class ArticlesController extends FrontendController
     $category = ArticleCategory::firstWhere('id', $category_id);
     $articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
+    //dd($articles);
+
     return view(
       'themes/' . $this->theme_directory . '/templates/index',
       array_merge($this->data, [
@@ -77,6 +81,22 @@ class ArticlesController extends FrontendController
       'themes/' . $this->theme_directory . '/templates/index',
       array_merge($this->data, [
         'author'   => $author,
+        'articles' => $articles
+      ])
+    );
+  }
+
+  public function tag($tag_id)
+  {
+    $tag   = Tag::firstWhere('id', $tag_id);
+    $articles = Article::whereHas('tags', function (Builder $query) use ($tag) {
+      $query->where('id', $tag->id);
+    })->orderBy('id', 'desc')->paginate($this->per_page);
+
+    return view(
+      'themes/' . $this->theme_directory . '/templates/index',
+      array_merge($this->data, [
+        'tag'   => $tag,
         'articles' => $articles
       ])
     );
@@ -239,25 +259,25 @@ class ArticlesController extends FrontendController
     }
   }
 
-  public function update_comment(Request $request, $id) {
+  public function update_comment(Request $request, $id)
+  {
     $comment = Comment::find($id);
 
     if ($comment->user_id === auth()->user()->id) {
       $comment->body = $request->get('msg');
       $comment->approved = 0;
       $comment->save();
-      
+
       if ($request->expectsJson()) {
         return response()->json([
           'status'    => 'success',
           'message'   => 'The comment was updated.',
-          'body'=>$request->get('msg')
+          'body' => $request->get('msg')
         ]);
       } else {
         return redirect()->back()->with('success', 'The comment was updated.');
       }
-      
-    } 
+    }
   }
 
   public function delete_comment($id)
