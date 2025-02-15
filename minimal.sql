@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 14, 2023 at 09:12 PM
+-- Generation Time: Feb 15, 2025 at 04:46 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -67,8 +67,22 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
 --
 
 INSERT INTO `article_categories` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Uncategorised', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(2, 2, 'Sports', '2023-01-13 19:58:44', '2023-01-13 19:58:44');
+(1, 1, 'Uncategorised', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(2, 2, 'Sports', '2025-02-15 14:44:45', '2025-02-15 14:44:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `article_tag`
+--
+
+DROP TABLE IF EXISTS `article_tag`;
+CREATE TABLE IF NOT EXISTS `article_tag` (
+  `article_id` int(10) UNSIGNED NOT NULL,
+  `tag_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`article_id`,`tag_id`),
+  KEY `article_tag_tag_id_foreign` (`tag_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -81,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `article_id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED DEFAULT NULL,
   `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -121,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -139,7 +154,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2022_04_04_111156_create_settings_table', 1),
 (10, '2022_12_31_174605_create_roles_table', 1),
 (11, '2023_01_01_120457_create_permissions_table', 1),
-(12, '2023_01_01_150407_create_roles_permissions_table', 1);
+(12, '2023_01_01_150407_create_roles_permissions_table', 1),
+(13, '2025_02_02_141817_create_tags_table', 1),
+(14, '2025_02_02_152221_create_article_tag_table', 1);
 
 -- --------------------------------------------------------
 
@@ -186,34 +203,38 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `slug`, `label`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'view-articles', 'View articles', 'Gives a user the permission to view articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(2, 'add-articles', 'Write articles', 'Gives a user the permission to write articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(3, 'edit-articles', 'Edit articles', 'Gives a user the permission to edit her/his own articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(4, 'delete-articles', 'Delete articles', 'Gives a user the permission to delete her/his own articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(5, 'view-categories', 'View categories', 'Gives a user the permission to view the list of categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(6, 'add-categories', 'Add categories', 'Gives a user the permission to create article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(7, 'edit-categories', 'Edit categories', 'Gives a user the permission to edit article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(8, 'delete-categories', 'Delete categories', 'Gives a user the permission to delete article categories.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(9, 'view-comments', 'View comments on the dashboard', 'Gives a user the permission to view article comments on the dashboard', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(10, 'delete-comments', 'Delete comments', 'Gives a user the permission to delete article comments', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(11, 'approve-comments', 'Approve comments', 'Gives a user the permission to approve article comments', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(12, 'unapprove-comments', 'Unapprove comments', 'Gives a user the permission to unapprove article comments', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(13, 'view-pages', 'View pages', 'Gives a user the permission to view the pages list (on the dashboard)', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(14, 'add-pages', 'Add pages', 'Gives a user the permission to add pages', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(15, 'edit-pages', 'Edit pages', 'Gives a user the permission to edit pages', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(16, 'delete-pages', 'Delete pages', 'Gives a user the permission to delete pages', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(17, 'edit-settings', 'Edit site settings', 'Gives the super-admin the permission to edit site settings.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(18, 'manage-user-rights', 'Manage user rights', 'Gives the super-admin the permission to manage user rights', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(19, 'ban-users', 'Ban users', 'Gives the super-admin the permission to suspend user accounts', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(20, 'activate-users', 'Activate user accounts', 'Gives the super-admin the permission to activate user accounts', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(21, 'assign-user-roles', 'Assign user roles', 'Gives the super-admin the permission to assign roles to users', '2023-01-13 19:58:44', '2023-01-13 19:58:44');
+(1, 'view-articles', 'View articles', 'Gives a user the permission to view articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(2, 'add-articles', 'Write articles', 'Gives a user the permission to write articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(3, 'edit-articles', 'Edit articles', 'Gives a user the permission to edit her/his own articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(4, 'delete-articles', 'Delete articles', 'Gives a user the permission to delete her/his own articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(5, 'view-categories', 'View categories', 'Gives a user the permission to view the list of categories.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(6, 'add-categories', 'Add categories', 'Gives a user the permission to create article categories.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(7, 'edit-categories', 'Edit categories', 'Gives a user the permission to edit article categories.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(8, 'delete-categories', 'Delete categories', 'Gives a user the permission to delete article categories.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(9, 'view-tags', 'View tags', 'Gives a user the permission to view the list of tags.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(10, 'add-tags', 'Add tags', 'Gives a user the permission to create article tags.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(11, 'edit-tags', 'Edit tags', 'Gives a user the permission to edit article tags.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(12, 'delete-tags', 'Delete tags', 'Gives a user the permission to delete article tags.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(13, 'view-comments', 'View comments on the dashboard', 'Gives a user the permission to view article comments on the dashboard', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(14, 'delete-comments', 'Delete comments', 'Gives a user the permission to delete article comments', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(15, 'approve-comments', 'Approve comments', 'Gives a user the permission to approve article comments', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(16, 'unapprove-comments', 'Unapprove comments', 'Gives a user the permission to unapprove article comments', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(17, 'view-pages', 'View pages', 'Gives a user the permission to view the pages list (on the dashboard)', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(18, 'add-pages', 'Add pages', 'Gives a user the permission to add pages', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(19, 'edit-pages', 'Edit pages', 'Gives a user the permission to edit pages', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(20, 'delete-pages', 'Delete pages', 'Gives a user the permission to delete pages', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(21, 'edit-settings', 'Edit site settings', 'Gives the super-admin the permission to edit site settings.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(22, 'manage-user-rights', 'Manage user rights', 'Gives the super-admin the permission to manage user rights', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(23, 'ban-users', 'Ban users', 'Gives the super-admin the permission to suspend user accounts', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(24, 'activate-users', 'Activate user accounts', 'Gives the super-admin the permission to activate user accounts', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(25, 'assign-user-roles', 'Assign user roles', 'Gives the super-admin the permission to assign roles to users', '2025-02-15 14:44:45', '2025-02-15 14:44:45');
 
 -- --------------------------------------------------------
 
@@ -259,10 +280,10 @@ CREATE TABLE IF NOT EXISTS `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `label`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'Basic User', 'The Basic User can view and comment on articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(2, 'author', 'Author', 'In addition to being able to do all a Basic User can do, an Author can create articles, and also edit or delete his/her own articles.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(3, 'admin', 'Site Administrator', 'The Admin can view and comment on articles; create and edit article categories; create and edit and delete any articles; create and edit and delete users.', '2023-01-13 19:58:44', '2023-01-13 19:58:44'),
-(4, 'super-admin', 'Super-admin', 'The Super-admin can do everything that the Admin can do. Additionally, the Site owner can give/revoke user roles and ban users. The website has only one Super-admin.', '2023-01-13 19:58:44', '2023-01-13 19:58:44');
+(1, 'user', 'Basic User', 'The Basic User can view and comment on articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(2, 'author', 'Author', 'In addition to being able to do all a Basic User can do, an Author can create articles, and also edit or delete his/her own articles.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(3, 'admin', 'Site Administrator', 'The Admin can view and comment on articles; create and edit article categories; create and edit and delete any articles; create and edit and delete users.', '2025-02-15 14:44:45', '2025-02-15 14:44:45'),
+(4, 'super-admin', 'Super-admin', 'The Super-admin can do everything that the Admin can do. Additionally, the Site owner can give/revoke user roles and ban users. The website has only one Super-admin.', '2025-02-15 14:44:45', '2025-02-15 14:44:45');
 
 -- --------------------------------------------------------
 
@@ -304,6 +325,10 @@ INSERT INTO `roles_permissions` (`role_id`, `permission_id`) VALUES
 (3, 15),
 (3, 16),
 (3, 17),
+(3, 18),
+(3, 19),
+(3, 20),
+(3, 21),
 (4, 1),
 (4, 2),
 (4, 3),
@@ -324,7 +349,11 @@ INSERT INTO `roles_permissions` (`role_id`, `permission_id`) VALUES
 (4, 18),
 (4, 19),
 (4, 20),
-(4, 21);
+(4, 21),
+(4, 22),
+(4, 23),
+(4, 24),
+(4, 25);
 
 -- --------------------------------------------------------
 
@@ -355,7 +384,31 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_name`, `tagline`, `owner_name`, `owner_email`, `twitter`, `facebook`, `instagram`, `theme_directory`, `is_cookieconsent`, `is_infinitescroll`, `created_at`, `updated_at`) VALUES
-(1, 'My Blog', 'A simple blog application made with Laravel', 'My Company', 'company@domain.com', 'https://twitter.com', 'https://facebook.com', 'https://instagram.com', 'calvin', 1, 0, '2023-01-13 19:58:44', '2023-01-13 19:58:44');
+(1, 'My Blog', 'A simple blog application made with Laravel', 'My Company', 'company@domain.com', 'https://twitter.com', 'https://facebook.com', 'https://instagram.com', 'calvin', 1, 0, '2025-02-15 14:44:44', '2025-02-15 14:44:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+DROP TABLE IF EXISTS `tags`;
+CREATE TABLE IF NOT EXISTS `tags` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'books', '2025-02-15 14:44:44', '2025-02-15 14:44:44'),
+(2, 'movies', '2025-02-15 14:44:44', '2025-02-15 14:44:44'),
+(3, 'news', '2025-02-15 14:44:44', '2025-02-15 14:44:44');
 
 -- --------------------------------------------------------
 
