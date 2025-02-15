@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleCategory;
+use App\Models\Tag;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,11 @@ class ArticleController extends Controller
   public function categories()
   {
     return ArticleCategory::all();
+  }
+
+  public function tags()
+  {
+    return Tag::all();
   }
 
   public function index(Request $request)
@@ -74,7 +80,10 @@ class ArticleController extends Controller
     // Load the view and populate the form with categories
     return view(
       'dashboard/add-article',
-      ['categories' => $this->categories()]
+      [
+        'categories' => $this->categories(),
+        'tags' => $this->tags()
+      ]
     );
   }
 
@@ -117,6 +126,10 @@ class ArticleController extends Controller
     // Insert data in the 'articles' table
     $query = Article::create($form_data);
 
+    if ($request->has('tags')) {
+      $query->tags()->attach($request->tags);
+    }
+
     if ($query) {
       return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $form_data['title'] . '" was added');
     } else {
@@ -127,10 +140,14 @@ class ArticleController extends Controller
   public function edit($id)
   {
     $article = Article::find($id);
+    $attached_tags = $article->tags()->get()->pluck('id')->toArray();
+    
     return view(
       'dashboard/edit-article',
       [
         'categories' => $this->categories(),
+        'tags' => $this->tags(),
+        'attached_tags' => $attached_tags,
         'article' => $article
       ]
     );
@@ -159,17 +176,29 @@ class ArticleController extends Controller
     $article->title = $request->get('title');
     $article->short_description = $request->get('short_description');
     $article->category_id = $request->get('category_id');
+    $article->tags[] = $request->get('tags[]');
     $article->featured = $request->has('featured');
     $article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
     $article->content = $request->get('content');
+    // Save changes to the article
     $article->save();
+
+    //Attach tags to article
+    if (isset($request->tags)) {
+      $article->tags()->sync($request->tags);
+    } else {
+      $article->tags()->sync([]);
+    }
+
     return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
   }
 
   public function delete($id)
   {
     $article = Article::find($id);
+    $article->tags()->detach();
     $article->delete();
+
     return redirect()->back()->with('success', 'The article titled "' . $article->title . '" was deleted');
   }
 }

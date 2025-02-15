@@ -13,6 +13,9 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+
+      Permission::truncate();
+
       // Article permissions
       Permission::create([
         'slug' => 'view-articles',
@@ -61,6 +64,32 @@ class PermissionsTableSeeder extends Seeder
         'slug' => 'delete-categories',
         'label' => 'Delete categories',
         'description' => 'Gives a user the permission to delete article categories.'
+      ]);
+
+
+      // Article tags permissions
+      Permission::create([
+        'slug' => 'view-tags',
+        'label' => 'View tags',
+        'description' => 'Gives a user the permission to view the list of tags.'
+      ]);
+
+      Permission::create([
+        'slug' => 'add-tags',
+        'label' => 'Add tags',
+        'description' => 'Gives a user the permission to create article tags.'
+      ]);
+
+      Permission::create([
+        'slug' => 'edit-tags',
+        'label' => 'Edit tags',
+        'description' => 'Gives a user the permission to edit article tags.'
+      ]);
+
+      Permission::create([
+        'slug' => 'delete-tags',
+        'label' => 'Delete tags',
+        'description' => 'Gives a user the permission to delete article tags.'
       ]);
 
       // Article comments permissions

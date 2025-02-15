@@ -1,7 +1,8 @@
 @extends('themes/' .$theme_directory . '/layout')
 
 @section('hero')
-	@if (!isset($category) && !isset($author))
+
+@if (!isset($category) && !isset($author) && !isset($tag))
 		@include('themes/' . $theme_directory . '/partials/hero')
 	@endif
 @endsection
@@ -12,10 +13,37 @@
     ================================================== -->
     <section class="s-content s-content--no-top-padding">
 
-
         <!-- masonry
         ================================================== -->
         <div class="s-bricks">
+
+          @if(isset($category) or isset($tag) or isset($author))
+
+          <div class="s-pageheader">
+            <div class="row">
+                <div class="column large-12">
+                    <h1 class="page-title">
+                        @isset($category)
+                          <span class="page-title__small-type">Category</span>
+                          {{ $category->name }}
+                        @endisset
+
+                        @isset($tag)
+                          <span class="page-title__small-type">Tag</span>
+                          {{ $tag->name }}
+                        @endisset
+
+                        @isset($author)
+                        <span class="page-title__small-type">Author</span>
+                        {{ $author->first_name }} {{ $author->last_name }}
+                      @endisset
+                    </h1>
+                </div>
+            </div>
+          </div>
+      
+          @endif
+
 
             <div class="masonry">
                 <div class="bricks-wrapper h-group">

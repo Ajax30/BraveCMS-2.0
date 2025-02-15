@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\UserRightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\PageController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
+use App\Http\Controllers\Dashboard\TagController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
 
@@ -23,6 +24,7 @@ Route::get('/install', [InstallController::class, 'index']);
 // Article routes
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
 Route::get('/category/{category_id}', [ArticlesController::class, 'category'])->name('category');
+Route::get('/tag/{tag_id}', [ArticlesController::class, 'tag'])->name('tag');
 Route::get('/author/{user_id}', [ArticlesController::class, 'author'])->name('author');
 Route::get('/show/{slug}', [ArticlesController::class, 'show'])->name('show');
 Route::post('/load_comments', [ArticlesController::class, 'get_comments_ajax'])->name('load_comments');
@@ -75,6 +77,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::post('/update/{id}', [ArticleCategoryController::class, 'update'])->name('dashboard.categories.update');
     Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete')->middleware('checkUserPermissions:delete-categories');
   });
+
+    // Tag routes 
+    Route::group(['prefix' => 'tags'], function () {
+      Route::get('/', [TagController::class, 'index'])->name('dashboard.tags')->middleware('checkUserPermissions:view-tags');
+      Route::get('/new', [TagController::class, 'create'])->name('dashboard.tags.new')->middleware('checkUserPermissions:add-tags');
+      Route::post('/add', [TagController::class, 'save'])->name('dashboard.tags.add');
+      Route::get('/edit/{id}', [TagController::class, 'edit'])->name('dashboard.tags.edit')->middleware('checkUserPermissions:edit-tags');
+      Route::post('/update/{id}', [TagController::class, 'update'])->name('dashboard.tags.update');
+      Route::get('/delete/{id}', [TagController::class, 'delete'])->name('dashboard.tags.delete')->middleware('checkUserPermissions:delete-tags');
+    });
 
   // Article routes
   Route::group(['prefix' => 'articles'], function () {

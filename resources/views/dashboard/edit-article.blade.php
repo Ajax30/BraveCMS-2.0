@@ -46,7 +46,6 @@
 								@endforeach
 							</select>
 								
-					
 								@error('category_id')
 										<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -54,6 +53,16 @@
 								@enderror
 						</div>
 					</div>
+
+          <div class="row mb-2">
+            <label for="tags" class="col-md-12">{{ __('Tags') }}</label>
+
+            <select name="tags[]" id="tags" class="form-control" multiple="multiple">
+                @foreach ($tags as $tag)
+                    <option value="{{ $tag->id }}" {{ (in_array($tag->id, $attached_tags)) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                @endforeach
+            </select>
+          </div>
 
 					<div class="row mb-2">
 						<div class="col-md-12 d-flex align-items-center switch-toggle">

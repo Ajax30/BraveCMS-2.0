@@ -30,6 +30,15 @@
               </a>
           </li>
           <li class="list-group-item">
+            <a class="{{ request()->routeIs('dashboard.tags*') ? 'active' : '' }}"
+                href="{{ route('dashboard.tags') }}">
+                <span>
+                    <i class="fa-solid fa-tags pe-1"></i> Tags
+                </span>
+                <span class="badge">{{ $tag_count }}</span>
+            </a>
+        </li>
+          <li class="list-group-item">
               <a class="{{ request()->routeIs('dashboard.comments*') ? 'active' : '' }}"
                   href="{{ route('dashboard.comments') }}">
                   <span>

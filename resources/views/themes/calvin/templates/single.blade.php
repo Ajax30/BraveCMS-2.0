@@ -48,6 +48,14 @@
                                     <span>On</span>
                                     {{ date('j F, Y', strtotime($article->created_at)) }}
                                 </div>
+
+                                <div class="entry-tags meta-blk">
+                                  <span class="tagtext">Tags</span>
+
+                                  @foreach ($article->tags as $tag)
+                                    <a href="{{ url('/tag/' . $tag->id) }}">{{ $tag->name }}</a>
+                                  @endforeach
+                                </div>
                             </div>
                         </div><!-- s-content__entry-meta -->
                         <div class="s-content__pagenav">
