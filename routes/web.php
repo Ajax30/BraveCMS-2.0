@@ -78,14 +78,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete')->middleware('checkUserPermissions:delete-categories');
   });
 
-    // Tag routes
+    // Tag routes 
     Route::group(['prefix' => 'tags'], function () {
-      Route::get('/', [TagController::class, 'index'])->name('dashboard.tags');
-      Route::get('/new', [TagController::class, 'create'])->name('dashboard.tags.new');
+      Route::get('/', [TagController::class, 'index'])->name('dashboard.tags')->middleware('checkUserPermissions:view-tags');
+      Route::get('/new', [TagController::class, 'create'])->name('dashboard.tags.new')->middleware('checkUserPermissions:add-tags');
       Route::post('/add', [TagController::class, 'save'])->name('dashboard.tags.add');
-      Route::get('/edit/{id}', [TagController::class, 'edit'])->name('dashboard.tags.edit');
+      Route::get('/edit/{id}', [TagController::class, 'edit'])->name('dashboard.tags.edit')->middleware('checkUserPermissions:edit-tags');
       Route::post('/update/{id}', [TagController::class, 'update'])->name('dashboard.tags.update');
-      Route::get('/delete/{id}', [TagController::class, 'delete'])->name('dashboard.tags.delete');
+      Route::get('/delete/{id}', [TagController::class, 'delete'])->name('dashboard.tags.delete')->middleware('checkUserPermissions:delete-tags');
     });
 
   // Article routes

@@ -13,6 +13,7 @@ class RolesPermissionsSeeder extends Seeder
      */
     public function run()
     {
+
       $author_permissions = [1, 2, 3, 4];
       foreach ($author_permissions as $permission) {
         RolesPermissions::insert([
@@ -21,7 +22,7 @@ class RolesPermissionsSeeder extends Seeder
         ]);
       }
 
-      $admin_permissions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+      $admin_permissions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
       foreach ($admin_permissions as $permission) {
         RolesPermissions::insert([
             'role_id' => '3',
@@ -29,7 +30,7 @@ class RolesPermissionsSeeder extends Seeder
         ]);
       }
 
-      $super_admin_permissions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 , 19, 20, 21];
+      $super_admin_permissions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
       foreach ($super_admin_permissions as $permission) {
         RolesPermissions::insert([
             'role_id' => '4',
