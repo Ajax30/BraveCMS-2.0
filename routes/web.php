@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\UserRightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\PageController;
 use App\Http\Controllers\Dashboard\ArticleCategoryController;
+use App\Http\Controllers\Dashboard\TagController;
 use App\Http\Controllers\Dashboard\ArticleController;
 use App\Http\Controllers\Dashboard\CommentController;
 
@@ -76,6 +77,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::post('/update/{id}', [ArticleCategoryController::class, 'update'])->name('dashboard.categories.update');
     Route::get('/delete/{id}', [ArticleCategoryController::class, 'delete'])->name('dashboard.categories.delete')->middleware('checkUserPermissions:delete-categories');
   });
+
+    // Tag routes
+    Route::group(['prefix' => 'tags'], function () {
+      Route::get('/', [TagController::class, 'index'])->name('dashboard.tags');
+      Route::get('/new', [TagController::class, 'create'])->name('dashboard.tags.new');
+      Route::post('/add', [TagController::class, 'save'])->name('dashboard.tags.add');
+      Route::get('/edit/{id}', [TagController::class, 'edit'])->name('dashboard.tags.edit');
+      Route::post('/update/{id}', [TagController::class, 'update'])->name('dashboard.tags.update');
+      Route::get('/delete/{id}', [TagController::class, 'delete'])->name('dashboard.tags.delete');
+    });
 
   // Article routes
   Route::group(['prefix' => 'articles'], function () {

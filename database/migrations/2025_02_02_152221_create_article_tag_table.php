@@ -19,8 +19,8 @@ class CreateArticleTagTable extends Migration
           $table->unsignedInteger('tag_id');
  
           //FOREIGN KEY
-          $table->foreign('article_id')->references('id')->on('roles')->onDelete('cascade');
-          $table->foreign('tag_id')->references('id')->on('permissions')->onDelete('cascade');
+          $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+          $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
  
           //PRIMARY KEYS
           $table->primary(['article_id','tag_id']);

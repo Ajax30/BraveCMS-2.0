@@ -61,6 +61,16 @@
                 </div>
 
                 <div class="row mb-2">
+                    <label for="tags" class="col-md-12">{{ __('Tags') }}</label>
+
+                    <select name="tags[]" id="tags_ids" class="form-control" multiple="multiple">
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="row mb-2">
                     <div class="col-md-12 d-flex align-items-center switch-toggle">
                         <p class="mb-0 me-3">Featured article?</p>
                         <input class="mt-1" type="checkbox" id="featured" name="featured"
