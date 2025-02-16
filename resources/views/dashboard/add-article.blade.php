@@ -43,11 +43,11 @@
 
                     <div class="col-md-12 @error('category_id') has-error @enderror">
 
-                        <select name="category_id" id="category"
+                        <select name="category_id" id="category_id"
                             class="form-control @error('category_id') is-invalid @enderror">
                             <option value="0">Pick a category</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}" {{ $category->id == old('category_id') ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
 
