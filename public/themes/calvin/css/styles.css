@@ -4552,6 +4552,10 @@ body.search-is-visible {
     padding-top: calc(5.5 * var(--space));
 }
 
+.s-content--small-top-padding {
+  padding-top: calc(4 * var(--space));
+}
+
 .s-content--no-top-padding {
     padding-top: 0;
 }
@@ -4612,6 +4616,17 @@ body.search-is-visible {
     vertical-align: bottom;
     margin-bottom: 0;
 }
+
+.s-content__media-medium {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.s-content__media-medium img {
+  max-width: 640px;
+  margin-bottom: 10px;
+}
+
 
 /* ------------------------------------------------------------------- 
   * ## content entry header

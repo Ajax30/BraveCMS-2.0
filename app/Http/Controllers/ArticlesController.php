@@ -59,47 +59,60 @@ class ArticlesController extends FrontendController
   public function category($category_id)
   {
     $category = ArticleCategory::firstWhere('id', $category_id);
-    $articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
-    //dd($articles);
+    if (isset($category)) {
+      $articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
-    return view(
-      'themes/' . $this->theme_directory . '/templates/index',
-      array_merge($this->data, [
-        'category' => $category,
-        'articles' => $articles
-      ])
-    );
+      return view(
+        'themes/' . $this->theme_directory . '/templates/index',
+        array_merge($this->data, [
+          'category' => $category,
+          'articles' => $articles
+        ])
+      );
+    } else {
+      return redirect('/404');
+    }
   }
 
   public function author($user_id)
   {
     $author   = User::firstWhere('id', $user_id);
-    $articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
 
-    return view(
-      'themes/' . $this->theme_directory . '/templates/index',
-      array_merge($this->data, [
-        'author'   => $author,
-        'articles' => $articles
-      ])
-    );
+    if (isset($author)) {
+      $articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
+
+      return view(
+        'themes/' . $this->theme_directory . '/templates/index',
+        array_merge($this->data, [
+          'author'   => $author,
+          'articles' => $articles
+        ])
+      );
+    } else {
+      return redirect('/404');
+    }
   }
 
   public function tag($tag_id)
   {
     $tag   = Tag::firstWhere('id', $tag_id);
-    $articles = Article::whereHas('tags', function (Builder $query) use ($tag) {
-      $query->where('id', $tag->id);
-    })->orderBy('id', 'desc')->paginate($this->per_page);
 
-    return view(
-      'themes/' . $this->theme_directory . '/templates/index',
-      array_merge($this->data, [
-        'tag'   => $tag,
-        'articles' => $articles
-      ])
-    );
+    if (isset($tag)) {
+      $articles = Article::whereHas('tags', function (Builder $query) use ($tag) {
+        $query->where('id', $tag->id);
+      })->orderBy('id', 'desc')->paginate($this->per_page);
+
+      return view(
+        'themes/' . $this->theme_directory . '/templates/index',
+        array_merge($this->data, [
+          'tag'   => $tag,
+          'articles' => $articles
+        ])
+      );
+    } else {
+      return redirect('/404');
+    }
   }
 
   public function show($slug)
