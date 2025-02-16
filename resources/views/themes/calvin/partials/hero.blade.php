@@ -3,8 +3,7 @@
     <section id="hero" class="s-hero">
 
         <div class="s-hero__slider">
-
-					@if (count($featured_articles))
+          @if($featured_articles && $featured_articles->isNotEmpty())
 						@foreach ($featured_articles as $fa)
 						<div class="s-hero__slide">
 

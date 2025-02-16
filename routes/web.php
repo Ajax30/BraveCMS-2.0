@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InstallController;
+use App\Http\Controllers\PageNotFoundController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ContactController;
@@ -20,6 +21,9 @@ use App\Http\Controllers\Dashboard\CommentController;
 
 // Install 
 Route::get('/install', [InstallController::class, 'index']);
+
+// 404 custom page 
+Route::any('/404', [PageNotFoundController::class, 'notfound'])->name('404');
 
 // Article routes
 Route::get('/', [ArticlesController::class, 'index'])->name('homepage');
