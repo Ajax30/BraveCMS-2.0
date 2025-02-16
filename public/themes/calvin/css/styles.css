@@ -1908,6 +1908,20 @@ blockquote cite a:visited {
     border: none;
 }
 
+.quote-inline {
+  display: inline-block;
+  position: relative;
+}
+
+.quote-inline:before,
+.quote-inline:after {
+  content: '\201C';
+}
+
+.quote-inline:after {
+  content: '\201D';
+}
+
 figure {
     display: block;
     margin-left: 0;

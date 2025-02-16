@@ -17,7 +17,7 @@
         ================================================== -->
         <div class="s-bricks">
 
-          @if(isset($category) or isset($tag) or isset($author))
+          @if(isset($category) or isset($tag) or isset($author) or isset($search_query))
 
           <div class="s-pageheader">
             <div class="row">
@@ -34,9 +34,16 @@
                         @endisset
 
                         @isset($author)
-                        <span class="page-title__small-type">Author</span>
-                        {{ $author->first_name }} {{ $author->last_name }}
-                      @endisset
+                          <span class="page-title__small-type">Author</span>
+                          {{ $author->first_name }} {{ $author->last_name }}
+                        @endisset
+
+                        @if (isset($search_query))
+                          Search
+                          <span class="page-title__small-type">
+                            We found {{ $article_count ?$article_count : 'no'  }} {{ $article_count > 1 ? 'articles' : 'article' }} containing <span class="quote-inline">{{ $search_query }}</span>
+                          </span>
+                        @endif
                     </h1>
                 </div>
             </div>

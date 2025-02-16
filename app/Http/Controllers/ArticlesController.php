@@ -128,7 +128,6 @@ class ArticlesController extends FrontendController
 
     // If infinite scroll, paginate comments (to be loaded one page per scroll),
     // Else show them all 
-
     if (boolval($this->is_infinitescroll)) {
       $comments = $commentsQuery->paginate($this->comments_per_page);
     } else {
