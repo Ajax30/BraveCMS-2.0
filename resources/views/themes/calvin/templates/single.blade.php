@@ -48,7 +48,7 @@
                                     <span>On</span>
                                     {{ date('j F, Y', strtotime($article->created_at)) }}
                                 </div>
-
+                                @if($article->tags && $article->tags->isNotEmpty())
                                 <div class="entry-tags meta-blk">
                                   <span class="tagtext">Tags</span>
 
@@ -56,6 +56,7 @@
                                     <a href="{{ url('/tag/' . $tag->id) }}">{{ $tag->name }}</a>
                                   @endforeach
                                 </div>
+                                @endif
                             </div>
                         </div><!-- s-content__entry-meta -->
                         <div class="s-content__pagenav">
