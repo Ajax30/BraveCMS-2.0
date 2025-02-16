@@ -74,7 +74,12 @@
 
 					<div class="row mb-2">
 						<label for="image" class="col-md-12">{{ __('Article image') }}</label>
-					
+						<div class="row">
+							<div class="col-md-12 post-image">
+								<img class="image-preview" src="{{ asset('images/articles/' . $article->image) }}" alt="{{ $article->title }}">
+							</div>
+
+						</div>
 						<div class="col-md-12 post-image @error('image') has-error @enderror">
 							<input type="file" value="{{ old('image', $article->image) }}" name="image" id="file" class="file-upload-btn">
 					

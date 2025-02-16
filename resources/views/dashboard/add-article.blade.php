@@ -45,7 +45,7 @@
 
                         <select name="category_id" id="category"
                             class="form-control @error('category_id') is-invalid @enderror">
-                            <option value="0">Pick a category</option>
+                            <option>Pick a category</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -68,6 +68,11 @@
                             <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('tags') || $errors->has('tags.*'))
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $errors->first('tags') ?? $errors->first('tags.*') }}</strong>
+                        </span>
+                    @endif
                 </div>
 
                 <div class="row mb-2">

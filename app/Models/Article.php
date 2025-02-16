@@ -21,18 +21,20 @@ class Article extends Model
 		];
 
 		// Join users to articles
-		public function user() {
+		public function user() 
+		{
 			return $this->belongsTo(User::class);
 		}
 
 		// Join categories to articles
-		public function category() {
+		public function category() 
+		{
 			return $this->belongsTo(ArticleCategory::class);
 		}
 
-    // Add tags to post 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class)->as('tags');
-    }
+		// Add tags to post 
+		public function tags()
+		{
+			return $this->belongsToMany(Tag::class)->as('tags');
+		}
 }
