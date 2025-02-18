@@ -176,7 +176,6 @@ class ArticleController extends Controller
     $article->title = $request->get('title');
     $article->short_description = $request->get('short_description');
     $article->category_id = $request->get('category_id');
-    $article->tags[] = $request->get('tags[]');
     $article->featured = $request->has('featured');
     $article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
     $article->content = $request->get('content');
@@ -184,10 +183,10 @@ class ArticleController extends Controller
     $article->save();
 
     //Attach tags to article
-    if (isset($request->tags)) {
+    if ($request->has('tags')) {
       $article->tags()->sync($request->tags);
     } else {
-      $article->tags()->sync([]);
+        $article->tags()->sync([]);
     }
 
     return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
