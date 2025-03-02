@@ -5,7 +5,8 @@
    <script>
        var APP_URL = "{{ env('APP_URL') }}";
    </script>
-   @if (request()->routeIs([
+    
+    @if (request()->routeIs([
            'dashboard.articles.new',
            'dashboard.articles.edit',
            'dashboard.pages.new',

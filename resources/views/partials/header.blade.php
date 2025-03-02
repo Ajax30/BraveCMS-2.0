@@ -15,6 +15,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+    @if (request()->routeIs(['dashboard.articles.new', 'dashboard.articles.edit']))
+      <script src="{{ asset('js/tags.js') }}"></script>
+    @endif
+    
     @if (request()->routeIs([
             'dashboard.articles.new',
             'dashboard.articles.edit',
@@ -23,6 +27,7 @@
         ]))
         <script src="{{ asset('lib/ckeditor/js/ckeditor.js') }}"></script>
     @endif
+
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
