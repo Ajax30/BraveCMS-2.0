@@ -66,14 +66,31 @@
                       @php $selectedTags = old('tags', $attached_tags) @endphp
 
                       <label for="tags" class="col-md-12">{{ __('Tags') }}</label>
-                      <select name="tags[]" id="tags" class="form-control" multiple="multiple">
-                          @foreach ($tags as $tag)
-                              <option value="{{ $tag->id }}"
-                                  {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
-                                  {{ $tag->name }}
-                              </option>
-                          @endforeach
-                      </select>
+
+                      <div class="position-relative">
+                          <span id="tagSelectorToggler" class="tag-toggler" onclick="toggleTagSelector(event)">
+                              <i class="fas fa-chevron-up"></i>
+                          </span>
+                          <ul id="tagsList" class="form-control tags-list mb-1" onclick="toggleTagSelector(event)">
+                              <li class="text-muted">
+                                  Use [Ctrl] + [Click] to select one or more tags from the list
+                              </li>
+                          </ul>
+                      </div>
+
+                      <div id="tagActions" class="tag-actions">
+                          <input oninput="filterTags(event)" type="search" class="form-control mb-1"
+                              placeholder="Filter available tags" />
+
+                              <select name="tags[]" id="tags" class="form-control tag-select" multiple>
+                              @foreach ($tags as $tag)
+                                  <option value="{{ $tag->id }}"
+                                      {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
+                                      {{ $tag->name }}
+                                  </option>
+                              @endforeach
+                          </select>
+                      </div>
                   </div>
 
                   <div class="row mb-2">
