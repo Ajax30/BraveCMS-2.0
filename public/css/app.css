@@ -20002,3 +20002,55 @@ label {
   border: 1px solid #ced4da;
   border-radius: 3px;
 }
+
+.tags-list {
+  min-height: 40px;
+  list-style-type: none;
+}
+.tags-list .tag {
+  line-height: 1;
+  white-space: nowrap;
+  background: #f2f2f2;
+  border: 1px solid #e6e3e3;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 3px 8px;
+  margin: 1px;
+}
+.tags-list .tag button {
+  background: #ff9292;
+  color: #720000;
+  border: none;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6px;
+  border-radius: 50%;
+}
+
+.tag-actions.hidden {
+  display: none;
+}
+
+.tag-toggler {
+  position: absolute;
+  right: 15px;
+  margin-top: 8px;
+  color: #777;
+  cursor: pointer;
+}
+.tag-toggler.active {
+  transform: rotate(180deg);
+}
+
+.tag-select {
+  height: 170px;
+}
+.tag-select option {
+  padding: 3px 8px;
+}

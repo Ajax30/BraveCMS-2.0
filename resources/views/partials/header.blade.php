@@ -23,6 +23,7 @@
         ]))
         <script src="{{ asset('lib/ckeditor/js/ckeditor.js') }}"></script>
     @endif
+
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
