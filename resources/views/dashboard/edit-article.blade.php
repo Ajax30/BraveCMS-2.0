@@ -63,8 +63,6 @@
                   </div>
 
                   <div class="row mb-2">
-                      @php $selectedTags = old('tags', $attached_tags) @endphp
-
                       <label for="tags" class="col-md-12">{{ __('Tags') }}</label>
 
                       <div class="position-relative">
@@ -82,7 +80,9 @@
                           <input oninput="filterTags(event)" type="search" class="form-control mb-1"
                               placeholder="Filter available tags" />
 
-                              <select name="tags[]" id="tags" class="form-control tag-select" multiple>
+                          @php $selectedTags = old('tags', $attached_tags) @endphp
+
+                          <select name="tags[]" id="tags" class="form-control tag-select" multiple>
                               @foreach ($tags as $tag)
                                   <option value="{{ $tag->id }}"
                                       {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
