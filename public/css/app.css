@@ -19746,6 +19746,7 @@ label {
 
 #search_form .form-control[type=text] {
   border-right: 0;
+  border-color: #ced4da;
 }
 #search_form button[type=submit] {
   border: 1px solid #ced4da;

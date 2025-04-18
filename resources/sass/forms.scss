@@ -25,6 +25,7 @@ label {
 #search_form {
 	.form-control[type=text] {
 		border-right: 0;
+    border-color: $medium-gray;
 	}
 
 	button[type=submit] {
