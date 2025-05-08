@@ -6,6 +6,9 @@
         <div class="card-body">
             <form method="POST" action="{{ route('dashboard.articles.add') }}" enctype="multipart/form-data" novalidate>
                 @csrf
+
+                <input type="hidden" id="defaultImage" name="defaultImage" value="{{ asset('images/articles/default.jpg') }}" />
+                
                 <div class="row mb-2">
                     <label for="title" class="col-md-12">{{ __('Title') }}</label>
 
@@ -97,18 +100,28 @@
                     </div>
                 </div>
 
-                <div class="row mb-2">
+                <div class="row mb-3">
                     <label for="image" class="col-md-12">{{ __('Article image') }}</label>
 
                     <div class="col-md-12 post-image @error('image') has-error @enderror">
                         <input type="file" value="{{ old('image') }}" name="image" id="file"
-                            class="file-upload-btn">
+                            class="file-upload-btn" onchange="previewImage(event)">
 
                         @error('image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3 d-none">
+                    <div class="col-md-12 post-image text-center">
+                        <img id="imagePreview" class="image-preview large" src="">
+
+                        <a class="remove-image" href="#" title="Remove image" onclick="removeImage(event)">
+                            <i class="fa fa-remove"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -136,6 +149,7 @@
                     </div>
                 </div>
             </form>
+            @include('partials.image-preview-script')
         </div>
     </div>
 @endsection

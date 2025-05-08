@@ -21,7 +21,7 @@
 		visibility: hidden;
 	}
 	&::before {
-		content: 'Choose file';
+		content: 'Add image';
 		display: inline-block;
 		background-color: $primary;
 		border-color: darken($primary, 5%);
@@ -56,4 +56,10 @@
 		top: 6px;
 		left: 11px;
 	}
+
+  &.replace-image {
+    &::before {
+      content: 'Replace image';
+    }
+  }
 }

@@ -99,6 +99,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::post('/add', [ArticleController::class, 'save'])->name('dashboard.articles.add');
     Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit')->middleware('checkUserPermissions:edit-articles');
     Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
+    Route::post('/delete-image/{id}/{fileName}', [ArticleController::class, 'deleteImage'])->name('dashboard.articles.delete-image');
+    Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update');
     Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete')->middleware('checkUserPermissions:delete-articles');
   });
 

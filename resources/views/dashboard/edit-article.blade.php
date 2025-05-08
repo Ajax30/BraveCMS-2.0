@@ -7,6 +7,9 @@
             <form method="POST" action="{{ route('dashboard.articles.update', [$article->id]) }}"
                 enctype="multipart/form-data" novalidate>
                 @csrf
+
+                <input type="hidden" id="defaultImage" name="defaultImage" value="{{ asset('images/articles/default.jpg') }}" />
+
                 <div class="row mb-2">
                     <label for="title" class="col-md-12">{{ __('Title') }}</label>
 
@@ -107,13 +110,26 @@
 
                     <div class="col-md-12 post-image @error('image') has-error @enderror">
                         <input type="file" value="{{ old('image', $article->image) }}" name="image" id="file"
-                            class="file-upload-btn">
+                            class="file-upload-btn replace-image" onchange="previewImage(event)">
 
                         @error('image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12 post-image text-center">
+                        <img id="imagePreview" class="image-preview large"
+                            src="{{ asset('images/articles/' . $article->image) }}" alt="{{ $article->title }}">
+
+                            @if($article->image !== 'default.jpg')
+                              <a class="remove-image edit" href="#" id="delete-image" data-uid="{{$article->id}}" title="Remove image" onclick="removeImage(event)">
+                                  <i class="fa fa-remove"></i>
+                              </a>
+                            @endif
                     </div>
                 </div>
 
@@ -141,6 +157,7 @@
                     </div>
                 </div>
             </form>
+            @include('partials.image-preview-script')
         </div>
     </div>
 @endsection

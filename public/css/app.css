@@ -19865,7 +19865,7 @@ label {
   visibility: hidden;
 }
 .file-upload-btn::before {
-  content: "Choose file";
+  content: "Add image";
   display: inline-block;
   background-color: #116cd3;
   border-color: #0f60bb;
@@ -19895,6 +19895,9 @@ label {
   position: absolute;
   top: 6px;
   left: 11px;
+}
+.file-upload-btn.replace-image::before {
+  content: "Replace image";
 }
 
 .count-bubble {
@@ -19995,6 +19998,32 @@ label {
   transform: translate(-50%, -50%);
 }
 
+.post-image {
+  position: relative;
+}
+.post-image .remove-image {
+  position: absolute;
+  opacity: 0;
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease-in-out;
+}
+.post-image .remove-image .fa {
+  font-size: 150%;
+}
+.post-image:hover .remove-image {
+  opacity: 1;
+}
+
 .image-preview {
   width: 40px;
   height: auto;
@@ -20002,6 +20031,9 @@ label {
   background-color: #f8fafc;
   border: 1px solid #ced4da;
   border-radius: 3px;
+}
+.image-preview.large {
+  width: 100%;
 }
 
 .tags-list {

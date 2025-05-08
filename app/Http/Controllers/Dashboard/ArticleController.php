@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -135,6 +136,16 @@ class ArticleController extends Controller
     } else {
       return redirect()->back()->with('error', 'Adding article failed');
     }
+  }
+
+  public function deleteImage($id, $fileName) {
+    $article = Article::find($id);
+    $article->image = "default.jpg";
+		$article->save();
+
+		if (File::exists(public_path('images/articles/' . $fileName))) {
+			File::delete(public_path('images/articles/' . $fileName));
+		}
   }
 
   public function edit($id)

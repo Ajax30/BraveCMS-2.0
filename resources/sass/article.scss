@@ -1,4 +1,35 @@
 // Article image
+.post-image {
+  position: relative;
+
+  .remove-image {
+    position: absolute;
+    opacity: 0;
+    text-decoration: none;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;   
+    background: rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease-in-out;
+
+    .fa {
+      font-size: 150%;
+    }
+  }
+
+  &:hover {
+    .remove-image {
+      opacity: 1;
+    }
+  }
+}
+
 .image-preview {
   width: 40px;
   height: auto;
@@ -6,6 +37,10 @@
   background-color: $body-bg;
   border: 1px solid $medium-gray;
   border-radius: 3px;
+
+  &.large {
+    width: 100%; 
+  }
 }
 
 // Article tags
