@@ -8,7 +8,8 @@
                 enctype="multipart/form-data" novalidate>
                 @csrf
 
-                <input type="hidden" id="defaultImage" name="defaultImage" value="{{ asset('images/articles/default.jpg') }}" />
+                <input type="hidden" id="defaultImage" name="defaultImage"
+                    value="{{ asset('images/articles/default.jpg') }}" />
 
                 <div class="row mb-2">
                     <label for="title" class="col-md-12">{{ __('Title') }}</label>
@@ -125,11 +126,12 @@
                         <img id="imagePreview" class="image-preview large"
                             src="{{ asset('images/articles/' . $article->image) }}" alt="{{ $article->title }}">
 
-                            @if($article->image !== 'default.jpg')
-                              <a class="remove-image edit" href="#" id="delete-image" data-uid="{{$article->id}}" title="Remove image" onclick="removeImage(event)">
-                                  <i class="fa fa-remove"></i>
-                              </a>
-                            @endif
+                        <a class="remove-image {{ $article->image !== 'default.jpg' ? 'edit' : '' }}" href="#"
+                            id="delete-image" data-uid="{{ $article->id }}" title="Remove image"
+                            style="{{ $article->image === 'default.jpg' ? 'display: none;' : '' }}"
+                            onclick="removeImage(event)">
+                            <i class="fa fa-remove"></i>
+                        </a>
                     </div>
                 </div>
 

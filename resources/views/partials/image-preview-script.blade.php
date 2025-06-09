@@ -1,52 +1,65 @@
 <script>
     function previewImage(event) {
-        var img = document.getElementById('imagePreview');
-        var imageContainer = img.parentNode.parentNode;
-        var input = event.target;
-        var reader = new FileReader();
+        const img = document.getElementById('imagePreview');
+        const imageContainer = img.parentNode.parentNode;
+        const input = event.target;
+        const removeLink = document.getElementById('delete-image');
+
+        const reader = new FileReader();
+
         reader.onload = function() {
             img.src = reader.result;
+
             if (window.getComputedStyle(imageContainer).display === 'none') {
                 imageContainer.classList.remove('d-none');
             }
+
+            // Show the remove link and disable AJAX for temporary image
+            removeLink.style.display = 'flex';
+            removeLink.classList.remove('edit');
         };
-        reader.readAsDataURL(input.files[0]);
+
+        if (input.files.length > 0) {
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
     function removeImage(event) {
-        var defaultImg = document.getElementById('defaultImage').value;
-        var input = document.getElementById('file');
-        var img = document.getElementById('imagePreview');
-        var imageContainer = img.parentNode.parentNode;
+        const defaultImg = document.getElementById('defaultImage').value;
+        const input = document.getElementById('file');
+        const img = document.getElementById('imagePreview');
+        const imageContainer = img.parentNode.parentNode;
+        const removeLink = document.getElementById('delete-image');
 
         event.preventDefault();
+
         if (event.currentTarget.classList.contains('edit')) {
-            var id = event.currentTarget.dataset.uid;
-            var fileName = img.getAttribute('src').split('/').reverse()[0];
-            var url = `${APP_URL}/dashboard/articles/delete-image/${id}/${fileName}`;
+            const id = event.currentTarget.dataset.uid;
+            const fileName = img.getAttribute('src').split('/').pop();
+            const url = `${APP_URL}/dashboard/articles/delete-image/${id}/${fileName}`;
 
             if (confirm('This action is irreversible. Are you sure?')) {
-                var CSRF_TOKEN = document.querySelectorAll('meta[name="csrf-token"]')[0].getAttribute('content');
-                var xmlhttp = new XMLHttpRequest();
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const xmlhttp = new XMLHttpRequest();
 
                 xmlhttp.onreadystatechange = function() {
-                    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                        if (xmlhttp.status == 200) {
+                    if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                        if (xmlhttp.status === 200) {
                             img.src = defaultImg;
-                            document.getElementById('delete-image').remove();
+                            removeLink.style.display = 'none';
                         }
                     }
-                }
+                };
 
                 xmlhttp.open('POST', url, true);
                 xmlhttp.setRequestHeader("X-CSRF-TOKEN", CSRF_TOKEN);
                 xmlhttp.send();
             }
-
         } else {
-            imageContainer.classList.add('d-none');
-            img.src = "";
+            img.src = defaultImg;
             input.value = "";
+            imageContainer.classList.add('d-none');
+            removeLink.style.display = 'none';
         }
     }
 </script>
