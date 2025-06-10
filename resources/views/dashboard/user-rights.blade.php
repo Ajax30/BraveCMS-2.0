@@ -23,16 +23,16 @@
                   <td class="w-25">{{ $user->role->label }}</td>
                   <td class="w-25">
                     <div class="btn-group btn-group-sm w-100">
-                      <a href="{{ route('change-role', [$user->id]) }}" class="btn btn-primary">
+                      <a href="{{ route('change-role', [$user->id]) }}" class="btn btn-success">
                         <i class="fa-solid fa-pen-to-square"></i> Change role
                       </a>
 
                       @if (boolval($user->active))
-                        <a href="{{ route('ban-user', [$user->id]) }}" class="btn btn-primary" title="Ban this user">
+                        <a href="{{ route('ban-user', [$user->id]) }}" class="btn btn-success" title="Ban this user">
                           <i class="fa-solid fa-times"></i> Ban
                         </a>
                       @else
-                        <a href="{{ route('activate-user', [$user->id]) }}" class="btn btn-primary" title="Ban this user">
+                        <a href="{{ route('activate-user', [$user->id]) }}" class="btn btn-success" title="Ban this user">
                           <i class="fa-solid fa-check"></i> Activate
                         </a>
                       @endif
