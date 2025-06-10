@@ -143,7 +143,7 @@
 
                 <div class="row mb-0">
                     <div class="col-md-12">
-                        <button type="submit" class="w-100 btn btn-primary">
+                        <button type="submit" class="w-100 btn btn-success">
                             {{ __('Save') }}
                         </button>
                     </div>

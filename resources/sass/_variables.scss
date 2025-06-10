@@ -1,13 +1,13 @@
 // Colors
 $white:      #ffffff;
-$light:      #efefef;
+$light:      #efefef;   
 $light-gray: #f6f6f6;
 $medium-gray:#ced4da;
 $dark:       #00030a;
 $primary:    #116cd3;
 $secondary:  #545657;
 $info:       #736dc4;
-$success:    #3ba96e;
+$success:    #39926a;
 $warning:    #e1ce39;
 $danger:     #dc2215;
 $body-bg:    #f8fafc;
@@ -17,7 +17,19 @@ $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+// Pagination
+$pagination-color: $success;
+$pagination-hover-color: $success;
+$pagination-active-bg: $success;
+$pagination-active-border-color: $success;
+$pagination-focus-box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
+
+// Navigation
+$dropdown-link-active-bg: $success;
+
 // Forms
-$label-color: $secondary;
+$label-color: $secondary;  
+$form-control-focus-border-color: $success;
+$form-control-focus-box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
 
 

@@ -36,7 +36,7 @@
                                     <td>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
                                     <td>
                                         <a href="{{ route('show', [$comment->article->slug]) }}"
-                                            class="text-decoration-none" target="_black">
+                                            class="text-decoration-none text-success" target="_black">
                                             {{ $comment->article->title }}
                                         </a>
                                     </td>
@@ -45,17 +45,17 @@
                                         <div class="btn-group btn-group-sm w-100">
                                             @if (boolval($comment->approved))
                                                 <a href="{{ route('dashboard.comments.unapprove', [$comment->id]) }}"
-                                                    class="btn btn-primary">
+                                                    class="btn btn-success">
                                                     <i class="fa-solid fa-pen-to-square"></i> Unapprove
                                                 </a>
                                             @else
                                                 <a href="{{ route('dashboard.comments.approve', [$comment->id]) }}"
-                                                    class="btn btn-primary">
+                                                    class="btn btn-success">
                                                     <i class="fa-solid fa-pen-to-square"></i> Approve
                                                 </a>
                                             @endif
                                             <a href="{{ route('dashboard.comments.delete', [$comment->id]) }}"
-                                                class="btn btn-primary" onclick="return confirm('Delete this comment?')"
+                                                class="btn btn-success" onclick="return confirm('Delete this comment?')"
                                                 title="Delete comment">
                                                 <i class="fa-solid fa-trash"></i> Delete
                                             </a>
