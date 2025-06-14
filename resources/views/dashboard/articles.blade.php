@@ -4,7 +4,7 @@
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between px-2">
             <span class="align-self-center">{{ __('Articles') }}</span>
-            <a href="{{ route('dashboard.articles.new') }}" title="Add a new article" class="btn btn-sm btn-primary">
+            <a href="{{ route('dashboard.articles.new') }}" title="Add a new article" class="btn btn-sm btn-success">
                 <i class="fa-solid fa-circle-plus"></i> Add article
             </a>
         </div>
@@ -36,16 +36,16 @@
                                     <td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
-                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-primary">
+                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success">
                                                 <i class="fa-solid fa-eye"></i> View
                                             </a>
                                             <a href="{{ route('dashboard.articles.edit', [$article->id]) }}"
-                                                class="btn btn-primary">
+                                                class="btn btn-success">
                                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                                             </a>
 
                                             <a href="{{ route('dashboard.articles.delete', [$article->id]) }}"
-                                                class="btn btn-primary" onclick="return confirm('Delete this article?')"
+                                                class="btn btn-success" onclick="return confirm('Delete this article?')"
                                                 title="Delete article">
                                                 <i class="fa-solid fa-trash"></i> Delete
                                             </a>

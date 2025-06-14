@@ -84,7 +84,7 @@ label {
 	  &:checked {
 		+ {
 		  label, input + label {
-			background: $primary;
+			background: $success;
 		  }
   
 		  label:after {
