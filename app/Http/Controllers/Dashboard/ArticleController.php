@@ -112,12 +112,20 @@ class ArticleController extends Controller
     // Turn the 'featured' field value into a tiny integer
     $fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
+    // Unique slug
+    $slug = Str::slug($fields['title'], '-');
+    $originalSlug = $slug;
+    $count = 1;
+    while (Article::where('slug', $slug)->exists()) {
+        $slug = $originalSlug . '-' . $count++;
+    }
+
     // Data to be added
     $form_data = [
       'user_id' => Auth::user()->id,
       'category_id' => $fields['category_id'],
       'title' => $fields['title'],
-      'slug' => Str::slug($fields['title'], '-'),
+      'slug' => $slug,
       'short_description' => $fields['short_description'],
       'content' => $fields['content'],
       'featured' => $fields['featured'],
