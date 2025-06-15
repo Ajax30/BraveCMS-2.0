@@ -79,7 +79,7 @@
 
 						<div class="row mb-1 @error('accept') has-error @enderror">
 							<div class="d-flex pb-2">
-								<input class="mt-1" type="checkbox" name="accept" id="accept">
+								<input type="checkbox" name="accept" id="accept">
 
 								<label class="px-1" for="accept">
 									Accept the <a href="{{ url('/page/1') }}">Terms and conditions</a>
