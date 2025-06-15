@@ -1,3 +1,8 @@
+// Force btn-success to white
+.btn-success {
+    color: $white !important;
+} 
+
 // Disabled button groups
 .btn-group.disabled {
   .btn {
@@ -23,8 +28,8 @@
 	&::before {
 		content: 'Add image';
 		display: inline-block;
-		background-color: $primary;
-		border-color: darken($primary, 5%);
+		background-color: $success;
+		border-color: darken($success, 5%);
 		border-radius: 3px;
 		padding: 9px 12px 7px 35px;
 		outline: none;
@@ -36,12 +41,12 @@
 	}
 	&:hover {
 		&::before {
-			background: $primary;
+			background: $success;
 		}
 	}
 	&:active {
 		&::before {
-			background: $primary;
+			background: $success;
 		}
 	}
 	&::after {

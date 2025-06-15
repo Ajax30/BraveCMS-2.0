@@ -143,10 +143,10 @@
 
             <div class="form-group d-flex mb-0 mt-2">
                 <div class="w-50 pe-1">
-                  <input type="submit" name="submit" value="Save" class="w-100 btn btn-primary">
+                  <input type="submit" name="submit" value="Save" class="w-100 btn btn-success">
                 </div>
                 <div class="w-50 ps-1">
-                  <a href="{{route('dashboard.settings')}}" class="w-100 btn btn-primary">Cancel</a>
+                  <a href="{{route('dashboard.settings')}}" class="w-100 btn btn-success">Cancel</a>
                 </div>
             </div>
           </form>

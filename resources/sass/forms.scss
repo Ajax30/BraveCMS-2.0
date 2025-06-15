@@ -8,6 +8,7 @@ label {
 
 	&:focus {
 		box-shadow: none;
+    border-color: $form-control-focus-border-color;
 	}
 
 	&.is-invalid {
@@ -84,7 +85,7 @@ label {
 	  &:checked {
 		+ {
 		  label, input + label {
-			background: $primary;
+			background: $success;
 		  }
   
 		  label:after {

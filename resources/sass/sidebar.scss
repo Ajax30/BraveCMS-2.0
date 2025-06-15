@@ -9,15 +9,15 @@
 		}
 
 		a {
-			color: #777;
+			color: $secondary;
 			text-decoration: none;
 			padding: 0.5rem 1rem;
 			display: flex;
 			justify-content: space-between;
       align-items: center;
-
+      
 			&.active {
-				color: rgba(0, 0, 0, 0.9);
+				color: $success;
 			}
 
 			.badge {

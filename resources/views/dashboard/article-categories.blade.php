@@ -4,7 +4,7 @@
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between px-2">
             <span class="align-self-center">{{ __('Categories') }}</span>
-            <a href="{{ route('dashboard.categories.new') }}" title="Add a new category" class="btn btn-sm btn-primary">
+            <a href="{{ route('dashboard.categories.new') }}" title="Add a new category" class="btn btn-sm btn-success">
                 <i class="fa-solid fa-circle-plus"></i> Add category
             </a>
         </div>
@@ -27,12 +27,12 @@
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
                                             <a href="{{ route('dashboard.categories.edit', [$category->id]) }}"
-                                                class="btn btn-primary">
+                                                class="btn btn-success">
                                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                                             </a>
 
                                             <a href="{{ route('dashboard.categories.delete', [$category->id]) }}"
-                                                class="btn btn-primary" onclick="return confirm('Delete this category?')"
+                                                class="btn btn-success" onclick="return confirm('Delete this category?')"
                                                 title="Delete article">
                                                 <i class="fa-solid fa-trash"></i> Delete
                                             </a>

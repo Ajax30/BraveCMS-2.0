@@ -4,7 +4,7 @@
 	<div class="card shadow-sm">
 		<div class="card-header d-flex justify-content-between px-2">
 			<span class="align-self-center">{{ __('Tags') }}</span>
-			<a href="{{ route('dashboard.tags.new') }}" title="Add a new tag" class="btn btn-sm btn-primary">
+			<a href="{{ route('dashboard.tags.new') }}" title="Add a new tag" class="btn btn-sm btn-success">
 				<i class="fa-solid fa-circle-plus"></i> Add tag
 			</a>
 		</div>
@@ -26,11 +26,11 @@
 							<td>{{ $tag->name }}</td>
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
-									<a href="{{ route('dashboard.tags.edit', [$tag->id]) }}" class="btn btn-primary">
+									<a href="{{ route('dashboard.tags.edit', [$tag->id]) }}" class="btn btn-success">
 										<i class="fa-solid fa-pen-to-square"></i> Edit
 									</a>
 
-									<a href="{{ route('dashboard.tags.delete', [$tag->id]) }}" class="btn btn-primary" onclick="return confirm('Delete this tag?')" title="Delete article">
+									<a href="{{ route('dashboard.tags.delete', [$tag->id]) }}" class="btn btn-success" onclick="return confirm('Delete this tag?')" title="Delete article">
 										<i class="fa-solid fa-trash"></i> Delete
 									</a>
 								</div>
