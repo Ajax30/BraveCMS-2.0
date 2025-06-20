@@ -152,10 +152,13 @@
                 </div>
 
                 <div class="row mb-0">
-                    <div class="col-md-12">
-                        <button type="submit" class="w-100 btn btn-success">
-                            {{ __('Update') }}
-                        </button>
+                    <div class="col-md-12 d-flex">
+                      <div class="w-50 pe-1">
+                        <button type="submit" class="btn btn-success w-100">{{ __('Update') }}</button>
+                      </div>
+                      <div class="w-50 ps-1">
+                        <a href="{{ route('dashboard.articles') }}" class="btn btn-success w-100">{{ __('Cancel') }}</a>
+                      </div>
                     </div>
                 </div>
             </form>
