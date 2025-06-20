@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +13,6 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-
   private $rules = [
     'category_id' => 'required|exists:article_categories,id',
     'title' => 'required|string|max:190',
@@ -43,12 +41,8 @@ class ArticleController extends Controller
 
   public function index(Request $request)
   {
-    // Articles count
     $article_count = Article::count();
-
     $per_page = 10;
-
-    // Search query
     $qry = $request->input('search');
 
     $articles = Article::where('title', 'like', '%' . $qry . '%')
@@ -67,30 +61,33 @@ class ArticleController extends Controller
       }
     }
 
-    return view(
-      'dashboard/articles',
-      [
-        'articles' => $articles,
-        'article_count' => $article_count
-      ]
-    );
+    return view('dashboard/articles', [
+      'articles' => $articles,
+      'article_count' => $article_count
+    ]);
+  }
+
+  public function deleteImage($id, $fileName)
+  {
+    $article = Article::find($id);
+    $article->image = "default.jpg";
+    $article->save();
+
+    if (File::exists(public_path('images/articles/' . $fileName))) {
+      File::delete(public_path('images/articles/' . $fileName));
+    }
   }
 
   public function create()
   {
-    // Load the view and populate the form with categories
-    return view(
-      'dashboard/add-article',
-      [
-        'categories' => $this->categories(),
-        'tags' => $this->tags()
-      ]
-    );
+    return view('dashboard/add-article', [
+      'categories' => $this->categories(),
+      'tags' => $this->tags()
+    ]);
   }
 
   public function save(Request $request)
   {
-    // Validate form (with custom messages)
     $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
     if ($validator->fails()) {
@@ -99,28 +96,22 @@ class ArticleController extends Controller
 
     $fields = $validator->validated();
 
-    // Upload article image
-
     if (isset($request->image)) {
       $imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
       $request->image->move(public_path('images/articles'), $imageName);
     }
 
-    // If no image is uploaded, use default.jpg
-    $fields['image'] = null == $request->image ? 'default.jpg' : $imageName;
-
-    // Turn the 'featured' field value into a tiny integer
+    $fields['image'] = $request->image ? $imageName : 'default.jpg';
     $fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
-    // Unique slug
+    // Slug generation
     $slug = Str::slug($fields['title'], '-');
     $originalSlug = $slug;
     $count = 1;
     while (Article::where('slug', $slug)->exists()) {
-        $slug = $originalSlug . '-' . $count++;
+      $slug = $originalSlug . '-' . $count++;
     }
 
-    // Data to be added
     $form_data = [
       'user_id' => Auth::user()->id,
       'category_id' => $fields['category_id'],
@@ -132,7 +123,6 @@ class ArticleController extends Controller
       'image' => $fields['image']
     ];
 
-    // Insert data in the 'articles' table
     $query = Article::create($form_data);
 
     if ($request->has('tags')) {
@@ -146,30 +136,17 @@ class ArticleController extends Controller
     }
   }
 
-  public function deleteImage($id, $fileName) {
-    $article = Article::find($id);
-    $article->image = "default.jpg";
-		$article->save();
-
-		if (File::exists(public_path('images/articles/' . $fileName))) {
-			File::delete(public_path('images/articles/' . $fileName));
-		}
-  }
-
   public function edit($id)
   {
     $article = Article::find($id);
     $attached_tags = $article->tags()->get()->pluck('id')->toArray();
-    
-    return view(
-      'dashboard/edit-article',
-      [
-        'categories' => $this->categories(),
-        'tags' => $this->tags(),
-        'attached_tags' => $attached_tags,
-        'article' => $article
-      ]
-    );
+
+    return view('dashboard/edit-article', [
+      'categories' => $this->categories(),
+      'tags' => $this->tags(),
+      'attached_tags' => $attached_tags,
+      'article' => $article
+    ]);
   }
 
   public function update(Request $request, $id)
@@ -183,8 +160,7 @@ class ArticleController extends Controller
     $fields = $validator->validated();
     $article = Article::find($id);
 
-    // If a new image is uploaded, set it as the article image
-    // Otherwise, set the old image...
+    // Handle image
     if (isset($request->image)) {
       $imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
       $request->image->move(public_path('images/articles'), $imageName);
@@ -192,20 +168,34 @@ class ArticleController extends Controller
       $imageName = $article->image;
     }
 
-    $article->title = $request->get('title');
+    $title = $request->get('title');
+
+    // Update slug if title changed
+    if ($title !== $article->title) {
+      $slug = Str::slug($title, '-');
+      $originalSlug = $slug;
+      $count = 1;
+
+      while (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
+        $slug = $originalSlug . '-' . $count++;
+      }
+      $article->slug = $slug;
+    }
+
+    $article->title = $title;
     $article->short_description = $request->get('short_description');
     $article->category_id = $request->get('category_id');
     $article->featured = $request->has('featured');
     $article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
     $article->content = $request->get('content');
-    // Save changes to the article
+
     $article->save();
 
-    //Attach tags to article
+    // Attach tags to article
     if ($request->has('tags')) {
       $article->tags()->sync($request->tags);
     } else {
-        $article->tags()->sync([]);
+      $article->tags()->sync([]);
     }
 
     return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
