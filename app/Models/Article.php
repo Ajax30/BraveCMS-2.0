@@ -18,6 +18,7 @@ class Article extends Model
 			'content',
 			'featured',
 			'image',
+      'views'
 		];
 
 		// Join users to articles

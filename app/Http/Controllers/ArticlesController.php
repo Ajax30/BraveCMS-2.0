@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -117,17 +118,26 @@ class ArticlesController extends FrontendController
 
   public function show($slug)
   {
-    // Single article
-    $article     = Article::firstWhere('slug', $slug);
+    // Fetch the article by slug or fail
+    $article = Article::where('slug', $slug)->firstOrFail();
+
+    // Throttle views: increment only if not viewed within the past 60 minutes
+    $sessionKey = 'article_viewed_' . $article->id;
+    $lastViewedAt = session($sessionKey);
+
+    if (!$lastViewedAt || Carbon::createFromTimestamp($lastViewedAt)->diffInMinutes(now()) >= 60) {
+      $article->increment('views');
+      session()->put($sessionKey, now()->timestamp);
+    }
+
+    // Previous and next articles
     $old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
     $new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
 
-    // Comments
-    $commentsQuery  = $this->get_commentQuery($article->id);
+    // Comments logic
+    $commentsQuery = $this->get_commentQuery($article->id);
     $comments_count = $commentsQuery->count();
 
-    // If infinite scroll, paginate comments (to be loaded one page per scroll),
-    // Else show them all 
     if (boolval($this->is_infinitescroll)) {
       $comments = $commentsQuery->paginate($this->comments_per_page);
     } else {
@@ -149,6 +159,7 @@ class ArticlesController extends FrontendController
       ])
     );
   }
+
 
   /**
    * AJAX Call for Loading extra comments
