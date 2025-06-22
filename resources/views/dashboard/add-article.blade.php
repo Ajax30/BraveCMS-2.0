@@ -84,10 +84,13 @@
                             placeholder="Filter available tags" />
 
                         <select name="tags[]" id="tags" class="form-control tag-select" multiple>
-                            @foreach ($tags as $tag)
-                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                            @endforeach
-                        </select>
+                          @foreach ($tags as $tag)
+                              <option value="{{ $tag->id }}" 
+                                  {{ (collect(old('tags'))->contains($tag->id)) ? 'selected' : '' }}>
+                                  {{ $tag->name }}
+                              </option>
+                          @endforeach
+                      </select>
                     </div>
                 </div>
 
