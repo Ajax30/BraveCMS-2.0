@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;  
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Page;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('dashboard/index');
+        $articleCount = Article::count();
+        $totalViews = Article::sum('views');
+        $publishedToday = Article::whereDate('created_at', Carbon::today())->count();
+
+        return view('dashboard.index', compact('articleCount', 'totalViews', 'publishedToday'));
     }
 }
