@@ -204,7 +204,19 @@ class ArticleController extends Controller
   public function delete($id)
   {
     $article = Article::find($id);
+
+    // Detach related tags
     $article->tags()->detach();
+
+    // Physically remove article's image (if it's not the default one)
+    if ($article->image && $article->image !== 'default.jpg') {
+        $imagePath = public_path('images/articles/' . $article->image);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+    }
+
+    // Delete article
     $article->delete();
 
     return redirect()->back()->with('success', 'The article titled "' . $article->title . '" was deleted');
