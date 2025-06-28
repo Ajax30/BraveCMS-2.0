@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\PageNotFoundController;
 use App\Http\Controllers\ArticlesController;
@@ -49,6 +50,7 @@ Route::post('/contact/submit', [ContactController::class, 'submit'])->name('cont
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Auth::routes();
+Route::post('/check-email', [RegisterController::class, 'checkEmail'])->name('check.email');
 
 // Dashboard routes
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
