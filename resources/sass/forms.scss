@@ -21,6 +21,16 @@ label {
 	background: transparent;
 }
 
+.password-strength-progress {
+  position: relative;
+  height: 5px;
+  margin-top: 0.25rem;
+
+  .progress-bar {
+    position: absolute;
+    height: 5px;
+  }
+}
 
 // Search form {
 #search_form {
@@ -149,9 +159,22 @@ label {
 		}
 	}
 
+  &.password-container {
+    position: relative;
+
+    .invalid-feedback {
+      bottom: 10px;
+    }
+  }
+
 	&.post-image {
 		.invalid-feedback {
 			left: 150px;
 		}
 	}
+}
+
+#password-strength-text {
+  position: absolute;
+  right: 32px;
 }

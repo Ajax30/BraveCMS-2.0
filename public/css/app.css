@@ -19745,6 +19745,16 @@ label {
   background: transparent;
 }
 
+.password-strength-progress {
+  position: relative;
+  height: 5px;
+  margin-top: 0.25rem;
+}
+.password-strength-progress .progress-bar {
+  position: absolute;
+  height: 5px;
+}
+
 #search_form .form-control[type=text] {
   border-right: 0;
   border-color: #ced4da;
@@ -19843,8 +19853,19 @@ label {
 .has-error .invalid-feedback.accept {
   left: 12px;
 }
+.has-error.password-container {
+  position: relative;
+}
+.has-error.password-container .invalid-feedback {
+  bottom: 10px;
+}
 .has-error.post-image .invalid-feedback {
   left: 150px;
+}
+
+#password-strength-text {
+  position: absolute;
+  right: 32px;
 }
 
 .btn-success {

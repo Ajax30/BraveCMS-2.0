@@ -6,7 +6,6 @@
         <div class="card-body">
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-
                 <div class="row mb-2">
                     <label for="first_name" class="col-md-12">{{ __('First name') }}</label>
 
@@ -45,7 +44,7 @@
                     <div class="col-md-12 @error('email') has-error @enderror">
                         <input id="email" type="email" placeholder="Email address"
                             class="form-control @error('email') is-invalid @enderror" name="email"
-                            value="{{ old('email') }}" autocomplete="email">
+                            value="{{ old('email') }}" autocomplete="email" autofocus>
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -57,20 +56,25 @@
 
                 <div class="row mb-2">
                     <label for="password" class="col-md-12">{{ __('Password') }}</label>
-
-                    <div class="col-md-12 @error('password') has-error @enderror">
-                        <input id="password" type="password" placeholder="Password"
-                            class="form-control @error('password') is-invalid @enderror" name="password"
-                            autocomplete="new-password">
+                    <div class="col-md-12 password-container @error('password') has-error @enderror">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                            name="password" placeholder="Password" autocomplete="new-password">
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+
+                        <div class="progress password-strength-progress mt-1" id="password-strength">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>
+
+                        <div class="position-absolute w-100">
+                            <small id="password-strength-text" class="form-text text-muted"></small>
+                        </div>
                     </div>
                 </div>
-
                 <div class="row mb-2">
                     <label for="password-confirm" class="col-md-12">{{ __('Confirm password') }}</label>
 
@@ -112,6 +116,7 @@
                     </div>
                 </div>
             </form>
+            @include('partials.register-validation-script')
         </div>
     </div>
 @endsection
