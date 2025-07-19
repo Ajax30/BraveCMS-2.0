@@ -13192,10 +13192,10 @@ textarea.form-control-lg {
 }
 .page-link:focus {
   z-index: 3;
-  color: #0e56a9;
+  color: #39926a;
   background-color: #e9ecef;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(57, 146, 106, 0.25);
+  box-shadow: none;
 }
 
 .page-item:not(:first-child) .page-link {
