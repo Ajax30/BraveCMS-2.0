@@ -33,29 +33,29 @@
                                 <tr>
                                     <td>{{ $per_page * ($current_page - 1) + $index + 1 }}</td>
                                     <td>{{ $comment->body }}</td>
-                                    <td>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
+                                    <td class="text-nowrap">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
                                     <td>
                                         <a href="{{ route('show', [$comment->article->slug]) }}"
                                             class="text-decoration-none text-success" target="_black">
                                             {{ $comment->article->title }}
                                         </a>
                                     </td>
-                                    <td>{{ date('jS M Y', strtotime($comment->created_at)) }}</td>
+                                    <td class="text-nowrap">{{ date('jS M Y', strtotime($comment->created_at)) }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm w-100">
                                             @if (boolval($comment->approved))
                                                 <a href="{{ route('dashboard.comments.unapprove', [$comment->id]) }}"
-                                                    class="btn btn-success">
+                                                    class="btn btn-success text-nowrap">
                                                     <i class="fa-solid fa-pen-to-square"></i> Unapprove
                                                 </a>
                                             @else
                                                 <a href="{{ route('dashboard.comments.approve', [$comment->id]) }}"
-                                                    class="btn btn-success">
+                                                    class="btn btn-success text-nowrap">
                                                     <i class="fa-solid fa-pen-to-square"></i> Approve
                                                 </a>
                                             @endif
                                             <a href="{{ route('dashboard.comments.delete', [$comment->id]) }}"
-                                                class="btn btn-success" onclick="return confirm('Delete this comment?')"
+                                                class="btn btn-success text-nowrap" onclick="return confirm('Delete this comment?')"
                                                 title="Delete comment">
                                                 <i class="fa-solid fa-trash"></i> Delete
                                             </a>
