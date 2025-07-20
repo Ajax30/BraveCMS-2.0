@@ -29,7 +29,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; {{ $owner_name }} 2022 </p>
+          <p class="copyright text-muted">Copyright &copy; {{ $owner_name }} 2022 - {{ \Carbon\Carbon::now()->format('Y') }} </p>
         </div>
       </div>
     </div> 

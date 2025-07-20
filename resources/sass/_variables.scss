@@ -20,9 +20,10 @@ $line-height-base: 1.6;
 // Pagination
 $pagination-color: $success;
 $pagination-hover-color: $success;
+$pagination-focus-color: $success;  
 $pagination-active-bg: $success;
 $pagination-active-border-color: $success;
-$pagination-focus-box-shadow: 0 0 0 0.25rem rgba($success, 0.25);
+$pagination-focus-box-shadow: none;
 
 // Navigation
 $dropdown-link-active-bg: $success;
