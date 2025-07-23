@@ -13,9 +13,25 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Lar
 5. It's Admin is designed with **Bootstrap 5 SASS** and very easy to customize.
 6. It is free (but patrons will be appreciated).
 
+### Login form
+
+![Login](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/login.png)
+
 ### Dashboard
 
-![Dashboard preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/dashboard.png)
+![Dashboard](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/dashboard.png)
+
+### Articles
+
+![Articles list](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/articles-list.png)
+
+### Add article
+
+![Add article](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/article-add.png)
+
+### Edit article
+
+![Edit article](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/article-edit.png)
 
 ### Site settings
 
@@ -26,13 +42,6 @@ The **super-admin** has access to the *Settings* section.
 ### Homepage
 
 ![Homepage preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
-
-
-# Demo video
-
-I have created a short demo **video**.
-
-[![Demo video](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/video-thumbnail.png)](https://www.youtube.com/watch?v=AEMUFTxO4uc)
 
 
 # How to use Brave CMS
