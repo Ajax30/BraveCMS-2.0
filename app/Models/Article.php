@@ -17,7 +17,8 @@ class Article extends Model
 			'short_description',
 			'content',
 			'featured',
-			'image',
+      'image',
+      'video',
       'views'
 		];
 
