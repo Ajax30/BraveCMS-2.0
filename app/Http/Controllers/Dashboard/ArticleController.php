@@ -13,11 +13,15 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+  private const IMAGE_PATH = 'images/articles/';
+  private const VIDEO_PATH = 'videos/articles/';
+
   private $rules = [
     'category_id' => 'required|exists:article_categories,id',
     'title' => 'required|string|max:190',
     'short_description' => 'required|string|max:190',
     'image' =>  'image|mimes:jpeg,png,jpg|max:2048',
+    'video' =>  'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string'
   ];
 
@@ -44,16 +48,18 @@ class ArticleController extends Controller
     $article_count = Article::count();
     $per_page = 10;
     $qry = $request->input('search');
+    $articles = Article::query();
 
-    $articles = Article::where('title', 'like', '%' . $qry . '%')
-      ->orWhere('short_description', 'like', '%' . $qry . '%')
-      ->orWhere('content', 'like', '%' . $qry . '%')
-      ->orderBy('id', 'desc')
-      ->paginate($per_page)
-      ->onEachSide(1);
+    if ($qry) {
+      $articles->where(function ($q) use ($qry) {
+        $q->where('title', 'like', '%' . $qry . '%')
+          ->orWhere('short_description', 'like', '%' . $qry . '%')
+          ->orWhere('content', 'like', '%' . $qry . '%');
+      });
+    }
 
-    /* Add 'allowActions' boolean to each article
-    Check if current user is the article's owner or an admin to allow actions */
+    $articles = $articles->orderBy('id', 'desc')->paginate($per_page)->onEachSide(1);
+
     foreach ($articles as $article) {
       $article->allowActions = true;
       if (Auth::user()->role->name == 'author') {
@@ -69,12 +75,21 @@ class ArticleController extends Controller
 
   public function deleteImage($id, $fileName)
   {
-    $article = Article::find($id);
-    $article->image = "default.jpg";
-    $article->save();
+    $article = Article::findOrFail($id);
 
-    if (File::exists(public_path('images/articles/' . $fileName))) {
-      File::delete(public_path('images/articles/' . $fileName));
+    if ($article->image !== 'default.jpg' && File::exists(public_path(self::IMAGE_PATH . $fileName))) {
+      File::delete(public_path(self::IMAGE_PATH . $fileName));
+      $article->update(['image' => 'default.jpg']);
+    }
+  }
+
+  public function deleteVideo($id, $fileName)
+  {
+    $article = Article::findOrFail($id);
+
+    if (File::exists(public_path(self::VIDEO_PATH . $fileName))) {
+      File::delete(public_path(self::VIDEO_PATH . $fileName));
+      $article->update(['video' => null]);
     }
   }
 
@@ -91,20 +106,38 @@ class ArticleController extends Controller
     $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
     if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator->errors())->withInput();
+      return redirect()->back()->withErrors($validator)->withInput();
     }
 
     $fields = $validator->validated();
 
-    if (isset($request->image)) {
-      $imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
-      $request->image->move(public_path('images/articles'), $imageName);
+    // Image upload
+    if ($request->hasFile('image')) {
+      $imagePath = public_path(self::IMAGE_PATH);
+      if (!File::exists($imagePath)) {
+        File::makeDirectory($imagePath, 0755, true);
+      }
+
+      $imageName = uniqid('img_', true) . '.' . $request->image->extension();
+      $request->image->move($imagePath, $imageName);
+    } else {
+      $imageName = 'default.jpg';
     }
 
-    $fields['image'] = $request->image ? $imageName : 'default.jpg';
-    $fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
+    // Video upload
+    if ($request->hasFile('video')) {
+      $videoPath = public_path(self::VIDEO_PATH);
+      if (!File::exists($videoPath)) {
+        File::makeDirectory($videoPath, 0755, true);
+      }
 
-    // Slug generation
+      $videoName = uniqid('vid_', true) . '.' . $request->video->extension();
+      $request->video->move($videoPath, $videoName);
+    } else {
+      $videoName = null;
+    }
+
+    // Generate slug
     $slug = Str::slug($fields['title'], '-');
     $originalSlug = $slug;
     $count = 1;
@@ -119,27 +152,28 @@ class ArticleController extends Controller
       'slug' => $slug,
       'short_description' => $fields['short_description'],
       'content' => $fields['content'],
-      'featured' => $fields['featured'],
-      'image' => $fields['image']
+      'featured' => $request->get('featured') == 'on' ? 1 : 0,
+      'image' => $imageName,
+      'video' => $videoName,
     ];
 
-    $query = Article::create($form_data);
+    $article = Article::create($form_data);
 
     if ($request->has('tags')) {
-      $query->tags()->attach($request->tags);
+      $article->tags()->attach($request->tags);
     }
 
-    if ($query) {
+    if ($article) {
       return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $form_data['title'] . '" was added');
-    } else {
-      return redirect()->back()->with('error', 'Adding article failed');
     }
+
+    return redirect()->back()->with('error', 'Adding article failed');
   }
 
   public function edit($id)
   {
-    $article = Article::find($id);
-    $attached_tags = $article->tags()->get()->pluck('id')->toArray();
+    $article = Article::findOrFail($id);
+    $attached_tags = $article->tags()->pluck('id')->toArray();
 
     return view('dashboard/edit-article', [
       'categories' => $this->categories(),
@@ -154,23 +188,49 @@ class ArticleController extends Controller
     $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
     if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator->errors())->withInput();
+      return redirect()->back()->withErrors($validator)->withInput();
     }
 
     $fields = $validator->validated();
-    $article = Article::find($id);
+    $article = Article::findOrFail($id);
 
-    // Handle image
-    if (isset($request->image)) {
-      $imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
-      $request->image->move(public_path('images/articles'), $imageName);
+    // Image upload
+    if ($request->hasFile('image')) {
+      if ($article->image && $article->image !== 'default.jpg' && File::exists(public_path(self::IMAGE_PATH . $article->image))) {
+        File::delete(public_path(self::IMAGE_PATH . $article->image));
+      }
+
+      $imagePath = public_path(self::IMAGE_PATH);
+      if (!File::exists($imagePath)) {
+        File::makeDirectory($imagePath, 0755, true);
+      }
+
+      $imageName = uniqid('img_', true) . '.' . $request->image->extension();
+      $request->image->move($imagePath, $imageName);
     } else {
       $imageName = $article->image;
     }
 
-    $title = $request->get('title');
+    // Video upload
+    if ($request->hasFile('video')) {
+      if ($article->video && File::exists(public_path(self::VIDEO_PATH . $article->video))) {
+        File::delete(public_path(self::VIDEO_PATH . $article->video));
+      }
 
-    // Update slug if title changed
+      $videoPath = public_path(self::VIDEO_PATH);
+      if (!File::exists($videoPath)) {
+        File::makeDirectory($videoPath, 0755, true);
+      }
+
+      $videoName = uniqid('vid_', true) . '.' . $request->video->extension();
+      $request->video->move($videoPath, $videoName);
+    } else {
+      $videoName = $article->video;
+    }
+
+    $title = $fields['title'];
+
+    // Update slug if the title has changed
     if ($title !== $article->title) {
       $slug = Str::slug($title, '-');
       $originalSlug = $slug;
@@ -179,41 +239,48 @@ class ArticleController extends Controller
       while (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
         $slug = $originalSlug . '-' . $count++;
       }
+
       $article->slug = $slug;
     }
 
+    // Update article properties
     $article->title = $title;
-    $article->short_description = $request->get('short_description');
-    $article->category_id = $request->get('category_id');
+    $article->short_description = $fields['short_description'];
+    $article->category_id = $fields['category_id'];
     $article->featured = $request->has('featured');
-    $article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
-    $article->content = $request->get('content');
+    $article->image = $imageName;
+    $article->video = $videoName;
+    $article->content = $fields['content'];
 
     $article->save();
 
-    // Attach tags to article
-    if ($request->has('tags')) {
-      $article->tags()->sync($request->tags);
-    } else {
-      $article->tags()->sync([]);
-    }
+    $article->tags()->sync($request->tags ?? []);
 
-    return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
+    return redirect()->route('dashboard.articles')
+      ->with('success', 'The article titled "' . $article->title . '" was updated');
   }
 
   public function delete($id)
   {
-    $article = Article::find($id);
+    $article = Article::findOrFail($id);
 
     // Detach related tags
     $article->tags()->detach();
 
     // Physically remove article's image (if it's not the default one)
     if ($article->image && $article->image !== 'default.jpg') {
-        $imagePath = public_path('images/articles/' . $article->image);
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
-        }
+      $imagePath = public_path(self::IMAGE_PATH . $article->image);
+      if (File::exists($imagePath)) {
+        File::delete($imagePath);
+      }
+    }
+
+    // Physically remove article's video
+    if ($article->video) {
+      $videoPath = public_path(self::VIDEO_PATH . $article->video);
+      if (File::exists($videoPath)) {
+        File::delete($videoPath);
+      }
     }
 
     // Delete article

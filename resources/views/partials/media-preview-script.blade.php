@@ -25,18 +25,15 @@
     }
 
     function removeImage(event) {
+        event.preventDefault();
         const defaultImg = document.getElementById('defaultImage').value;
         const input = document.getElementById('file');
         const img = document.getElementById('imagePreview');
         const imageContainer = img.parentNode.parentNode;
         const removeLink = document.getElementById('delete-image');
 
-        event.preventDefault();
-
         if (event.currentTarget.classList.contains('edit')) {
-            const id = event.currentTarget.dataset.uid;
-            const fileName = img.getAttribute('src').split('/').pop();
-            const url = `${APP_URL}/dashboard/articles/delete-image/${id}/${fileName}`;
+            const url = event.currentTarget.getAttribute('href');
 
             if (confirm('This action is irreversible. Are you sure?')) {
                 const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -61,5 +58,29 @@
             imageContainer.classList.add('d-none');
             removeLink.style.display = 'none';
         }
+    }
+
+    function removeVideo(event) {
+      event.preventDefault();
+      const video = document.getElementById('videoPreview');
+      const url = event.currentTarget.getAttribute('href');
+
+      if (confirm('This action is irreversible. Are you sure?')) {
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                        if (xmlhttp.status === 200) {
+                            document.querySelector('.video-preview').remove();
+                            document.querySelector('#video-file').classList.remove('replace-video');
+                        }
+                    }
+                };
+
+                xmlhttp.open('POST', url, true);
+                xmlhttp.setRequestHeader("X-CSRF-TOKEN", CSRF_TOKEN);
+                xmlhttp.send();
+            }
     }
 </script>

@@ -25,6 +25,7 @@ class CreateArticlesTable extends Migration
             $table->longText('content');
             $table->boolean('featured')->default(0);
             $table->string('image')->nullable();
+            $table->string('video')->nullable();
             $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });

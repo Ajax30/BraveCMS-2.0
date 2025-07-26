@@ -1,8 +1,8 @@
 // Article image
-.post-image {
+.post-media {
   position: relative;
 
-  .remove-image {
+  .remove-media {
     position: absolute;
     opacity: 0;
     text-decoration: none;
@@ -12,11 +12,16 @@
     align-items: center;
     top: 10px;
     right: 20px;
+    left: auto;
     width: 40px;
     height: 40px;
     border-radius: 50%;   
     background: rgba(0, 0, 0, 0.12);
     transition: all 0.25s ease-in-out;
+
+    &.remove-video {
+      right: 10px;
+    }
 
     .fa {
       font-size: 125%;
@@ -24,7 +29,7 @@
   }
 
   &:hover {
-    .remove-image {
+    .remove-media {
       opacity: 1;
     }
   }
@@ -41,6 +46,15 @@
   &.large {
     width: 100%; 
   }
+}
+
+// Article video
+.video-preview {
+  overflow: hidden;
+  border: 1px solid $medium-gray;
+  border-radius: 3px;
+  padding: 1px;
+  background: $body-bg;
 }
 
 // Article tags
