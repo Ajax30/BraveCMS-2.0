@@ -7,9 +7,17 @@
             <div class="column large-12">
                 <article class="s-content__entry format-standard">
                     <div class="s-content__media">
+                      @if ($article->video)
+                        <div class="video-container">
+                            <video poster="{{ asset('images/articles/' . $article->image) }}" controls>
+                              <source src="{{ asset('videos/articles/' . $article->video) }}" type="video/mp4">
+                          </video>
+                        </div>
+                      @else
                         <div class="s-content__post-thumb">
                             <img src="{{ asset('images/articles/' . $article->image) }}" alt="{{ $article->title }}">
                         </div>
+                      @endif
                     </div>
                     <!-- end s-content__media -->
                     <div class="s-content__entry-header">

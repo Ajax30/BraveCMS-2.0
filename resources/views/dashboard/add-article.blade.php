@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-2">
                     <label for="image" class="col-md-12">{{ __('Article image') }}</label>
 
                     <div class="col-md-12 post-image @error('image') has-error @enderror">
@@ -125,6 +125,21 @@
                         <a class="remove-image" href="#" title="Remove image" onclick="removeImage(event)">
                             <i class="fa fa-remove"></i>
                         </a>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="video-file" class="col-md-12">{{ __('Article video') }}</label>
+
+                    <div class="col-md-12 post-video @error('video') has-error @enderror">
+                        <input type="file" value="{{ old('video') }}" name="video" id="video-file"
+                            class="file-upload-btn video-upload">
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 
