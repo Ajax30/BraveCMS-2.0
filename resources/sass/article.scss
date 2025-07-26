@@ -43,6 +43,14 @@
   }
 }
 
+.video-preview {
+  overflow: hidden;
+  border: 1px solid $medium-gray;
+  border-radius: 3px;
+  padding: 1px;
+  background: $body-bg;
+}
+
 // Article tags
 .tags-list {
   min-height: 40px;

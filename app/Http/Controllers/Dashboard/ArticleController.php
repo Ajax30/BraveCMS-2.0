@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +19,7 @@ class ArticleController extends Controller
     'title' => 'required|string|max:190',
     'short_description' => 'required|string|max:190',
     'image' =>  'image|mimes:jpeg,png,jpg|max:2048',
+    'video' =>  'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string'
   ];
 
@@ -104,6 +106,13 @@ class ArticleController extends Controller
     $fields['image'] = $request->image ? $imageName : 'default.jpg';
     $fields['featured'] = $request->get('featured') == 'on' ? 1 : 0;
 
+    if (isset($request->video)) {
+      $videoName = md5(time()) . Auth::id() . '.' . $request->video->extension();
+      $request->video->move(public_path('videos/articles'), $videoName);
+    } else {
+      $videoName = null;
+    }
+
     // Slug generation
     $slug = Str::slug($fields['title'], '-');
     $originalSlug = $slug;
@@ -120,7 +129,8 @@ class ArticleController extends Controller
       'short_description' => $fields['short_description'],
       'content' => $fields['content'],
       'featured' => $fields['featured'],
-      'image' => $fields['image']
+      'image' => $fields['image'],
+      'video' => $videoName,
     ];
 
     $query = Article::create($form_data);
@@ -160,15 +170,31 @@ class ArticleController extends Controller
     $fields = $validator->validated();
     $article = Article::find($id);
 
-    // Handle image
+    // Image upload
     if (isset($request->image)) {
-      $imageName = md5(time()) . Auth::user()->id . '.' . $request->image->extension();
+      if ($article->image && $article->image !== 'default.jpg' && file_exists(public_path('images/articles/' . $article->image))) {
+        unlink(public_path('images/articles/' . $article->image));
+      }
+      
+      $imageName = md5(time()) . Auth::id() . '.' . $request->image->extension();
       $request->image->move(public_path('images/articles'), $imageName);
     } else {
       $imageName = $article->image;
     }
 
-    $title = $request->get('title');
+    // Video upload
+    if (isset($request->video)) {
+      if ($article->video && file_exists(public_path('videos/articles/' . $article->video))) {
+        unlink(public_path('videos/articles/' . $article->video));
+      }
+
+      $videoName = md5(time()) . Auth::id() . '.' . $request->video->extension();
+      $request->video->move(public_path('videos/articles'), $videoName);
+    } else {
+      $videoName = $article->video;
+    }
+
+    $title = $fields['title'];
 
     // Update slug if title changed
     if ($title !== $article->title) {
@@ -179,40 +205,46 @@ class ArticleController extends Controller
       while (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
         $slug = $originalSlug . '-' . $count++;
       }
+
       $article->slug = $slug;
     }
 
+    // Update article properties
     $article->title = $title;
-    $article->short_description = $request->get('short_description');
-    $article->category_id = $request->get('category_id');
+    $article->short_description = $fields['short_description'];
+    $article->category_id = $fields['category_id'];
     $article->featured = $request->has('featured');
-    $article->image = $request->get('image') == 'default.jpg' ? 'default.jpg' : $imageName;
-    $article->content = $request->get('content');
+    $article->image = $imageName;
+    $article->video = $videoName;
+    $article->content = $fields['content'];
 
     $article->save();
+    $article->tags()->sync($request->tags ?? []);
 
-    // Attach tags to article
-    if ($request->has('tags')) {
-      $article->tags()->sync($request->tags);
-    } else {
-      $article->tags()->sync([]);
-    }
-
-    return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was updated');
+    return redirect()->route('dashboard.articles')
+      ->with('success', 'The article titled "' . $article->title . '" was updated');
   }
 
   public function delete($id)
   {
-    $article = Article::find($id);
+    $article = Article::findOrFail($id);
 
     // Detach related tags
     $article->tags()->detach();
 
     // Physically remove article's image (if it's not the default one)
     if ($article->image && $article->image !== 'default.jpg') {
-        $imagePath = public_path('images/articles/' . $article->image);
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
+      $imagePath = public_path('images/articles/' . $article->image);
+      if (File::exists($imagePath)) {
+        File::delete($imagePath);
+      }
+    }
+
+    // Physically remove article's video
+    if ($article->video) {
+        $videoPath = public_path('videos/articles/' . $article->video);
+        if (File::exists($videoPath)) {
+            File::delete($videoPath);
         }
     }
 

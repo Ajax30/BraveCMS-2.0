@@ -136,6 +136,31 @@
                 </div>
 
                 <div class="row mb-2">
+                    <label for="video-file" class="col-md-12">{{ __('Article video') }}</label>
+
+                    <div class="col-md-12 post-video @error('video') has-error @enderror">
+                          <input type="file" value="{{ old('video', $article->video) }}" name="video" id="video-file"
+                              class="file-upload-btn video-upload  {{ $article->video ? 'replace-video' : '' }}">
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+               @if ($article->video)
+                <div class="mb-3 video-preview">
+                    <div class="ratio ratio-16x9">
+                        <video controls>
+                            <source src="{{ asset('videos/articles/' . $article->video) }}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+              @endif
+
+                <div class="row mb-2">
                     <label for="content" class="col-md-12">{{ __('Content') }}</label>
 
                     <div class="col-md-12 @error('content') has-error @enderror">
