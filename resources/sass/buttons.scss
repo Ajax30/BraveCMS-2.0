@@ -67,4 +67,16 @@
       content: 'Replace image';
     }
   }
+
+  &.video-upload { 
+    &::before {
+      content: 'Add video';
+    }
+
+    &.replace-video {
+      &::before {
+        content: 'Replace video';
+      }
+    }
+  }
 }

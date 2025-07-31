@@ -103,11 +103,11 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-2">
                     <label for="image" class="col-md-12">{{ __('Article image') }}</label>
 
-                    <div class="col-md-12 post-image @error('image') has-error @enderror">
-                        <input type="file" value="{{ old('image') }}" name="image" id="file"
+                    <div class="col-md-12 post-media @error('image') has-error @enderror">
+                        <input type="file" name="image" id="file"
                             class="file-upload-btn" onchange="previewImage(event)">
 
                         @error('image')
@@ -119,12 +119,27 @@
                 </div>
 
                 <div class="row mb-3 d-none">
-                    <div class="col-md-12 post-image text-center">
+                    <div class="col-md-12 post-media text-center">
                         <img id="imagePreview" class="image-preview large" src="">
 
-                        <a class="remove-image" href="#" title="Remove image" onclick="removeImage(event)">
+                        <a class="remove-media" href="#" title="Remove image" onclick="removeImage(event)">
                             <i class="fa fa-remove"></i>
                         </a>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="video-file" class="col-md-12">{{ __('Article video') }}</label>
+
+                    <div class="col-md-12 post-video @error('video') has-error @enderror">
+                        <input type="file" name="video" id="video-file"
+                            class="file-upload-btn video-upload">
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 
@@ -155,7 +170,7 @@
                     </div>
                 </div>
             </form>
-            @include('partials.image-preview-script')
+            @include('partials.media-preview-script')
         </div>
     </div>
 @endsection

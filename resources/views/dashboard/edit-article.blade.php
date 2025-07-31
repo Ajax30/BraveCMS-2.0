@@ -109,9 +109,9 @@
                 <div class="row mb-2">
                     <label for="image" class="col-md-12">{{ __('Article image') }}</label>
 
-                    <div class="col-md-12 post-image @error('image') has-error @enderror">
-                        <input type="file" value="{{ old('image', $article->image) }}" name="image" id="file"
-                            class="file-upload-btn replace-image" onchange="previewImage(event)">
+                    <div class="col-md-12 post-media @error('image') has-error @enderror">
+                        <input type="file" name="image" id="file" class="file-upload-btn replace-image"
+                            onchange="previewImage(event)">
 
                         @error('image')
                             <span class="invalid-feedback" role="alert">
@@ -122,18 +122,51 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-12 post-image text-center">
+                    <div class="col-md-12 post-media text-center">
                         <img id="imagePreview" class="image-preview large"
                             src="{{ asset('images/articles/' . $article->image) }}" alt="{{ $article->title }}">
 
-                        <a class="remove-image {{ $article->image !== 'default.jpg' ? 'edit' : '' }}" href="#"
-                            id="delete-image" data-uid="{{ $article->id }}" title="Remove image"
+                        <a class="remove-media {{ $article->image !== 'default.jpg' ? 'edit' : '' }}"
+                            href="{{ route('dashboard.articles.delete-image', [$article->id, $article->image]) }}"
+                            id="delete-image" title="Remove image"
                             style="{{ $article->image === 'default.jpg' ? 'display: none;' : '' }}"
                             onclick="removeImage(event)">
                             <i class="fa fa-remove"></i>
                         </a>
                     </div>
                 </div>
+
+                <div class="row mb-2">
+                    <label for="video-file" class="col-md-12">{{ __('Article video') }}</label>
+
+                    <div class="col-md-12 post-video @error('video') has-error @enderror">
+                        <input type="file" name="video" id="video-file"
+                            class="file-upload-btn video-upload {{ $article->video ? 'replace-video' : '' }}">
+
+
+                        @error('video')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                @if ($article->video)
+                    <div class="mb-3 post-media video-preview">
+                        <div class="ratio ratio-16x9">
+                            <video id="videoPreview" controls>
+                                <source src="{{ asset('videos/articles/' . $article->video) }}" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <a class="remove-media remove-video"
+                            href="{{ route('dashboard.articles.delete-video', [$article->id, $article->video]) }}"
+                            id="delete-image" title="Remove video" onclick="removeVideo(event)">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </div>
+                @endif
 
                 <div class="row mb-2">
                     <label for="content" class="col-md-12">{{ __('Content') }}</label>
@@ -153,16 +186,17 @@
 
                 <div class="row mb-0">
                     <div class="col-md-12 d-flex">
-                      <div class="w-50 pe-1">
-                        <button type="submit" class="btn btn-success w-100">{{ __('Update') }}</button>
-                      </div>
-                      <div class="w-50 ps-1">
-                        <a href="{{ route('dashboard.articles') }}" class="btn btn-success w-100">{{ __('Cancel') }}</a>
-                      </div>
+                        <div class="w-50 pe-1">
+                            <button type="submit" class="btn btn-success w-100">{{ __('Update') }}</button>
+                        </div>
+                        <div class="w-50 ps-1">
+                            <a href="{{ route('dashboard.articles') }}"
+                                class="btn btn-success w-100">{{ __('Cancel') }}</a>
+                        </div>
                     </div>
                 </div>
             </form>
-            @include('partials.image-preview-script')
+            @include('partials.media-preview-script')
         </div>
     </div>
 @endsection
