@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-
         <a class="navbar-brand" href="{{ route('dashboard') }}">
             <img src="{{ asset('images/logo-black.png') }}" alt="Brave CMS">
         </a>

@@ -22,7 +22,7 @@
 					<tbody>
 						@foreach ($tags as $index => $tag)
 						<tr>
-							<td>{{ $index + 1 }}</td>
+							<td>{{  $tags->firstItem() + $index }}</td>
 							<td>{{ $tag->name }}</td>
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">

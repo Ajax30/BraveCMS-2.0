@@ -22,7 +22,7 @@
 					<tbody>
 						@foreach ($pages as $index => $page)
 						<tr>
-							<td>{{ $per_page * ($current_page - 1) + $index + 1 }}</td>
+							<td>{{ $pages->firstItem() + $index }}</td>
 							<td>{{ $page->title }}</td>
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
