@@ -31,7 +31,7 @@
                         <tbody>
                             @foreach ($comments as $index => $comment)
                                 <tr>
-                                    <td>{{ $per_page * ($current_page - 1) + $index + 1 }}</td>
+                                    <td>{{ $comments->firstItem() + $index }}</td>
                                     <td>{{ $comment->body }}</td>
                                     <td class="text-nowrap">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</td>
                                     <td>

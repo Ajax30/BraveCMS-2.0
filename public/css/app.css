@@ -19690,6 +19690,11 @@ textarea.form-control-lg {
   justify-content: center;
 }
 
+.navbar {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .navbar-brand {
   padding-top: 0;
   padding-bottom: 0;
