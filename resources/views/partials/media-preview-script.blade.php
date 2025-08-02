@@ -1,4 +1,24 @@
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if there was a validation error for video
+        const hasVideoError = @json($errors->has('video'));
+
+        if (hasVideoError) {
+            const videoTab = document.querySelector('#video-tab');
+            const videoSection = document.querySelector('#video-section');
+            const imageTab = document.querySelector('#image-tab');
+            const imageSection = document.querySelector('#image-section');
+
+            // Remove active from image
+            imageTab.classList.remove('active');
+            imageSection.classList.remove('show', 'active');
+
+            // Activate video
+            videoTab.classList.add('active');
+            videoSection.classList.add('show', 'active');
+        }
+    });
+
     function previewImage(event) {
         const img = document.getElementById('imagePreview');
         const imageContainer = img.parentNode.parentNode;
@@ -61,26 +81,26 @@
     }
 
     function removeVideo(event) {
-      event.preventDefault();
-      const video = document.getElementById('videoPreview');
-      const url = event.currentTarget.getAttribute('href');
+        event.preventDefault();
+        const video = document.getElementById('videoPreview');
+        const url = event.currentTarget.getAttribute('href');
 
-      if (confirm('This action is irreversible. Are you sure?')) {
-                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                const xmlhttp = new XMLHttpRequest();
+        if (confirm('This action is irreversible. Are you sure?')) {
+            const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const xmlhttp = new XMLHttpRequest();
 
-                xmlhttp.onreadystatechange = function() {
-                    if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-                        if (xmlhttp.status === 200) {
-                            document.querySelector('.video-preview').remove();
-                            document.querySelector('#video-file').classList.remove('replace-video');
-                        }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                    if (xmlhttp.status === 200) {
+                        document.querySelector('.video-preview').remove();
+                        document.querySelector('#video-file').classList.remove('replace-video');
                     }
-                };
+                }
+            };
 
-                xmlhttp.open('POST', url, true);
-                xmlhttp.setRequestHeader("X-CSRF-TOKEN", CSRF_TOKEN);
-                xmlhttp.send();
-            }
+            xmlhttp.open('POST', url, true);
+            xmlhttp.setRequestHeader("X-CSRF-TOKEN", CSRF_TOKEN);
+            xmlhttp.send();
+        }
     }
 </script>
