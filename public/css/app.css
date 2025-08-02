@@ -19729,6 +19729,19 @@ textarea.form-control-lg {
     padding: 0.25rem 0;
   }
 }
+.nav-tabs .nav-link {
+  color: #6c757d;
+  background-color: transparent;
+}
+.nav-tabs .nav-link:hover {
+  color: #39926a;
+}
+.nav-tabs .nav-link.active {
+  color: #39926a !important;
+  background-color: #ffffff !important;
+  border-bottom-color: transparent !important;
+}
+
 label {
   color: #545657;
   font-size: 14px;
@@ -19854,6 +19867,10 @@ label {
   display: inline-block;
   color: #dc2215;
   font-size: 10px;
+}
+.has-error .invalid-feedback.invalid-upload {
+  left: 10px;
+  bottom: -15px;
 }
 .has-error .invalid-feedback.accept {
   left: 12px;

@@ -39,3 +39,21 @@
     }
   }
 }
+
+// Tabs
+.nav-tabs {
+  .nav-link {
+    color: $gray-600;
+    background-color: transparent;
+
+    &:hover {
+      color: $success;
+    }
+
+    &.active {
+      color: $success !important;
+      background-color: $white !important;
+      border-bottom-color: transparent !important;
+    }
+  }
+}

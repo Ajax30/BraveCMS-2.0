@@ -154,6 +154,11 @@ label {
 		color: $danger;
 		font-size: 10px;
 
+    &.invalid-upload {
+      left: 10px;
+      bottom: -15px;
+    }
+
 		&.accept {
 			left: 12px;
 		}
