@@ -20,7 +20,7 @@ class ArticleController extends Controller
     'category_id' => 'required|exists:article_categories,id',
     'title' => 'required|string|max:190',
     'short_description' => 'required|string|max:190',
-    'image' =>  'image|mimes:jpeg,png,jpg|max:2048',
+    'image' =>  'image|mimes:jpeg,jpg,png|max:2048',
     'video' =>  'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string'
   ];
@@ -30,6 +30,7 @@ class ArticleController extends Controller
     'title.required' => 'Please provide a title for the article',
     'short_description.required' => 'The article needs a short description',
     'short_description.max' => 'The short description field is too long',
+    'image.image' => 'The file you have uploaded is not an image!',
     'content.required' => 'Please add content'
   ];
 
