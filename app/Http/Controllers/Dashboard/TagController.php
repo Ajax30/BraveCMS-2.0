@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tag;
@@ -10,29 +12,33 @@ class TagController extends Controller
 {
   private $rules = [
     'name' => ['required', 'string', 'max:255', 'unique:tags'],
-	];
+  ];
 
-	private $messages = [
-		'name.required' => 'Please provide a tag name',
+  private $messages = [
+    'name.required' => 'Please provide a tag name',
     'name.unique' => 'A tag with this name already exists'
-	];
+  ];
 
-  public function index() {
-		$tag_count = Tag::count();
-		$tags = Tag::paginate(10);
-		return view('dashboard/tag-list',
-			[
-				'tags' => $tags,
-				'tag_count' => $tag_count
-			]
-		);
-	}
+  public function index()
+  {
+    $tag_count = Tag::count();
+    $tags = Tag::orderBy('name')->paginate(10);
+    return view(
+      'dashboard/tag-list',
+      [
+        'tags' => $tags,
+        'tag_count' => $tag_count
+      ]
+    );
+  }
 
-  public function create() {
+  public function create()
+  {
     return view('dashboard/tag-add');
   }
 
-  public function save(Request $request) {
+  public function save(Request $request)
+  {
     $validator = Validator::make($request->all(), $this->rules, $this->messages);
 
     if ($validator->fails()) {
@@ -56,32 +62,48 @@ class TagController extends Controller
     }
   }
 
-  public function edit($id) {
+  public function edit($id)
+  {
     $tag = Tag::find($id);
-    return view('dashboard/tag-edit',
+    return view(
+      'dashboard/tag-edit',
       ['tag' => $tag]
     );
   }
 
-  public function update(Request $request, $id) {
-    $validator = Validator::make($request->all(), $this->rules, $this->messages);
+  public function update(Request $request, $id)
+  {
+    $tag = Tag::findOrFail($id);
+
+    $rules = [
+      'name' => ['required', 'string', 'max:255', Rule::unique('tags')->ignore($tag->id)],
+    ];
+
+    $validator = Validator::make($request->all(), $rules, $this->messages);
 
     if ($validator->fails()) {
       return redirect()->back()->withErrors($validator->errors())->withInput();
-    } else {
-      $tag = Tag::find($id);
-      $tag->name = $request->get('name');
-      $tag->save();
-      return redirect()->route('dashboard.tags')->with('success', 'The tag was renamed to "' . $tag->name . '"');
     }
+
+    $tag->name = $request->get('name');
+    $tag->save();
+
+    return redirect()->route('dashboard.tags')->with('success', 'The tag was renamed to "' . $tag->name . '"');
   }
+
 
   public function delete($id)
   {
-    $tag = Tag::find($id);
-    $tag->articles()->detach();
+    $tag = Tag::findOrFail($id);
+
+    // Check if the tag is attached to any articles
+    if ($tag->articles()->exists()) {
+      return redirect()->back()->with('error', 'The tag "' . $tag->name . '" cannot be deleted because it is attached to one or more articles.');
+    }
+
+    // If not attached, delete it
     $tag->delete();
+
     return redirect()->back()->with('success', 'The tag named "' . $tag->name . '" was deleted');
   }
-
 }
