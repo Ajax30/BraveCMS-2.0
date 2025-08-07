@@ -7,6 +7,10 @@
             <form method="POST" action="{{ route('dashboard.articles.update', [$article->id]) }}"
                 enctype="multipart/form-data" novalidate>
                 @csrf
+                @method('PUT')
+
+                {{-- Pass current page to controller to redirect back correctly --}}
+                <input type="hidden" name="page" value="{{ request()->get('page', 1) }}">
 
                 <input type="hidden" id="defaultImage" name="defaultImage"
                     value="{{ asset('images/articles/default.jpg') }}" />
@@ -142,7 +146,7 @@
                         </div>
                     </div>
 
-                    {{-- Video Section --}} 
+                    {{-- Video Section --}}
                     <div class="tab-pane fade" id="video-section" role="tabpanel" aria-labelledby="video-tab">
                         <div class="row mb-2">
                             <label for="video-file" class="col-md-12">{{ __('Upload video') }}</label>
@@ -197,7 +201,7 @@
                             <button type="submit" class="btn btn-success w-100">{{ __('Update') }}</button>
                         </div>
                         <div class="w-50 ps-1">
-                            <a href="{{ route('dashboard.articles') }}"
+                            <a href="{{ route('dashboard.articles', ['page' => request()->get('page', 1)]) }}"
                                 class="btn btn-success w-100">{{ __('Cancel') }}</a>
                         </div>
                     </div>

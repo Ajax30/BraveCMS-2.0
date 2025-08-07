@@ -22,7 +22,7 @@ class CommentFactory extends Factory
     {
         return [
             'user_id' => $this->faker->randomElement([1, 2]),
-            'article_id' => $this->faker->randomElement([300, 299, 298, 297, 296, 295]),
+            'article_id' => $this->faker->randomElement([30, 29, 28, 27, 26, 25]),
             'body' => $this->faker->sentence(2),
             'approved' => $this->faker->randomElement([0, 1])
         ];
