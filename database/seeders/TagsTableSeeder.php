@@ -16,19 +16,19 @@ class TagsTableSeeder extends Seeder
   public function run()
     {
       Tag::create([
-        'name' => 'books',
+        'name' => 'Books',
         'created_at' => now(),
         'updated_at' => now()
       ]);
 
       Tag::create([
-        'name' => 'movies',
+        'name' => 'Movies',
         'created_at' => now(),
         'updated_at' => now()
       ]);
 
       Tag::create([
-        'name' => 'news',
+        'name' => 'News',
         'created_at' => now(),
         'updated_at' => now()
       ]);
