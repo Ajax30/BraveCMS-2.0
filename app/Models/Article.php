@@ -34,6 +34,12 @@ class Article extends Model
     return $this->belongsTo(ArticleCategory::class);
   }
 
+  // Add comments to articles
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
   // Add tags to post 
   public function tags()
   {

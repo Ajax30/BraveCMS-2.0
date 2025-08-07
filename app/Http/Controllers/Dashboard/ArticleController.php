@@ -268,6 +268,9 @@ class ArticleController extends Controller
     // Detach related tags
     $article->tags()->detach();
 
+    // Delete related comments
+    $article->comments()->delete();
+
     // Physically remove article's image (if it's not the default one)
     if ($article->image && $article->image !== 'default.jpg') {
       $imagePath = public_path(self::IMAGE_PATH . $article->image);
