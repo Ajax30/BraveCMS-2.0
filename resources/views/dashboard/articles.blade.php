@@ -36,13 +36,15 @@
                                     <td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
-                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success" target="_blank">
+                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success"
+                                                target="_blank">
                                                 <i class="fa-solid fa-eye"></i> View
                                             </a>
-                                            <a href="{{ route('dashboard.articles.edit', [$article->id]) }}"
+                                            <a href="{{ route('dashboard.articles.edit', [$article->id]) }}?page={{ request()->get('page', 1) }}"
                                                 class="btn btn-success">
                                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                                             </a>
+
 
                                             <a href="{{ route('dashboard.articles.delete', [$article->id]) }}"
                                                 class="btn btn-success" onclick="return confirm('Delete this article?')"

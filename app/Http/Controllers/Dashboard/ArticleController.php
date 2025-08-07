@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -257,7 +258,9 @@ class ArticleController extends Controller
 
     $article->tags()->sync($request->tags ?? []);
 
-    return redirect()->route('dashboard.articles')
+    $page = $request->input('page', 1);
+
+    return redirect()->route('dashboard.articles', ['page' => $page])
       ->with('success', 'The article titled "' . $article->title . '" was updated');
   }
 

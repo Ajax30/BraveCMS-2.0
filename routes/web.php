@@ -102,7 +102,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('dashboard.articles.edit')->middleware('checkUserPermissions:edit-articles');
     Route::post('/delete-image/{id}/{fileName}', [ArticleController::class, 'deleteImage'])->name('dashboard.articles.delete-image')->middleware('checkUserPermissions:edit-articles');
     Route::post('/delete-video/{id}/{fileName}', [ArticleController::class, 'deleteVideo'])->name('dashboard.articles.delete-video')->middleware('checkUserPermissions:edit-articles');
-    Route::post('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update')->middleware('checkUserPermissions:edit-articles');
+    Route::put('/update/{id}', [ArticleController::class, 'update'])->name('dashboard.articles.update')->middleware('checkUserPermissions:edit-articles');
     Route::get('/delete/{id}', [ArticleController::class, 'delete'])->name('dashboard.articles.delete')->middleware('checkUserPermissions:delete-articles');
   });
 
