@@ -90,7 +90,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/new', [TagController::class, 'create'])->name('dashboard.tags.new')->middleware('checkUserPermissions:add-tags');
     Route::post('/add', [TagController::class, 'save'])->name('dashboard.tags.add')->middleware('checkUserPermissions:add-tags');
     Route::get('/edit/{id}', [TagController::class, 'edit'])->name('dashboard.tags.edit')->middleware('checkUserPermissions:edit-tags');
-    Route::post('/update/{id}', [TagController::class, 'update'])->name('dashboard.tags.update')->middleware('checkUserPermissions:edit-tags');
+    Route::put('/update/{id}', [TagController::class, 'update'])->name('dashboard.tags.update')->middleware('checkUserPermissions:edit-tags');
     Route::get('/delete/{id}', [TagController::class, 'delete'])->name('dashboard.tags.delete')->middleware('checkUserPermissions:delete-tags');
   });
 

@@ -86,12 +86,15 @@ class TagController extends Controller
     }
 
     $tag->name = $request->get('name');
+    $currentPage = $request->get('page', 1);
+
     $tag->save();
 
-    return redirect()->route('dashboard.tags')->with('success', 'The tag was renamed to "' . $tag->name . '"');
+    return redirect()
+      ->route('dashboard.tags', ['page' => $currentPage])
+      ->with('success', 'The tag was renamed to "' . $tag->name . '"');
   }
-
-
+  
   public function delete($id)
   {
     $tag = Tag::findOrFail($id);
