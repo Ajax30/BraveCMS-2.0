@@ -70,7 +70,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/new', [PageController::class, 'create'])->name('dashboard.pages.new')->middleware('checkUserPermissions:add-pages');
     Route::post('/add', [PageController::class, 'save'])->name('dashboard.pages.add')->middleware('checkUserPermissions:add-pages');
     Route::get('/edit/{id}', [PageController::class, 'edit'])->name('dashboard.pages.edit')->middleware('checkUserPermissions:edit-pages');
-    Route::post('/update/{id}', [PageController::class, 'update'])->name('dashboard.pages.update')->middleware('checkUserPermissions:edit-pages');
+    Route::put('/update/{id}', [PageController::class, 'update'])->name('dashboard.pages.update')->middleware('checkUserPermissions:edit-pages');
     Route::get('/delete/{id}', [PageController::class, 'delete'])->name('dashboard.pages.delete')->middleware('checkUserPermissions:delete-pages');
   });
 

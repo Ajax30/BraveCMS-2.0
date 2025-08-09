@@ -9,9 +9,7 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Pass current page to controller to redirect back correctly --}}
                 <input type="hidden" name="page" value="{{ request()->get('page', 1) }}">
-
                 <input type="hidden" id="defaultImage" name="defaultImage"
                     value="{{ asset('images/articles/default.jpg') }}" />
 
