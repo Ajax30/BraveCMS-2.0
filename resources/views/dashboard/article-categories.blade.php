@@ -26,14 +26,14 @@
                                     <td>{{ $category->name }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('dashboard.categories.edit', [$category->id]) }}"
+                                            <a href="{{ route('dashboard.categories.edit', [$category->id]) }}?page={{ request()->get('page', 1) }}"
                                                 class="btn btn-success">
                                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                                             </a>
 
                                             <a href="{{ route('dashboard.categories.delete', [$category->id]) }}"
                                                 class="btn btn-success" onclick="return confirm('Delete this category?')"
-                                                title="Delete article">
+                                                title="Delete category">
                                                 <i class="fa-solid fa-trash"></i> Delete
                                             </a>
                                         </div>

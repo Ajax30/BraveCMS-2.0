@@ -21,7 +21,7 @@ class ArticleCategoryController extends Controller
   
   public function index() {
 		$category_count = ArticleCategory::count();
-		$categories = ArticleCategory::orderBy('name')->paginate(10);
+		$categories = ArticleCategory::orderBy('id')->paginate(10);
 		return view('dashboard/article-categories',
 			[
 				'categories' => $categories,
@@ -74,15 +74,20 @@ class ArticleCategoryController extends Controller
     } else {
       $category = ArticleCategory::find($id);
       $category->name = $request->get('name');
+      $currentPage = $request->get('page', 1);
+
       $category->save();
-      return redirect()->route('dashboard.categories')->with('success', 'The category named "' . $category->name . '" was updated');
+
+      return redirect()
+      ->route('dashboard.categories', ['page' => $currentPage])
+      ->with('success', 'The category was renamed to "' . $category->name . '"');
     }
   }
 
   public function delete($id) {
     // Check if there are articles in category
     $canDelete = Article::where('category_id', $id)->count() == 0;
-    $category = ArticleCategory::find($id);
+    $category = ArticleCategory::findOrFail($id);
 
     if ($canDelete) {
       $category->delete();

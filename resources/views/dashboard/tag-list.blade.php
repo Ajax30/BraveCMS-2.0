@@ -26,7 +26,7 @@
 							<td>{{ $tag->name }}</td>
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
-									<a href="{{ route('dashboard.tags.edit', [$tag->id]) }}" class="btn btn-success">
+									<a href="{{ route('dashboard.tags.edit', [$tag->id]) }}?page={{ request()->get('page', 1) }}" class="btn btn-success">
 										<i class="fa-solid fa-pen-to-square"></i> Edit
 									</a>
 

@@ -6,6 +6,10 @@
         <div class="card-body">
             <form method="POST" action="{{ route('dashboard.pages.update', [$page->id]) }}" novalidate>
                 @csrf
+                @method('PUT')
+
+                <input type="hidden" name="page" value="{{ request()->get('page', 1) }}">
+
                 <div class="row mb-2">
                     <label for="title" class="col-md-12">{{ __('Title') }}</label>
 
@@ -44,7 +48,7 @@
                             <button type="submit" class="w-100 btn btn-success">{{ __('Update') }}</button>
                         </div>
                         <div class="w-50 ps-1">
-                            <a href="{{ route('dashboard.pages') }}" class="btn btn-success w-100">{{ __('Cancel') }}</a>
+                            <a href="{{ route('dashboard.pages', ['page' => request()->get('page', 1)]) }}" class="btn btn-success w-100">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </div>
