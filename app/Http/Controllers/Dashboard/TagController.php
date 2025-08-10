@@ -64,7 +64,7 @@ class TagController extends Controller
 
   public function edit($id)
   {
-    $tag = Tag::find($id);
+    $tag = Tag::findOrFail($id);
     return view(
       'dashboard/tag-edit',
       ['tag' => $tag]
@@ -107,6 +107,6 @@ class TagController extends Controller
     // If not attached, delete it
     $tag->delete();
 
-    return redirect()->back()->with('success', 'The tag named "' . $tag->name . '" was deleted');
+    return redirect()->route('dashboard.tags')->with('success', 'The tag named "' . $tag->name . '" was deleted');
   }
 }

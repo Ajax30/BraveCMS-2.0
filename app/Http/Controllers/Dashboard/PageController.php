@@ -106,6 +106,6 @@ class PageController extends Controller
   {
     $page = Page::findOrFail($id);
     $page->delete();
-    return redirect()->back()->with('success', 'The page titled "' . $page->title . '" was deleted');
+    return redirect()->route('dashboard.pages')->with('success', 'The page titled "' . $page->title . '" was deleted');
   }
 }

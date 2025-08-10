@@ -68,7 +68,7 @@ class CommentController extends Controller
     $comment = Comment::find($id);
     $comment->replies()->delete();
     $comment->delete();
-    return redirect()->back()->with('success', 'The comment was deleted');
+    return redirect()->route('dashboard.comments')->with('success', 'The comment was deleted');
   }
 
   public function approve($id)

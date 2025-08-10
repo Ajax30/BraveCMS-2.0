@@ -91,7 +91,7 @@ class ArticleCategoryController extends Controller
 
     if ($canDelete) {
       $category->delete();
-      return redirect()->back()->with('success', 'The category "' . $category->name . '" was deleted');
+      return redirect()->route('dashboard.categories')->with('success', 'The category "' . $category->name . '" was deleted');
     } else {
       return redirect()->back()->with('error', 'The category "' . $category->name . '" has articles!');
     }
