@@ -293,6 +293,6 @@ class ArticleController extends Controller
     // Delete article
     $article->delete();
 
-    return redirect()->back()->with('success', 'The article titled "' . $article->title . '" was deleted');
+    return redirect()->route('dashboard.articles')->with('success', 'The article titled "' . $article->title . '" was deleted');
   }
 }
