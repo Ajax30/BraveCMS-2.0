@@ -153,12 +153,37 @@
                 </div>
 
                 {{-- Content --}}
-                <div class="row mb-2">
+                <div class="row mb-3">
                     <label for="content" class="col-md-12 pt-2">{{ __('Content') }}</label>
                     <div class="col-md-12 @error('content') has-error @enderror">
                         <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror"
                             placeholder="Content" cols="30" rows="6">{{ old('content') }}</textarea>
                         @error('content')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Publication & Expiration Dates --}}
+                <div class="row mb-3">
+                    {{-- Publish At --}}
+                    <div class="col-md-6 pe-1 @error('published_at') has-error @enderror">
+                        <label for="published_at">{{ __('Publish at') }}</label>
+                        <input type="datetime-local" id="published_at" name="published_at"
+                            class="form-control @error('published_at') is-invalid @enderror"
+                            value="{{ old('published_at') }}">
+                        @error('published_at')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        @enderror
+                    </div>
+
+                    {{-- Expire At --}}
+                    <div class="col-md-6 ps-1 @error('expires_at') has-error @enderror">
+                        <label for="expires_at">{{ __('Unpublish at') }}</label>
+                        <input type="datetime-local" id="expires_at" name="expires_at"
+                            class="form-control @error('expires_at') is-invalid @enderror"
+                            value="{{ old('expires_at') }}">
+                        @error('expires_at')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>

@@ -51,7 +51,7 @@
                             <p class="post-meta">Posted by
                                 <a href="{{ url('/author/' . $article->user->id) }}">{{ $article->user->first_name }}
                                     {{ $article->user->last_name }}</a>
-                                on {{ date('j F, Y', strtotime($article->created_at)) }}
+                                on {{ date('j F, Y', strtotime($article->published_at)) }}
                             </p>
                         </div>
 

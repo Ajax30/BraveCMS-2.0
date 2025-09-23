@@ -27,6 +27,8 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->unsignedBigInteger('views')->default(0);
+            $table->timestamp('published_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

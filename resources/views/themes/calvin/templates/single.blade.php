@@ -54,7 +54,7 @@
                                         <a href="{{ url('/category/' . $article->category->id) }}">{{ $article->category->name }}</a>
                                     </div>
                                     <span>On</span>
-                                    {{ date('j F, Y', strtotime($article->created_at)) }}
+                                    {{ date('j F, Y', strtotime($article->published_at)) }}
                                 </div>
                                 @if($article->tags && $article->tags->isNotEmpty())
                                 <div class="entry-tags meta-blk">
