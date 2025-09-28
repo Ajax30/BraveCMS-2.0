@@ -16,17 +16,13 @@ use App\Models\Comment;
 
 class ArticlesController extends FrontendController
 {
-
   // Articles per page
   protected $per_page = 12;
   protected $comments_per_page = 10;
-  /** @todo -10- Do Need to check this is set correctly to 'asc' or 'desc'
-   * This will be picked during development if we make a typo     */
-  protected $comments_orderby_direction = 'desc'; // Can be either asc or desc.
+  protected $comments_orderby_direction = 'desc';
 
   public function index(Request $request)
   {
-
     // If there are no site settings, redirect to Dashboard
     if (Settings::count() == 0) {
       return redirect()->route('dashboard');
@@ -35,16 +31,25 @@ class ArticlesController extends FrontendController
     // Search query
     $qry = $request->input('search');
 
-    $articlesQuery = Article::where('title', 'like', '%' . $qry . '%')
-      ->orWhere('short_description', 'like', '%' . $qry . '%')
-      ->orWhere('content', 'like', '%' . $qry . '%');
-    // Search results count
-    if ($qry) {
+    $articlesQuery = Article::visible();
+
+    // Apply search only if query is not empty
+    if (!empty($qry)) {
+      $articlesQuery->where(function ($q) use ($qry) {
+        $q->where('title', 'like', '%' . $qry . '%')
+          ->orWhere('short_description', 'like', '%' . $qry . '%')
+          ->orWhere('content', 'like', '%' . $qry . '%');
+      });
       $article_count = $articlesQuery->count();
     }
 
-    $articles          = $articlesQuery->orderBy('id', 'desc')->paginate($this->per_page);
-    $featured_articles = Article::where('featured', 1)->orderBy('id', 'desc')->get();
+    // Homepage articles 
+    $articles = $articlesQuery->paginate($this->per_page);
+
+    // Featured articles 
+    $featured_articles = Article::visible()
+      ->where('featured', 1)
+      ->get();
 
     return view(
       'themes/' . $this->theme_directory . '/templates/index',
@@ -52,7 +57,7 @@ class ArticlesController extends FrontendController
         'search_query'      => $qry,
         'articles'          => $articles,
         'featured_articles' => $featured_articles,
-        'article_count'     => $article_count ?? NULL
+        'article_count'     => $article_count ?? null
       ])
     );
   }
@@ -62,7 +67,9 @@ class ArticlesController extends FrontendController
     $category = ArticleCategory::firstWhere('id', $category_id);
 
     if (isset($category)) {
-      $articles = Article::where('category_id', $category_id)->orderBy('id', 'desc')->paginate($this->per_page);
+      $articles = Article::visible()
+        ->where('category_id', $category_id)
+        ->paginate($this->per_page); 
 
       return view(
         'themes/' . $this->theme_directory . '/templates/index',
@@ -78,10 +85,12 @@ class ArticlesController extends FrontendController
 
   public function author($user_id)
   {
-    $author   = User::firstWhere('id', $user_id);
+    $author = User::firstWhere('id', $user_id);
 
     if (isset($author)) {
-      $articles = Article::where('user_id', $user_id)->orderBy('id', 'desc')->paginate($this->per_page);
+      $articles = Article::visible()
+        ->where('user_id', $user_id)
+        ->paginate($this->per_page); 
 
       return view(
         'themes/' . $this->theme_directory . '/templates/index',
@@ -97,12 +106,14 @@ class ArticlesController extends FrontendController
 
   public function tag($tag_id)
   {
-    $tag   = Tag::firstWhere('id', $tag_id);
+    $tag = Tag::firstWhere('id', $tag_id);
 
     if (isset($tag)) {
-      $articles = Article::whereHas('tags', function (Builder $query) use ($tag) {
-        $query->where('id', $tag->id);
-      })->orderBy('id', 'desc')->paginate($this->per_page);
+      $articles = Article::visible()
+        ->whereHas('tags', function (Builder $query) use ($tag) {
+          $query->where('id', $tag->id);
+        })
+        ->paginate($this->per_page); 
 
       return view(
         'themes/' . $this->theme_directory . '/templates/index',
@@ -119,7 +130,7 @@ class ArticlesController extends FrontendController
   public function show($slug)
   {
     // Fetch the article by slug or fail
-    $article = Article::where('slug', $slug)->firstOrFail();
+    $article = Article::visible()->where('slug', $slug)->firstOrFail();
 
     // Throttle views: increment only if not viewed within the past 60 minutes
     $sessionKey = 'article_viewed_' . $article->id;
@@ -130,9 +141,31 @@ class ArticlesController extends FrontendController
       session()->put($sessionKey, now()->timestamp);
     }
 
-    // Previous and next articles
-    $old_article = Article::where('id', '<', $article->id)->orderBy('id', 'DESC')->first();
-    $new_article = Article::where('id', '>', $article->id)->orderBy('id', 'ASC')->first();
+    // Older article
+    $old_article = Article::visible()
+      ->where(function ($q) use ($article) {
+        $q->where('published_at', '<', $article->published_at)
+          ->orWhere(function ($q2) use ($article) {
+            $q2->where('published_at', $article->published_at)
+              ->where('id', '<', $article->id);
+          });
+      })
+      ->orderBy('published_at', 'desc')
+      ->orderBy('id', 'desc')
+      ->first();
+
+    // Newer article
+    $new_article = Article::visible()
+      ->where(function ($q) use ($article) {
+        $q->where('published_at', '>', $article->published_at)
+          ->orWhere(function ($q2) use ($article) {
+            $q2->where('published_at', $article->published_at)
+              ->where('id', '>', $article->id);
+          });
+      })
+      ->orderBy('published_at', 'asc')
+      ->orderBy('id', 'asc')
+      ->first();
 
     // Comments logic
     $commentsQuery = $this->get_commentQuery($article->id);
@@ -159,7 +192,6 @@ class ArticlesController extends FrontendController
       ])
     );
   }
-
 
   /**
    * AJAX Call for Loading extra comments
@@ -193,7 +225,12 @@ class ArticlesController extends FrontendController
     } else {
       $more_comments_to_display = FALSE;
     }
-    echo json_encode(['html' => $content, 'page' => $page_number, 'more_comments_to_display' => $more_comments_to_display, 'article_id' => $article_id]);
+    echo json_encode([
+      'html' => $content,
+      'page' => $page_number,
+      'more_comments_to_display' => $more_comments_to_display,
+      'article_id' => $article_id
+    ]);
     exit();
   }
 
@@ -226,13 +263,8 @@ class ArticlesController extends FrontendController
 
   public function add_comment(Request $request)
   {
-    $rules = [
-      'msg' => 'required'
-    ];
-
-    $messages = [
-      'msg.required' => 'Please enter a message'
-    ];
+    $rules = ['msg' => 'required'];
+    $messages = ['msg.required' => 'Please enter a message'];
 
     $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -258,10 +290,7 @@ class ArticlesController extends FrontendController
 
     if ($query) {
       if ($request->expectsJson()) {
-        return response()->json([
-          'status'    => 'success',
-          'message'   => 'Your comment is pending.'
-        ]);
+        return response()->json(['status' => 'success', 'message' => 'Your comment is pending.']);
       } else {
         return redirect()->back()->with([
           'success' => 'Your comment is pending.',
@@ -272,10 +301,7 @@ class ArticlesController extends FrontendController
 
     if (!$query) {
       if ($request->expectsJson()) {
-        return response()->json([
-          'status'    => 'fail',
-          'message'   => 'Adding comment failed.'
-        ]);
+        return response()->json(['status' => 'fail', 'message' => 'Adding comment failed.']);
       } else {
         return redirect()->back()->with('error', 'Adding comment failed.');
       }
@@ -293,8 +319,8 @@ class ArticlesController extends FrontendController
 
       if ($request->expectsJson()) {
         return response()->json([
-          'status'    => 'success',
-          'message'   => 'The comment was updated.',
+          'status' => 'success',
+          'message' => 'The comment was updated.',
           'body' => $request->get('msg')
         ]);
       } else {

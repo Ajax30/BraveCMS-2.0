@@ -33,7 +33,7 @@
                                             src="{{ asset('images/articles/' . $article->image) }}"
                                             alt="{{ $article->title }}">
                                     </td>
-                                    <td>{{ date('jS M Y', strtotime($article->created_at)) }}</td>
+                                    <td>{{ date('jS M Y', strtotime($article->published_at)) }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
                                             <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success"
