@@ -25,7 +25,7 @@ class ArticleController extends Controller
     'video' => 'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string',
     'published_at' => 'nullable|date',
-    'expires_at' => 'nullable|date|after_or_equal:published_at|after_or_equal:today',
+    'expires_at' => 'nullable|date|after_or_equal:published_at'
   ];
 
   private $messages = [
@@ -35,7 +35,7 @@ class ArticleController extends Controller
     'short_description.max' => 'The short description field is too long',
     'image.image' => 'The file you have uploaded is not an image!',
     'content.required' => 'Please add content',
-    'expires_at.after_or_equal' => 'Expiration must be after the publish date and not in the past',
+    'expires_at.after_or_equal' => 'Expiration must be after the publish date',
   ];
 
   public function categories()
