@@ -22,8 +22,8 @@
                             href="{{ route('dashboard.articles') }}">Articles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase {{ request()->routeIs('dashboard.categories*') ? 'active' : '' }}"
-                            href="{{ route('dashboard.categories') }}">Categories</a>
+                        <a class="nav-link text-uppercase {{ request()->routeIs('dashboard.comments*') ? 'active' : '' }}"
+                            href="{{ route('dashboard.comments') }}">Comments</a>
                     </li>
                 </ul>
 

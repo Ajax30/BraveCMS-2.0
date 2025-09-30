@@ -1,6 +1,5 @@
 /* ===================================================================
  * Calvin 1.0.0 - Main JS
- *
  * ------------------------------------------------------------------- */
 
 (function ($) {
@@ -10,11 +9,6 @@
     scrollDuration: 800, // smoothscroll duration
     mailChimpURL: "", // mailchimp url
   };
-
-  // Add the User Agent to the <html>
-  // will be used for IE10/IE11 detection (Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0; rv:11.0))
-  // const doc = document.documentElement;
-  // doc.setAttribute('data-useragent', navigator.userAgent);
 
   /* Preloader
    * -------------------------------------------------- */
@@ -34,11 +28,6 @@
         }
       });
     });
-
-    // force page scroll position to top at page refresh
-    // window.addEventListener('beforeunload' , function () {
-    //     window.scrollTo(0, 0);
-    // });
   }; // end ssPreloader
 
   /* Mobile Menu
@@ -52,26 +41,19 @@
     $menuToggle.on("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-
       $siteBody.addClass("nav-wrap-is-visible");
     });
 
     $closeNavWrap.on("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-
-      if ($siteBody.hasClass("nav-wrap-is-visible")) {
-        $siteBody.removeClass("nav-wrap-is-visible");
-      }
+      $siteBody.removeClass("nav-wrap-is-visible");
     });
 
-    // open (or close) submenu items in mobile view menu.
-    // close all the other open submenu items.
     $(".s-header__nav .has-children")
       .children("a")
       .on("click", function (e) {
         e.preventDefault();
-
         if ($(".close-mobile-menu").is(":visible") == true) {
           $(this)
             .toggleClass("sub-menu-is-open")
@@ -92,22 +74,16 @@
    * ------------------------------------------------------ */
   const ssSearch = function () {
     const searchWrap = document.querySelector(".s-header__search");
-    const searchTrigger = document.querySelector(
-      ".s-header__search-trigger"
-    );
-
+    const searchTrigger = document.querySelector(".s-header__search-trigger");
     if (!(searchWrap && searchTrigger)) return;
 
     const searchField = searchWrap.querySelector(".s-header__search-field");
-    const closeSearch = searchWrap.querySelector(
-      ".s-header__overlay-close"
-    );
+    const closeSearch = searchWrap.querySelector(".s-header__overlay-close");
     const siteBody = document.querySelector("body");
 
     searchTrigger.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-
       siteBody.classList.add("search-is-visible");
       setTimeout(function () {
         searchWrap.querySelector(".s-header__search-field").focus();
@@ -116,13 +92,10 @@
 
     closeSearch.addEventListener("click", function (e) {
       e.stopPropagation();
-
-      if (siteBody.classList.contains("search-is-visible")) {
-        siteBody.classList.remove("search-is-visible");
-        setTimeout(function () {
-          searchWrap.querySelector(".s-header__search-field").blur();
-        }, 100);
-      }
+      siteBody.classList.remove("search-is-visible");
+      setTimeout(function () {
+        searchWrap.querySelector(".s-header__search-field").blur();
+      }, 100);
     });
 
     searchWrap.addEventListener("click", function (e) {
@@ -146,7 +119,7 @@
     if (!containerBricks) return;
 
     imagesLoaded(containerBricks, function () {
-      const msnry = new Masonry(containerBricks, {
+      new Masonry(containerBricks, {
         itemSelector: ".entry",
         columnWidth: ".grid-sizer",
         percentPosition: true,
@@ -161,7 +134,7 @@
     const $animateEl = $(".animate-this");
     const $heroSlider = $(".s-hero__slider");
 
-    $heroSlider.on("init", function (event, slick) {
+    $heroSlider.on("init", function () {
       setTimeout(function () {
         $animateEl.first().addClass("animated");
       }, 500);
@@ -178,17 +151,16 @@
       pauseOnHover: false,
     });
 
-    $heroSlider.on("beforeChange", function (event, slick, currentSlide) {
+    $heroSlider.on("beforeChange", function () {
       $animateEl.removeClass("animated");
     });
-    $heroSlider.on("afterChange", function (event, slick, currentSlide) {
+    $heroSlider.on("afterChange", function () {
       $animateEl.addClass("animated");
     });
 
     $(".s-hero__arrow-prev").on("click", function () {
       $heroSlider.slick("slickPrev");
     });
-
     $(".s-hero__arrow-next").on("click", function () {
       $heroSlider.slick("slickNext");
     });
@@ -211,13 +183,11 @@
    * ------------------------------------------------------ */
   const ssAlertBoxes = function () {
     const boxes = document.querySelectorAll(".alert-box");
-
     boxes.forEach(function (box) {
       box.addEventListener("click", function (e) {
         if (e.target.matches(".alert-box__close")) {
           e.stopPropagation();
           e.target.parentElement.classList.add("hideit");
-
           setTimeout(function () {
             box.style.display = "none";
           }, 500);
@@ -232,23 +202,12 @@
     $(".smoothscroll").on("click", function (e) {
       const target = this.hash;
       const $target = $(target);
-
       e.preventDefault();
-      e.stopPropagation();
-
-      $("html, body")
-        .stop()
-        .animate(
-          {
-            scrollTop: $target.offset().top,
-          },
-          cfg.scrollDuration,
-          "swing"
-        )
-        .promise()
-        .done(function () {
-          window.location.hash = target;
-        });
+      $("html, body").stop().animate(
+        { scrollTop: $target.offset().top },
+        cfg.scrollDuration,
+        "swing"
+      );
     });
   }; // end ssSmoothScroll
 
@@ -257,76 +216,55 @@
   const ssBackToTop = function () {
     const pxShow = 900;
     const goTopButton = document.querySelector(".ss-go-top");
-
     if (!goTopButton) return;
-
-    // Show or hide the button
-    if (window.scrollY >= pxShow)
-      goTopButton.classList.add("link-is-visible");
+    if (window.scrollY >= pxShow) goTopButton.classList.add("link-is-visible");
 
     window.addEventListener("scroll", function () {
       if (window.scrollY >= pxShow) {
-        if (!goTopButton.classList.contains("link-is-visible"))
-          goTopButton.classList.add("link-is-visible");
+        goTopButton.classList.add("link-is-visible");
       } else {
         goTopButton.classList.remove("link-is-visible");
       }
     });
   }; // end ssBackToTop
 
-  // Scroll to top form if there are errors
+  /* Scroll to comment form on errors */
   if ($(".with-errors, .with-success").length) {
     $("html, body").animate(
-      {
-        scrollTop: $(".with-errors, .with-success").offset().top - 20,
-      },
+      { scrollTop: $(".with-errors, .with-success").offset().top - 20 },
       100
     );
   }
 
-  // Scroll to comments form if there are alerts
   if ($("#respond").find(".alert-box").length) {
-    $("html, body").animate(
-      {
-        scrollTop: $("#respond").offset().top - 20,
-      },
-      100
-    );
+    $("html, body").animate({ scrollTop: $("#respond").offset().top - 20 }, 100);
   }
 
-  // Show comment reply form
+  /* Show comment reply form */
   $(document).on("click", ".comment-reply-link", function () {
     $(this).closest(".depth-1").find(".commentForm").slideDown(250);
   });
 
   $(document).on("click", ".comment-edit-link", function () {
-    var container = $(this).closest(".depth-1");
+    const container = $(this).closest("li.comment");
     container.find(".commentEditForm").slideDown(250);
-    container.find(".comment__text").slideUp(250);
+    container.find("> .comment__content > .comment__text").slideUp(250);
   });
 
-  // Add/Edit comment 
-  $(document).on('submit', '.commentForm, .commentEditForm', function (event) {
+  /* Add/Edit comment AJAX */
+  $(document).on("submit", ".commentForm, .commentEditForm", function (event) {
     event.preventDefault();
-
-    var form = $(this);
+    const form = $(this);
     form.validate({
       errorElement: "p",
       errorClass: "help-block text-danger",
-      rules: {
-        msg: "required",
-      },
-      messages: {
-        msg: "Enter a comment",
-      }
+      rules: { msg: "required" },
+      messages: { msg: "Enter a comment" },
     });
 
-    // Check if the form is valid
-    if (!form.valid()) {
-      return;
-    }
+    if (!form.valid()) return;
 
-    var $fields = form.find("textarea"),
+    const $fields = form.find("textarea"),
       url = form.attr("action"),
       data = form.serialize();
 
@@ -337,23 +275,20 @@
       data: data,
       cache: false,
       success: function (response) {
-        if (response.status === 'success') {
-          form.closest(".form-wrapper").find(".alert-box--success").slideDown(250).delay(2500).slideUp(250)
-            .slideDown(250)
-            .delay(2500)
-            .slideUp(250);
-            $fields.val("");
+        if (response.status === "success") {
+          form.closest(".form-wrapper").find(".alert-box--success").slideDown(250).delay(2500).slideUp(250);
+          $fields.val("");
 
-            if (form.hasClass('commentEditForm')) {
-              form.slideUp();
-              form.closest(".depth-1").find(".comment__text").text(response.body).slideDown();
-            }
-
+          // Fix for visual bug: update only the current comment/reply
+          if (form.hasClass("commentEditForm")) {
+            const commentId = form.closest("li.comment").attr("id"); // e.g., comment-12
+            $("#" + commentId + " > .comment__content > .comment__text")
+              .text(response.body)
+              .slideDown();
+            form.slideUp();
+          }
         } else {
-          form.closest(".form-wrapper").find(".alert-box--error").slideDown(250).delay(2500).slideUp(250)
-            .slideDown(250)
-            .delay(2500)
-            .slideUp(250);
+          form.closest(".form-wrapper").find(".alert-box--error").slideDown(250).delay(2500).slideUp(250);
         }
       },
       error: function (err) {
@@ -361,8 +296,8 @@
       },
     });
   });
-  
-  /* initialize 
+
+  /* initialize
    * ------------------------------------------------------ */
   (function ssInit() {
     ssPreloader();
