@@ -37,7 +37,7 @@ class FrontendController extends Controller
     $this->is_cookieconsent = $this->site_settings['is_cookieconsent'] ?? null;
     $this->is_infinitescroll = $this->site_settings['is_infinitescroll'] ?? null;
 
-    // Article categories .Get only categories with articles  
+    // Article categories. Get only categories with articles  
     $this->article_categories = ArticleCategory::has('articles')->get();
 
     // Pages
