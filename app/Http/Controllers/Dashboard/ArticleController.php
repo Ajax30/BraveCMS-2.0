@@ -70,6 +70,11 @@ class ArticleController extends Controller
       if (Auth::user()->role->name == 'author') {
         $article->allowActions = $article->user_id == Auth::user()->id;
       }
+
+      $article->isActive = (
+        (!$article->published_at || $article->published_at <= now()) &&
+        (!$article->expires_at || $article->expires_at >= now())
+      );
     }
 
     return view('dashboard/articles', [
