@@ -36,10 +36,11 @@
                                     <td>{{ date('jS M Y', strtotime($article->published_at)) }}</td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm {{ $article->allowActions ? '' : 'disabled' }}">
-                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success"
+                                            <a href="{{ route('show', [$article->slug]) }}" class="btn btn-success {{ $article->isActive ?  '' : 'disabled'}}"
                                                 target="_blank">
                                                 <i class="fa-solid fa-eye"></i> View
                                             </a>
+                                            
                                             <a href="{{ route('dashboard.articles.edit', [$article->id]) }}?page={{ request()->get('page', 1) }}"
                                                 class="btn btn-success">
                                                 <i class="fa-solid fa-pen-to-square"></i> Edit
