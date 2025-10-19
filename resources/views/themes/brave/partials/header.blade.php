@@ -36,7 +36,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu navbar-dropdown-menu">
+                                <ul class="dropdown-menu ms-2 navbar-dropdown-menu">
                                     @foreach ($pages as $page)
                                         <li><a class="dropdown-item"
                                                 href="{{ url('/page/' . $page->id) }}">{{ $page->title }}</a></li>
@@ -54,7 +54,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
-                                <ul class="dropdown-menu navbar-dropdown-menu">
+                                <ul class="dropdown-menu ms-2 navbar-dropdown-menu">
                                     @foreach ($categories as $category)
                                         <li><a class="dropdown-item"
                                                 href="{{ url('/category/' . $category->id) }}">{{ $category->name }}</a>
