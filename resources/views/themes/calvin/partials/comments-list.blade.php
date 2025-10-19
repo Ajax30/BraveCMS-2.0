@@ -1,10 +1,11 @@
 @foreach ($comments as $comment)
-    @if (null == $comment->parent_id)
-        <li class="depth-1 comment">
+    @if (is_null($comment->parent_id))
+        <li id="comment-{{ $comment->id }}" class="depth-1 comment">
             <div class="comment__avatar">
                 <img class="avatar" src="{{ asset('images/avatars/' . $comment->user->avatar) }}"
-                    alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" width="50" height="50">
+                     alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" width="50" height="50">
             </div>
+
             <div class="comment__content">
                 <div class="comment__info">
                     <div class="comment__author">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</div>
@@ -13,82 +14,83 @@
                         @auth
                             <div class="comment__reply">
                                 @if ($comment->user->id !== Auth::user()->id)
-                                    <a class="comment-reply-link" href="#0">
+                                    <a href="#0" class="comment-reply-link" data-comment-id="{{ $comment->id }}">
                                         <i class="fa fa-comment"></i> Reply
                                     </a>
                                 @endif
-
-                                @if ($comment->user->id == Auth::user()->id)
-                                    <a href="#0" class="comment-edit-link">
+                                @if ($comment->user->id === Auth::user()->id)
+                                    <a href="#0" class="comment-edit-link" data-comment-id="{{ $comment->id }}">
                                         <i class="fa fa-edit"></i> Edit
                                     </a>
-                                    @include(
-                                        'themes/' . $theme_directory . '/partials/comment-delete-form',
-                                        ['commentOrReply' => $comment]
-                                    )
+                                    @include('themes/' . $theme_directory . '/partials/comment-delete-form', [
+                                        'commentOrReply' => $comment
+                                    ])
                                 @endif
                             </div>
                         @endauth
                     </div>
                 </div>
+
                 <div class="comment__text">
                     <p>{{ $comment->body }}</p>
                 </div>
             </div>
 
             @auth
+                {{-- Reply form container --}}
+                <div class="comment-replies"></div>
+
+                {{-- Add comment/reply form --}}
                 @include('themes/' . $theme_directory . '/partials/comment-form')
 
-                @if ($comment->user->id == Auth::user()->id)
+                {{-- Edit form --}}
+                @if ($comment->user->id === Auth::user()->id)
                     @include('themes/' . $theme_directory . '/partials/comment-edit-form', [
-                        'commentOrReply' => $comment,
+                        'commentOrReply' => $comment
                     ])
                 @endif
             @endauth
 
-            {{-- Comment replies --}}
-            @if (count($comment->replies))
-                <ul class="children">
+            {{-- Replies --}}
+            @if ($comment->replies->count())
+                <ul class="children comment-replies">
                     @foreach ($comment->replies as $reply)
-                        <li class="depth-2 comment">
+                        <li id="comment-{{ $reply->id }}" class="depth-2 comment">
                             <div class="comment__avatar">
                                 <img class="avatar" src="{{ asset('images/avatars/' . $reply->user->avatar) }}"
-                                    alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}"
-                                    width="50" height="50">
+                                     alt="{{ $reply->user->first_name }} {{ $reply->user->last_name }}" width="50" height="50">
                             </div>
+
                             <div class="comment__content">
                                 <div class="comment__info">
-                                    <div class="comment__author">{{ $reply->user->first_name }}
-                                        {{ $reply->user->last_name }}</div>
+                                    <div class="comment__author">{{ $reply->user->first_name }} {{ $reply->user->last_name }}</div>
                                     <div class="comment__meta">
-                                        <div class="comment__time">{{ date('jS M Y', strtotime($reply->created_at)) }}
-                                        </div>
+                                        <div class="comment__time">{{ date('jS M Y', strtotime($reply->created_at)) }}</div>
                                         @auth
                                             <div class="comment__reply">
-                                                @if ($reply->user->id == Auth::user()->id)
-                                                    <a href="#0" class="comment-edit-link">
+                                                @if ($reply->user->id === Auth::user()->id)
+                                                    <a href="#0" class="comment-edit-link" data-comment-id="{{ $reply->id }}">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </a>
-                                                    @include(
-                                                        'themes/' .
-                                                            $theme_directory .
-                                                            '/partials/comment-delete-form',
-                                                        ['commentOrReply' => $reply]
-                                                    )
+                                                    @include('themes/' . $theme_directory . '/partials/comment-delete-form', [
+                                                        'commentOrReply' => $reply
+                                                    ])
                                                 @endif
                                             </div>
                                         @endauth
                                     </div>
                                 </div>
+
                                 <div class="comment__text">
                                     <p>{{ $reply->body }}</p>
                                 </div>
                             </div>
 
                             @auth
-                                @if ($reply->user->id == Auth::user()->id)
+                                {{-- Edit form for reply --}}
+                                @if ($reply->user->id === Auth::user()->id)
                                     @include('themes/' . $theme_directory . '/partials/comment-edit-form', [
-                                        'commentOrReply' => $reply,
+                                        'commentOrReply' => $reply
                                     ])
                                 @endif
                             @endauth

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Settings;
+use App\Models\User;
+use App\Models\Article;
 use App\Models\ArticleCategory;
+use App\Models\Tag;
 use App\Models\Page;
 
 class FrontendController extends Controller
@@ -21,7 +24,10 @@ class FrontendController extends Controller
   protected $is_cookieconsent;
   protected $is_infinitescroll;
   protected $pages;
+  protected $articles;
   protected $article_categories;
+  protected $article_tags;
+  protected $authors;
 
   public function __construct()
   {
@@ -37,11 +43,23 @@ class FrontendController extends Controller
     $this->is_cookieconsent = $this->site_settings['is_cookieconsent'] ?? null;
     $this->is_infinitescroll = $this->site_settings['is_infinitescroll'] ?? null;
 
+    // Most recent articles
+    $this->articles = Article::visible()->limit(5)->get();
+
     // Article categories. Get only categories with articles  
     $this->article_categories = ArticleCategory::has('articles')->get();
 
     // Pages
     $this->pages = Page::all();
+
+    // Article tags
+    $this->article_tags = Tag::all();
+
+    // Authors
+    $this->authors = User::withCount('articles')
+      ->having('articles_count', '>', 0)
+      ->orderByDesc('articles_count')
+      ->get();
 
     $this->data = [
       'theme_directory' => $this->theme_directory,
@@ -55,7 +73,10 @@ class FrontendController extends Controller
       'is_cookieconsent' => $this->is_cookieconsent,
       'is_infinitescroll' => $this->is_infinitescroll,
       'pages' => $this->pages,
+      'articles' => $this->articles,
       'categories' => $this->article_categories,
+      'tags' => $this->article_tags,
+      'authors' => $this->authors,
     ];
   }
 }
