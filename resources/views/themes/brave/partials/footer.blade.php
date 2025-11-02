@@ -13,7 +13,7 @@
       <script src="{{ asset('themes/' . $theme_directory . '/js/print.min.js') }}"></script>
       <script src="{{ asset('themes/' . $theme_directory . '/js/share.js') }}"></script>
       {{-- Include video.js if the article has a video --}}
-      @if ($article->video)
+      @if (!empty($article) && $article->video)
           <script src="{{ asset('themes/' . $theme_directory . '/js/video.js') }}"></script>
       @endif
        <script src="{{ asset('themes/' . $theme_directory . '/js/comments.js') }}"></script>

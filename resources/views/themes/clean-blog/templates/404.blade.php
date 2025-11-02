@@ -10,6 +10,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>{{ $title }}</h1>
+            <p>{{ $subtitle }}</p>
           </div>
         </div>
       </div>
