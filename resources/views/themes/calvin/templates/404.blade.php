@@ -9,14 +9,14 @@
       <div class="column large-12">
         <article class="s-content__entry">
           <div class="s-content__media-medium">
-            <img src="{{ asset('themes/' . $theme_directory . '/images/404.jpg') }}" alt="{{ $title }}">
+            <img src="{{ asset('themes/' . $theme_directory . '/images/404.jpg') }}" alt="404">
           </div>
 
           <h1 class="s-content__title">{{ $title }}</h1>
           <!-- end s-content__entry-header -->
           <div class="s-content__primary">
             <div class="s-content__page-content">
-              <p>{{ $message }}</p>
+              <p>{{ $subtitle }}</p>
             </div>
           </div>
       </div>

@@ -6,8 +6,8 @@
             <div class="col-xs-12">
                 <main class="centered-content">
                     <div class="page-content">
-                        <h1 class="text-center">404</h1>
-                        <p class="text-center">Page not found :(</p>
+                        <h1 class="text-center">{{ $title }}</h1>
+                        <p class="text-center text-muted">{{ $subtitle }}</p>
                     </div>
                 </main>
             </div>
