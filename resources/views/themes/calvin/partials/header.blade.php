@@ -5,13 +5,14 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-		<title>{{ $site_name }} | {{ $tagline }}</title>
+		<title>{{ $tagline }} | {{ $site_name }}</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- mobile specific metas
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ $article->short_description }}">
 
     <!-- Share meta
     ================================================== -->
