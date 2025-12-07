@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-    <title>{{ $site_name }} | {{ $tagline }}</title>
+    <title>{{ $tagline }} | {{ $site_name }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="{{ $article->short_description }}">
 
     <script src="{{ asset('themes/' . $theme_directory . '/js/alpine.js') }}" defer></script>
 
