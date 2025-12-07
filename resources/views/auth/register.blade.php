@@ -96,7 +96,7 @@
                         <input type="checkbox" name="accept" id="accept">
 
                         <label class="px-1" for="accept">
-                            Accept the <a href="{{ url('/page/1') }}" class="text-success">Terms and conditions</a>
+                            Accept the <a href="{{ url('/page/1') }}" class="text-success" target="_blank">Terms and conditions</a>
                         </label>
 
                         @error('accept')
