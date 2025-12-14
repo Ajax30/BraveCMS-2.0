@@ -5,7 +5,7 @@
       <div class="row">
           <div class="col-xs-12 col-sm-7 col-lg-8 col-xl-9">
               <main class="content">
-                  <h2 class="page-title display-4 text-center text-md-start">{{ $page->title }}</h2>
+                  <h1 class="page-title display-4 text-center text-md-start">{{ $page->title }}</h1>
                   <div class="page-content">
                     {!! $page->content !!}
                   </div>
