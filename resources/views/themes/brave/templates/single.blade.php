@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-lg-8 col-xl-9">
                 <main class="content" id="article-content">
-                    <h2 class="article-title text-center text-md-start">{{ $article->title }}</h2>
+                    <h1 class="article-title text-center text-md-start">{{ $article->title }}</h1>
                     <div class="row article-meta">
                         <div class="left-half col-sm-12 col-sm-7 col-lg-8">
                             <span class="author">

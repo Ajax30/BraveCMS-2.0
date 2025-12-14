@@ -12,7 +12,7 @@
     <!-- mobile specific metas
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $article->short_description }}">
+    <meta name="description" content="{{ $article->short_description ?? '' }}">
 
     <!-- Share meta
     ================================================== -->
