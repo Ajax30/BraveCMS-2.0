@@ -23720,7 +23720,7 @@ main .img-thumbnail.float-left {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 99;
+    z-index: 1021;
 }
 
 .video-container.fullscreen video {

@@ -10,8 +10,24 @@
             <li>
                 <input type="button" name="play-pause" value="Play" class="play" />
             </li>
-            <li><a href="#" class="previous">Previous</a></li>
-            <li><a href="#" class="next">Next</a></li>
+            @if (!empty($article->video))
+                <li>
+                    @if ($prev_video_article)
+                        <a href="{{ url('/show/' . $prev_video_article->slug) }}" class="previous"
+                            title="{{ 'Previous video: ' . $prev_video_article->title }}">
+                            Previous
+                        </a>
+                    @endif
+                </li>
+                <li>
+                    @if ($next_video_article)
+                        <a href="{{ url('/show/' . $next_video_article->slug) }}" class="next"
+                            title="{{ 'Next video: ' . $next_video_article->title }}">
+                            Next
+                        </a>
+                    @endif
+                </li>
+            @endif
             <li class="mute-toggle unmuted">
                 <input type="checkbox" name="mute" />
             </li>
