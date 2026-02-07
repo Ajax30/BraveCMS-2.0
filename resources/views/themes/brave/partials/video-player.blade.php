@@ -1,10 +1,12 @@
 <div class="video-container mb-3">
     <img src="{{ asset('images/articles/' . $article->image) }}" class="poster" />
+    <div class="loading-spinner"><div class="spinner"></div></div>
     <video src="{{ asset('videos/articles/' . $article->video) }}" type="video/mp4"></video>
 
     <div class="controls-wrapper">
         <div class="progress-bar">
             <div class="progress"></div>
+            <div class="seek-tooltip"></div>
         </div>
         <ul class="video-controls">
             <li>

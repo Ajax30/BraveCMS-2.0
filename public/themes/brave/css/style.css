@@ -22981,7 +22981,7 @@ body {
 
 .profile-menu {
     display: flex;
-    flex-wrap: wrap;
+    white-space: nowrap;
 }
 
 .profile-menu .dropdown-menu {
@@ -23709,6 +23709,41 @@ main .img-thumbnail.float-left {
     display: block;
 }
 
+/* Video loading indicator (spinner) */
+@keyframes spin {
+    to { transform: rotate(360deg) }
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+.video-container.loading .loading-spinner {
+    opacity: 1;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
 .video-container:hover .controls-wrapper {
     bottom: 0;
 }
@@ -23737,7 +23772,7 @@ main .img-thumbnail.float-left {
     bottom: -57px;
     left: 0;
     right: 0;
-    z-index: 8;
+    z-index: 10;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     transition: all 0.25s ease-in-out;
@@ -23757,6 +23792,8 @@ main .img-thumbnail.float-left {
     width: 100%;
     background: #777;
     cursor: pointer;
+    position: relative;
+    overflow: visible; 
 }
 
 .progress {
@@ -23764,6 +23801,23 @@ main .img-thumbnail.float-left {
     width: 0%;
     max-width: 100%;
     background: #c62129;
+}
+
+.seek-tooltip {
+    position: absolute;
+    bottom: 100%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 6px;
+    margin-bottom: 2px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.15s ease;
 }
 
 .video-controls {
@@ -23794,10 +23848,10 @@ main .img-thumbnail.float-left {
     display: inline-block;
     padding: 0 2px;
     float: left;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     line-height: 24px;
     cursor: pointer;
-    width: 20px;
     overflow: hidden;
     line-height: 999px;
     margin: 0;
@@ -23805,8 +23859,6 @@ main .img-thumbnail.float-left {
     background: transparent;
     outline: none;
     background: url("../img/controls.png") no-repeat top left;
-    width: 20px;
-    height: 20px;
 }
 
 .video-controls li span {
@@ -23821,10 +23873,10 @@ main .img-thumbnail.float-left {
     display: inline-block;
     padding: 0 2px;
     float: left;
-    height: 24px;
+    height: 20px;
     line-height: 24px;
-    cursor: pointer;
     width: 20px;
+    cursor: pointer;
     overflow: hidden;
     line-height: 999px;
     margin: 0;
@@ -23833,8 +23885,6 @@ main .img-thumbnail.float-left {
     outline: none;
     text-decoration: none;
     background: url("../img/controls.png") no-repeat top left;
-    width: 20px;
-    height: 20px;
 }
 
 .video-controls li input[type="checkbox"] {
@@ -23872,17 +23922,6 @@ main .img-thumbnail.float-left {
 }
 
 .video-controls input[type="range"] {
-    -webkit-appearance: none;
-    height: 4px;
-    background: #c62129;
-    opacity: 0.8;
-    padding: 0;
-    margin: 0;
-    outline: none;
-    overflow: visible;
-}
-
-.video-controls input[type="range"]:focus {
     -webkit-appearance: none;
     height: 4px;
     background: #c62129;
