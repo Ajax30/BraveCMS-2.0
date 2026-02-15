@@ -102,7 +102,7 @@
                                   </a>
                               </div>
 
-                                <div class="dropdown-menu navbar-dropdown-menu dropdown-menu-start rounded-0" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu navbar-dropdown-menu ms-md-1 dropdown-menu-start rounded-0" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item text-body" href="{{ route('dashboard') }}">Dashboard</a>
                                     <a class="dropdown-item text-body" href="{{ route('user') }}">Your profile</a>
                                     <a class="dropdown-item text-body" href="{{ route('logout') }}"
