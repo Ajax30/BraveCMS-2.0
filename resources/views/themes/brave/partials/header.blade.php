@@ -37,7 +37,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu ms-2 navbar-dropdown-menu">
+                                <ul class="dropdown-menu ms-md-2 navbar-dropdown-menu">
                                     @foreach ($pages as $page)
                                         <li><a class="dropdown-item text-body"
                                                 href="{{ url('/page/' . $page->id) }}">{{ $page->title }}</a></li>
@@ -55,7 +55,7 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
-                                <ul class="dropdown-menu ms-2 navbar-dropdown-menu">
+                                <ul class="dropdown-menu ms-md-2 navbar-dropdown-menu">
                                     @foreach ($categories as $category)
                                         <li><a class="dropdown-item text-body"
                                                 href="{{ url('/category/' . $category->id) }}">{{ $category->name }}</a>
@@ -91,17 +91,18 @@
                                 </a>
                             </li>
                         @else
-                            <li class="nav-item profile-menu dropdown">
-                                <img class="rounded-circle avatar-top" id="top_avatar"
+                            <li class="nav-item dropdown">
+                              <div class="profile-menu" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                                  <img class="rounded-circle avatar-top" id="top_avatar"
                                     src="{{ asset('images/avatars') }}/{{ auth()->user()->avatar }}"
                                     alt="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}">
 
-                                <a id="navbarDropdown" class="nav-link px-2 dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Welcome, {{ Auth::user()->first_name }}
-                                </a>
+                                  <a id="navbarDropdown" class="nav-link px-2 dropdown-toggle" href="#">
+                                      Welcome, {{ Auth::user()->first_name }}
+                                  </a>
+                              </div>
 
-                                <div class="dropdown-menu dropdown-menu-start rounded-0" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu navbar-dropdown-menu dropdown-menu-start rounded-0" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item text-body" href="{{ route('dashboard') }}">Dashboard</a>
                                     <a class="dropdown-item text-body" href="{{ route('user') }}">Your profile</a>
                                     <a class="dropdown-item text-body" href="{{ route('logout') }}"
