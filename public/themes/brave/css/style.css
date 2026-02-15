@@ -22981,7 +22981,6 @@ body {
 
 .profile-menu {
     display: flex;
-    flex-wrap: wrap;
 }
 
 .profile-menu .dropdown-menu {
