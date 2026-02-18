@@ -7,6 +7,7 @@
         <div class="progress-bar">
             <div class="progress"></div>
             <div class="seek-tooltip"></div>
+            <div class="seek-preview"><canvas></canvas></div>
         </div>
         <ul class="video-controls">
             <li>
