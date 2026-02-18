@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
       this.playBtn = container.querySelector('[name="play-pause"]');
       this.progressBar = container.querySelector('.progress-bar');
       this.progress = container.querySelector('.progress');
+      this.seekInfo = container.querySelector('.seek-info');
       this.tooltip = container.querySelector('.seek-tooltip');
+      this.preview = container.querySelector('.seek-preview');
+      this.previewCanvas = this.preview.querySelector('canvas');
+      this.previewCtx = this.previewCanvas.getContext('2d');
       this.currentTimeEl = container.querySelector('.current-time');
       this.durationEl = container.querySelector('.duration');
       this.volumeSlider = container.querySelector('.volume-slider');
@@ -17,11 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
       this.rateDisplay = container.querySelector('.rate_display');
       this.fullscreenBtn = container.querySelector('[name="screen-toggler"]');
       this.rateOptions = container.querySelectorAll('.playback-rate li');
-
       this.started = false;
       this.isTrying = false;
       this.wasPlayingBeforeSeek = false;
+      this.previewVideo = document.createElement('video');
+      this.previewVideo.src = this.video.src;
+      this.previewVideo.muted = true;
+      this.previewVideo.preload = 'auto';
 
+      this.previewVideo = document.createElement('video');
+      this.previewVideo.src = this.video.src;
+      this.previewVideo.muted = true;
+      this.previewVideo.preload = 'auto';
+      this.previewVideo.currentTime = 0;
       this.init();
     }
 
@@ -29,6 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
       this.bindEvents();
       this.updateProgress();
       this.updatePlayState();
+      this.resizePreviewCanvas();
+      window.addEventListener('resize', () => this.resizePreviewCanvas());
+      this.drawPosterPreview();
+    }
+
+    resizePreviewCanvas() {
+      const ratio = window.devicePixelRatio || 1;
+      this.previewCanvas.width = this.preview.offsetWidth * ratio;
+      this.previewCanvas.height = this.preview.offsetHeight * ratio;
     }
 
     formatTime(sec) {
@@ -62,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!this.started || this.isTrying) return;
       this.isTrying = true;
       this.showSpinner();
-      try { await this.video.play(); } catch {}
+      try { await this.video.play(); } catch { }
       this.hideSpinner();
       this.isTrying = false;
       this.updatePlayState();
@@ -82,41 +103,74 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = this.progressBar.getBoundingClientRect();
       const dur = this.video.duration || 0;
       if (!dur) return;
-
       this.wasPlayingBeforeSeek = !this.video.paused;
       this.video.currentTime = ((e.clientX - rect.left) / rect.width) * dur;
       this.updateProgress();
-
       if (!this.started) this.poster.style.display = 'none';
     }
 
-    async handleSeeked() {
+    handleSeeked() {
       this.hideSpinner();
-      if (this.wasPlayingBeforeSeek) {
-        try { await this.video.play(); } catch {}
-      }
+      if (this.wasPlayingBeforeSeek) this.video.play();
       this.updatePlayState();
     }
 
+    drawPosterPreview() {
+      if (!this.previewCtx || !this.poster) return;
+      this.previewCtx.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+      this.previewCtx.drawImage(this.poster, 0, 0, this.previewCanvas.width, this.previewCanvas.height);
+    }
+
+    drawPreview(percent) {
+      if (!this.previewCtx) return;
+
+      const dur = this.video.duration || 0;
+      if (!dur || !this.started) {
+        this.drawPosterPreview();
+        return;
+      }
+
+      const tempTime = percent * dur;
+
+      this.previewVideo.currentTime = tempTime;
+      this.previewVideo.addEventListener('seeked', () => {
+        this.previewCtx.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+        this.previewCtx.drawImage(
+          this.previewVideo,
+          0,
+          0,
+          this.previewCanvas.width,
+          this.previewCanvas.height
+        );
+      }, { once: true });
+    }
+
     updateTooltip(e) {
-      const rect = this.progressBar.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
+      const bar = this.progressBar.getBoundingClientRect();
+      const container = this.container.getBoundingClientRect();
+      let px = Math.max(0, Math.min(e.clientX - bar.left, bar.width));
+      const percent = px / bar.width;
       const time = percent * (this.video.duration || 0);
       this.tooltip.textContent = this.formatTime(time);
-      this.tooltip.style.left = `${percent * 100}%`;
+      this.drawPreview(percent);
+      const infoW = this.seekInfo.offsetWidth;
+      const offset = bar.left - container.left;
+      let left = offset + px - infoW / 2;
+      left = Math.max(0, Math.min(left, container.width - infoW));
+      this.seekInfo.style.left = left + 'px';
       this.tooltip.style.opacity = 1;
+      this.preview.style.opacity = 1;
     }
 
     hideTooltip() {
       this.tooltip.style.opacity = 0;
+      this.preview.style.opacity = 0;
     }
 
     bindEvents() {
-
       this.playBtn.addEventListener('click', () => this.togglePlayback());
       this.video.addEventListener('click', () => this.togglePlayback());
       this.progressBar.addEventListener('click', e => this.seek(e));
-
       this.progressBar.addEventListener('mousemove', e => this.updateTooltip(e));
       this.progressBar.addEventListener('mouseleave', () => this.hideTooltip());
 
@@ -148,8 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      ['waiting', 'stalled', 'seeking']
-        .forEach(e => this.video.addEventListener(e, () => this.showSpinner()));
+      ['waiting', 'stalled', 'seeking'].forEach(e => this.video.addEventListener(e, () => this.showSpinner()));
 
       this.video.addEventListener('seeked', () => this.handleSeeked());
       this.video.addEventListener('playing', () => { this.hideSpinner(); this.updatePlayState(); });
@@ -160,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.started = false;
         this.poster.style.display = '';
         this.updatePlayState();
+        this.drawPosterPreview();
       });
 
       document.addEventListener('fullscreenchange', () => {
@@ -171,7 +225,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.querySelectorAll('.video-container')
-    .forEach(container => new VideoPlayer(container));
-
+  document.querySelectorAll('.video-container').forEach(container => new VideoPlayer(container));
 });
