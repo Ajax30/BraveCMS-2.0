@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
       this.previewVideo.muted = true;
       this.previewVideo.preload = 'auto';
 
+      this.previewVideo = document.createElement('video');
+      this.previewVideo.src = this.video.src;
+      this.previewVideo.muted = true;
+      this.previewVideo.preload = 'auto';
+      this.previewVideo.currentTime = 0;
       this.init();
     }
 
@@ -98,11 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = this.progressBar.getBoundingClientRect();
       const dur = this.video.duration || 0;
       if (!dur) return;
-
       this.wasPlayingBeforeSeek = !this.video.paused;
       this.video.currentTime = ((e.clientX - rect.left) / rect.width) * dur;
       this.updateProgress();
-
       if (!this.started) this.poster.style.display = 'none';
     }
 
@@ -158,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
       this.tooltip.style.opacity = 1;
       this.preview.style.opacity = 1;
     }
-
 
     hideTooltip() {
       this.tooltip.style.opacity = 0;

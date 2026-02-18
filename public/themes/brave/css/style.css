@@ -23603,6 +23603,11 @@ main .img-thumbnail.float-left {
   height: auto;
 }
 
+.video-container.fullscreen video,
+.video-container.fullscreen .poster {
+  height: auto;
+}
+
 /* Video loading indicator (spinner) */
 @keyframes spin {
   to {
@@ -23692,7 +23697,7 @@ main .img-thumbnail.float-left {
   overflow: visible;
 }
 
-.progress {
+.progress-bar .progress {
   height: 5px;
   width: 0%;
   max-width: 100%;
