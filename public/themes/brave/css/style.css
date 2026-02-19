@@ -24013,6 +24013,7 @@ main .img-thumbnail.float-left {
   transition: opacity 1s ease-in-out;
   display: none;
   position: absolute;
+  z-index: 51;
   opacity: 0;
   bottom: 0;
   padding-bottom: 30px;
