@@ -24015,6 +24015,7 @@ main .img-thumbnail.float-left {
   position: absolute;
   opacity: 0;
   bottom: 0;
+  z-index: 51;
   padding-bottom: 30px;
   width: 55px;
 }
