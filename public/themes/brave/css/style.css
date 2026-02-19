@@ -23729,7 +23729,6 @@ main .img-thumbnail.float-left {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
-  pointer-events: none;
 }
 
 .video-container.loading .loading-spinner {
@@ -23878,10 +23877,9 @@ main .img-thumbnail.float-left {
   float: left;
   width: 20px;
   height: 20px;
-  line-height: 24px;
+  line-height: 999px;
   cursor: pointer;
   overflow: hidden;
-  line-height: 999px;
   margin: 0;
   border: none;
   background: transparent;
@@ -24015,6 +24013,7 @@ main .img-thumbnail.float-left {
   position: absolute;
   opacity: 0;
   bottom: 0;
+  z-index: 51;
   padding-bottom: 30px;
   width: 55px;
 }
