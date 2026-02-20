@@ -74,7 +74,7 @@
                 <label for="avatar" class="text-muted">Upload avatar</label>
                 <div class="form-group d-flex justify-content-between">
                     <input type='file' name='avatar' id="avatar"
-                        class="form-control border-0 py-0 pl-0 file-upload-btn" value="{{ $current_user->avatar }}">
+                        class="form-control border-0 py-0 pl-0 file-upload-btn {{ $current_user->avatar !== 'default.png' ? 'replace-image' : ''}}" value="{{ $current_user->avatar }}">
                     @error('avatar')
                         <span class="invalid-feedback" role="alert">{{ $errors->first('avatar') }}</span>
                         @endif
