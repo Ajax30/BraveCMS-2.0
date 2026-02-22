@@ -2,34 +2,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("comments_container");
     if (!container || container.dataset.infinitescroll !== "1") return;
 
-    const articleId = container.dataset.articleId;
+    const status = document.getElementById("comments_status");
     const loader = document.getElementById("comments_loader");
+
+    const totalComments = parseInt(status?.dataset.count || "0", 10);
+    let loadedComments = container.children.length;
+
+    if (loadedComments >= totalComments) return;
 
     let page = 0;
     let loading = false;
-    let moreComments = container.dataset.commentsPerPage > 0;
-
-    if (!moreComments) {
-        if (loader) loader.style.display = "none";
-        return;
-    }
 
     const sentinel = document.createElement("div");
     sentinel.id = "comments_sentinel";
     container.after(sentinel);
 
-    const observer = new IntersectionObserver(entries => {
-        const entry = entries[0];
-        if (!entry.isIntersecting || loading || !moreComments) return;
+    const observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting || loading) return;
         loadMoreComments();
     }, { threshold: 1 });
 
     observer.observe(sentinel);
 
     async function loadMoreComments() {
-        if (!moreComments) return;
+        if (loading || loadedComments >= totalComments) return;
+
         loading = true;
-        if (loader) loader.style.display = "flex";
+        loader?.classList.remove("d-none");
         page++;
 
         try {
@@ -40,34 +39,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
                     "X-Requested-With": "XMLHttpRequest"
                 },
-                body: JSON.stringify({ article_id: articleId, page: page })
+                body: JSON.stringify({
+                    article_id: container.dataset.articleId,
+                    page
+                })
             });
 
-            const data = await res.json();
+            if (!res.ok) throw new Error("Request failed");
 
-            if (data.html?.trim()) {
-                const temp = document.createElement("div");
-                temp.innerHTML = data.html;
-                Array.from(temp.children).forEach(comment => {
-                    comment.classList.add("comment-batch-enter");
-                    container.appendChild(comment);
-                    comment.getBoundingClientRect();
-                    comment.classList.add("comment-batch-enter-active");
-                });
-            }
+            const { html } = await res.json();
+            if (!html?.trim()) return;
 
-            moreComments = data.more_comments_to_display;
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
 
-            if (!moreComments) {
+            const newComments = Array.from(temp.children);
+            newComments.forEach(comment => {
+                comment.classList.add("comment-batch-enter");
+                container.appendChild(comment);
+                comment.getBoundingClientRect();
+                comment.classList.add("comment-batch-enter-active");
+            });
+
+            loadedComments += newComments.length;
+
+            if (loadedComments >= totalComments) {
                 observer.disconnect();
                 sentinel.remove();
             }
 
         } catch (e) {
             console.error("Infinite comments error:", e);
+        } finally {
+            loader?.classList.add("d-none");
+            loading = false;
         }
-
-        if (loader) loader.style.display = "none";
-        loading = false;
     }
 });

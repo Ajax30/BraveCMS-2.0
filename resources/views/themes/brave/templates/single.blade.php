@@ -92,7 +92,7 @@
                         </div>
 
                         @if ($is_infinitescroll)
-                            <div id="comments_loader" class="pt-1">
+                            <div id="comments_loader" class="pt-1 d-none">
                               <div class="dots-loader">
                                 <span></span>
                                 <span></span>
