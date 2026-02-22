@@ -35,7 +35,7 @@
   border: none !important;
 }
 
-p {
+p, li {
   line-height: 1.6 !important;
   font-size: 14pt !important;
   widows: 2;
