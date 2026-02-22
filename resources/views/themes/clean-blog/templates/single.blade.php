@@ -25,6 +25,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+         @if ($article->video)
+            <div class="embed-responsive embed-responsive-16by9 mb-4">
+                <video poster="{{ asset('images/articles/' . $article->image) }}" controls>
+                  <source src="{{ asset('videos/articles/' . $article->video) }}" type="video/mp4">
+              </video>
+            </div>
+          @endif
+          
           {!! $article->content !!}
         </div>
       </div>
