@@ -232,39 +232,39 @@ class ArticlesController extends FrontendController
 
   public function get_comments_ajax(Request $request)
   {
-    if (!$request->ajax()) exit();
-
     $article_id  = $request->post('article_id');
-    $page_number = $request->post('page');
+    $page_number = $request->post('page') ?? 0;
     $offset      = $this->comments_per_page * $page_number;
     $more_comments_to_display = true;
 
-    $data['comments'] = $this->get_commentQuery($article_id, $this->comments_per_page, $offset)
+    $article = Article::findOrFail($article_id);
+    $comments = $this->get_commentQuery($article_id, $this->comments_per_page, $offset)
       ->whereNull('parent_id')
       ->with(['user', 'replies.user'])
       ->get();
 
     $content = '';
-    if ($data['comments']->count()) {
+    if ($comments->count()) {
       $content .= view(
         'themes/' . $this->theme_directory . '/partials/comments-list',
-        array_merge($data, [
-          'is_infinitescroll' => $this->is_infinitescroll,
-          'theme_directory'   => $this->theme_directory,
-          'article_id'        => $article_id
-        ])
-      );
+        [
+          'comments' => $comments,
+          'article' => $article,
+          'article_id' => $article_id,
+          'theme_directory' => $this->theme_directory,
+          'is_infinitescroll' => $this->is_infinitescroll ?? true
+        ]
+      )->render();
     } else {
       $more_comments_to_display = false;
     }
 
-    echo json_encode([
+    return response()->json([
       'html' => $content,
       'page' => $page_number,
       'more_comments_to_display' => $more_comments_to_display,
       'article_id' => $article_id
     ]);
-    exit();
   }
 
   private function get_commentQuery(int $article_id, int $limit = 0, int $offset = 0): object
