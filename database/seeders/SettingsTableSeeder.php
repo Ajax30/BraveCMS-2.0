@@ -23,7 +23,7 @@ class SettingsTableSeeder extends Seeder
               'twitter' => 'https://twitter.com',
               'facebook' => 'https://facebook.com',
               'instagram' => 'https://instagram.com',
-              'theme_directory' => 'calvin',
+              'theme_directory' => 'brave',
               'is_cookieconsent' => 1,
               'is_infinitescroll' => 0,
             ],
