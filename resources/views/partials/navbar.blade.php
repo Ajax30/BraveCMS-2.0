@@ -60,7 +60,7 @@
                             {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="navbarDropdown">
 
                             <a class="dropdown-item" href="{{ route('homepage') }}">
                                 {{ __('Website') }}
