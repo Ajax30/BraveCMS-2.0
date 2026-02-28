@@ -1,14 +1,10 @@
-<div 
-    x-data="{ showEdit: false, showReply: false }" 
-    class="card bg-light comment {{ $isReply ? 'reply mb-2 me-2' : 'mb-3' }}" 
-    id="comment-{{ $comment->id }}"
->
+<div x-data="{ showEdit: false, showReply: false }" class="card bg-light comment {{ $isReply ? 'reply mb-2 me-2' : 'mb-3' }}"
+    id="comment-{{ $comment->id }}">
     <h5 class="card-header">
         <span class="row">
             <span class="col-md-6 text-dark avatar">
                 <img src="{{ asset('images/avatars/' . $comment->user->avatar) }}"
-                     alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}"
-                     class="rounded-circle me-1">
+                    alt="{{ $comment->user->first_name }} {{ $comment->user->last_name }}" class="rounded-circle me-1">
                 {{ $comment->user->first_name }} {{ $comment->user->last_name }} says:
             </span>
             <span class="col-md-6 text-dark d-none d-md-flex align-items-center justify-content-end">
@@ -32,10 +28,9 @@
                         </a>
                     </li>
                     <li>
-                        @include(
-                            'themes/' . $theme_directory . '/partials/comment-delete-form',
-                            ['commentOrReply' => $comment]
-                        )
+                        @include('themes/' . $theme_directory . '/partials/comment-delete-form', [
+                            'commentOrReply' => $comment,
+                        ])
                     </li>
                 @elseif(!$isReply)
                     {{-- Reply link only on top-level comments --}}
@@ -76,7 +71,7 @@
                 @include('themes/' . $theme_directory . '/partials/comment-card', [
                     'comment' => $reply,
                     'isReply' => true,
-                    'article' => $article
+                    'article' => $article,
                 ])
             @endforeach
         </div>
