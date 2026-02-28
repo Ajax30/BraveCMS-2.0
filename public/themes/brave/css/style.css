@@ -22904,6 +22904,16 @@ body {
     color: #fff;
 }
 
+.navbar .search_form .search-box::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke='white' stroke-width='2' stroke-linecap='round' d='M6 6L18 18M6 18L18 6'/></svg>") no-repeat center;
+  background-size: 16px;
+}
+
 .navbar .search_form button[type="submit"] {
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-left: 0;
