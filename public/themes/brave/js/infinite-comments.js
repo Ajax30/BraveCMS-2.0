@@ -1,78 +1,91 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("comments_container");
-    if (!container || container.dataset.infinitescroll !== "1") return;
+  const container = document.getElementById("comments_container");
+  if (!container || container.dataset.infinitescroll !== "1") return;
 
-    const status = document.getElementById("comments_status");
-    const loader = document.getElementById("comments_loader");
+  const loader = document.getElementById("comments_loader");
+  const total = parseInt(document.getElementById("comments_status")?.dataset.count || "0", 10);
+  let loaded = container.children.length;
+  if (loaded >= total) return;
 
-    const totalComments = parseInt(status?.dataset.count || "0", 10);
-    let loadedComments = container.children.length;
+  let page = 0;
+  let loading = false;
+  let finished = false;
 
-    if (loadedComments >= totalComments) return;
+  const sentinel = document.createElement("div");
+  sentinel.id = "comments_sentinel";
+  container.after(sentinel);
 
-    let page = 0;
-    let loading = false;
+  const csrf = document.querySelector('meta[name="csrf-token"]')?.content || "";
 
-    const sentinel = document.createElement("div");
-    sentinel.id = "comments_sentinel";
-    container.after(sentinel);
+  const observer = new IntersectionObserver(
+    ([e]) => e.isIntersecting && load(),
+    { threshold: 0.1, rootMargin: "0px 0px 200px 0px" }
+  );
 
-    const observer = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting || loading) return;
-        loadMoreComments();
-    }, { threshold: 1 });
+  observer.observe(sentinel);
 
-    observer.observe(sentinel);
+  async function load() {
+    if (loading || finished || loaded >= total) return;
 
-    async function loadMoreComments() {
-        if (loading || loadedComments >= totalComments) return;
+    loading = true;
+    page++;
+    loader?.classList.remove("d-none");
 
-        loading = true;
-        loader?.classList.remove("d-none");
-        page++;
+    try {
+      const res = await fetch("/load_comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": csrf,
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: JSON.stringify({
+          article_id: container.dataset.articleId,
+          page
+        })
+      });
 
-        try {
-            const res = await fetch("/load_comments", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-                    "X-Requested-With": "XMLHttpRequest"
-                },
-                body: JSON.stringify({
-                    article_id: container.dataset.articleId,
-                    page
-                })
-            });
+      if (!res.ok) throw new Error();
 
-            if (!res.ok) throw new Error("Request failed");
+      const { html } = await res.json();
+      if (!html?.trim()) return finish();
 
-            const { html } = await res.json();
-            if (!html?.trim()) return;
+      const temp = document.createElement("div");
+      temp.innerHTML = html;
 
-            const temp = document.createElement("div");
-            temp.innerHTML = html;
+      if (!temp.children.length) return finish();
 
-            const newComments = Array.from(temp.children);
-            newComments.forEach(comment => {
-                comment.classList.add("comment-batch-enter");
-                container.appendChild(comment);
-                comment.getBoundingClientRect();
-                comment.classList.add("comment-batch-enter-active");
-            });
+      const fragment = document.createDocumentFragment();
 
-            loadedComments += newComments.length;
+      Array.from(temp.children).forEach(el => {
+        el.classList.add("comment-batch-enter");
+        fragment.appendChild(el);
+      });
 
-            if (loadedComments >= totalComments) {
-                observer.disconnect();
-                sentinel.remove();
-            }
+      container.appendChild(fragment);
 
-        } catch (e) {
-            console.error("Infinite comments error:", e);
-        } finally {
-            loader?.classList.add("d-none");
-            loading = false;
-        }
+      Array.from(
+        container.querySelectorAll(".comment-batch-enter:not(.comment-batch-enter-active)")
+      ).forEach(el => {
+        void el.offsetWidth;
+        el.classList.add("comment-batch-enter-active");
+      });
+
+      loaded += temp.children.length;
+      if (loaded >= total) finish();
+
+    } catch {
+      console.error("Infinite comments error");
+    } finally {
+      loader?.classList.add("d-none");
+      loading = false;
     }
+  }
+
+  function finish() {
+    finished = true;
+    observer.disconnect();
+    sentinel.remove();
+    loader?.classList.add("d-none");
+  }
 });
