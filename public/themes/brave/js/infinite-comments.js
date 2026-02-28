@@ -3,9 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container || container.dataset.infinitescroll !== "1") return;
 
   const loader = document.getElementById("comments_loader");
-  const total = parseInt(document.getElementById("comments_status")?.dataset.count || "0", 10);
+  const total = parseInt(
+    document.getElementById("comments_status")?.dataset.count || "0", 10);
+
   let loaded = container.children.length;
-  
   if (loaded >= total) return;
 
   let page = 0;
