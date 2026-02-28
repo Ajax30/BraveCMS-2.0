@@ -114,41 +114,50 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ---------- Delete comment / reply ----------
-  document.querySelectorAll(".delete-comment-form").forEach(form => {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!confirm("Are you sure you want to delete this comment?")) return;
+  document.addEventListener("submit", function (e) {
+    const form = e.target;
 
-      const action = form.getAttribute("action");
-      const formData = new FormData(form);
-      const commentId = form.dataset.commentId;
-      const commentEl = document.getElementById(`comment-${commentId}`);
-      const nextEl = commentEl ? commentEl.nextElementSibling : null;
-      const isReply = !!commentEl?.classList.contains("reply");
+    if (!form.classList.contains("delete-comment-form")) return;
 
-      fetch(action, { method: "POST", headers: { "X-Requested-With": "XMLHttpRequest" }, body: formData })
-        .then(res => res.json())
-        .then(data => {
-          const insertBefore = nextEl || commentEl;
-          if (data.status === "success") {
-            showAlert("Comment deleted successfully.", "success", insertBefore, isReply);
+    e.preventDefault();
 
-            let totalToSubtract = 1;
-            if (commentEl) {
-              const replies = commentEl.querySelectorAll(".comment.reply");
-              totalToSubtract += replies.length;
-              commentEl.remove();
-            }
+    if (!confirm("Are you sure you want to delete this comment?")) return;
 
-            updateCommentCount(-totalToSubtract);
-          } else {
-            showAlert(data.message || "Failed to delete comment.", "danger", insertBefore, isReply);
+    const action = form.getAttribute("action");
+    const formData = new FormData(form);
+    const commentId = form.dataset.commentId;
+    const commentEl = document.getElementById(`comment-${commentId}`);
+    const nextEl = commentEl ? commentEl.nextElementSibling : null;
+    const isReply = !!commentEl?.classList.contains("reply");
+
+    fetch(action, {
+      method: "POST",
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        const insertBefore = nextEl || commentEl;
+
+        if (data.status === "success") {
+          showAlert("Comment deleted successfully.", "success", insertBefore, isReply);
+
+          let totalToSubtract = 1;
+
+          if (commentEl) {
+            const replies = commentEl.querySelectorAll(".comment.reply");
+            totalToSubtract += replies.length;
+            commentEl.remove();
           }
-        })
-        .catch(() => {
-          const insertBefore = nextEl || commentEl;
-          showAlert("An error occurred. Try again.", "danger", insertBefore, isReply);
-        });
-    });
+
+          updateCommentCount(-totalToSubtract);
+        } else {
+          showAlert(data.message || "Failed to delete comment.", "danger", insertBefore, isReply);
+        }
+      })
+      .catch(() => {
+        const insertBefore = nextEl || commentEl;
+        showAlert("An error occurred. Try again.", "danger", insertBefore, isReply);
+      });
   });
 });
