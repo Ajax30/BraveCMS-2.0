@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container || container.dataset.infinitescroll !== "1") return;
 
   const loader = document.getElementById("comments_loader");
-  const total = parseInt(
-    document.getElementById("comments_status")?.dataset.count || "0", 10);
-
+  const total = parseInt(document.getElementById("comments_status")?.dataset.count || "0", 10);
   let loaded = container.children.length;
   if (loaded >= total) return;
 
@@ -17,8 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   sentinel.id = "comments_sentinel";
   container.after(sentinel);
 
-  const csrf =
-    document.querySelector('meta[name="csrf-token"]')?.content || "";
+  const csrf = document.querySelector('meta[name="csrf-token"]')?.content || "";
 
   const observer = new IntersectionObserver(
     ([e]) => e.isIntersecting && load(),
@@ -75,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       loaded += temp.children.length;
-
       if (loaded >= total) finish();
 
     } catch {
