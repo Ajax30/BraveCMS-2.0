@@ -22,7 +22,7 @@
                                 </a>
                             </span>
                             <strong>·</strong>
-                            <span class="date">{{ $article->published_at->format('F j, Y') }}</span>
+                            <span class="date">{{ $article->published_at->format('M j, Y') }}</span>
                         </div>
 
                         <div class="right-half col-sm-12 col-sm-5 col-lg-4">
