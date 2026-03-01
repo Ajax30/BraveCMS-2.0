@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function load() {
     if (loading || finished || loaded >= total) return;
-
     loading = true;
     page++;
     loader?.classList.remove("d-none");
