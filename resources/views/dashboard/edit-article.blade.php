@@ -87,25 +87,25 @@
                     </div>
                 </div>
 
-                  {{-- Featured --}}
-                  <div class="row mb-3">
-                      <div class="col-md-12 d-flex align-items-center switch-toggle">
-                          <p class="mb-0 me-3">Featured article?</p>
-                          <input class="mt-1" type="checkbox" id="featured" name="featured" value="featured"
-                              {{ old('featured', $article->featured) ? 'checked' : '' }}>
-                          <label class="px-1" for="featured">{{ __('Toggle') }}</label>
-                      </div>
-                  </div>
+                {{-- Featured --}}
+                <div class="row mb-3">
+                    <div class="col-md-12 d-flex align-items-center switch-toggle">
+                        <p class="switch-toggle-label mb-0 me-2">Featured article?</p>
+                        <input class="mt-1" type="checkbox" id="featured" name="featured" value="featured"
+                            {{ old('featured', $article->featured) ? 'checked' : '' }}>
+                        <label class="px-1" for="featured">{{ __('Toggle') }}</label>
+                    </div>
+                </div>
 
-                  {{-- Disable Comments --}}
-                  <div class="row mb-3">
-                      <div class="col-md-12 d-flex align-items-center switch-toggle">
-                          <p class="mb-0 me-3">Disable comments?</p>
-                          <input class="mt-1" type="checkbox" id="disable_comments" name="disable_comments" value="1"
-                              {{ old('disable_comments', $article->disable_comments) ? 'checked' : '' }}>
-                          <label class="px-1" for="disable_comments">{{ __('Toggle') }}</label>
-                      </div>
-                  </div>
+                {{-- Disable Comments --}}
+                <div class="row mb-3">
+                    <div class="col-md-12 d-flex align-items-center switch-toggle">
+                        <p class="switch-toggle-label mb-0 me-2">Disable comments?</p>
+                        <input class="mt-1" type="checkbox" id="disable_comments" name="disable_comments" value="1"
+                            {{ old('disable_comments', $article->disable_comments) ? 'checked' : '' }}>
+                        <label class="px-1" for="disable_comments">{{ __('Toggle') }}</label>
+                    </div>
+                </div>
 
                 {{-- Tabs for image/video --}}
                 <ul class="nav nav-tabs mb-2" id="mediaTab" role="tablist">
