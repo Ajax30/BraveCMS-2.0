@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 23, 2025 at 04:59 PM
+-- Generation Time: Mar 06, 2026 at 08:20 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `short_description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `disable_comments` tinyint(1) NOT NULL DEFAULT '0',
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `video` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `views` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
@@ -71,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
 --
 
 INSERT INTO `article_categories` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Uncategorised', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(2, 2, 'Sports', '2025-09-23 13:54:27', '2025-09-23 13:54:27');
+(1, 1, 'Uncategorised', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(2, 2, 'Sports', '2026-03-06 06:19:11', '2026-03-06 06:19:11');
 
 -- --------------------------------------------------------
 
@@ -214,31 +215,31 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `slug`, `label`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'view-articles', 'View articles', 'Gives a user the permission to view articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(2, 'add-articles', 'Write articles', 'Gives a user the permission to write articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(3, 'edit-articles', 'Edit articles', 'Gives a user the permission to edit her/his own articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(4, 'delete-articles', 'Delete articles', 'Gives a user the permission to delete her/his own articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(5, 'view-categories', 'View categories', 'Gives a user the permission to view the list of categories.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(6, 'add-categories', 'Add categories', 'Gives a user the permission to create article categories.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(7, 'edit-categories', 'Edit categories', 'Gives a user the permission to edit article categories.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(8, 'delete-categories', 'Delete categories', 'Gives a user the permission to delete article categories.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(9, 'view-tags', 'View tags', 'Gives a user the permission to view the list of tags.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(10, 'add-tags', 'Add tags', 'Gives a user the permission to create article tags.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(11, 'edit-tags', 'Edit tags', 'Gives a user the permission to edit article tags.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(12, 'delete-tags', 'Delete tags', 'Gives a user the permission to delete article tags.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(13, 'view-comments', 'View comments on the dashboard', 'Gives a user the permission to view article comments on the dashboard', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(14, 'delete-comments', 'Delete comments', 'Gives a user the permission to delete article comments', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(15, 'approve-comments', 'Approve comments', 'Gives a user the permission to approve article comments', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(16, 'unapprove-comments', 'Unapprove comments', 'Gives a user the permission to unapprove article comments', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(17, 'view-pages', 'View pages', 'Gives a user the permission to view the pages list (on the dashboard)', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(18, 'add-pages', 'Add pages', 'Gives a user the permission to add pages', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(19, 'edit-pages', 'Edit pages', 'Gives a user the permission to edit pages', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(20, 'delete-pages', 'Delete pages', 'Gives a user the permission to delete pages', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(21, 'edit-settings', 'Edit site settings', 'Gives the super-admin the permission to edit site settings.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(22, 'manage-user-rights', 'Manage user rights', 'Gives the super-admin the permission to manage user rights', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(23, 'ban-users', 'Ban users', 'Gives the super-admin the permission to suspend user accounts', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(24, 'activate-users', 'Activate user accounts', 'Gives the super-admin the permission to activate user accounts', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(25, 'assign-user-roles', 'Assign user roles', 'Gives the super-admin the permission to assign roles to users', '2025-09-23 13:54:27', '2025-09-23 13:54:27');
+(1, 'view-articles', 'View articles', 'Gives a user the permission to view articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(2, 'add-articles', 'Write articles', 'Gives a user the permission to write articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(3, 'edit-articles', 'Edit articles', 'Gives a user the permission to edit her/his own articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(4, 'delete-articles', 'Delete articles', 'Gives a user the permission to delete her/his own articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(5, 'view-categories', 'View categories', 'Gives a user the permission to view the list of categories.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(6, 'add-categories', 'Add categories', 'Gives a user the permission to create article categories.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(7, 'edit-categories', 'Edit categories', 'Gives a user the permission to edit article categories.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(8, 'delete-categories', 'Delete categories', 'Gives a user the permission to delete article categories.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(9, 'view-tags', 'View tags', 'Gives a user the permission to view the list of tags.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(10, 'add-tags', 'Add tags', 'Gives a user the permission to create article tags.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(11, 'edit-tags', 'Edit tags', 'Gives a user the permission to edit article tags.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(12, 'delete-tags', 'Delete tags', 'Gives a user the permission to delete article tags.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(13, 'view-comments', 'View comments on the dashboard', 'Gives a user the permission to view article comments on the dashboard', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(14, 'delete-comments', 'Delete comments', 'Gives a user the permission to delete article comments', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(15, 'approve-comments', 'Approve comments', 'Gives a user the permission to approve article comments', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(16, 'unapprove-comments', 'Unapprove comments', 'Gives a user the permission to unapprove article comments', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(17, 'view-pages', 'View pages', 'Gives a user the permission to view the pages list (on the dashboard)', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(18, 'add-pages', 'Add pages', 'Gives a user the permission to add pages', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(19, 'edit-pages', 'Edit pages', 'Gives a user the permission to edit pages', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(20, 'delete-pages', 'Delete pages', 'Gives a user the permission to delete pages', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(21, 'edit-settings', 'Edit site settings', 'Gives the super-admin the permission to edit site settings.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(22, 'manage-user-rights', 'Manage user rights', 'Gives the super-admin the permission to manage user rights', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(23, 'ban-users', 'Ban users', 'Gives the super-admin the permission to suspend user accounts', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(24, 'activate-users', 'Activate user accounts', 'Gives the super-admin the permission to activate user accounts', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(25, 'assign-user-roles', 'Assign user roles', 'Gives the super-admin the permission to assign roles to users', '2026-03-06 06:19:10', '2026-03-06 06:19:10');
 
 -- --------------------------------------------------------
 
@@ -284,10 +285,10 @@ CREATE TABLE IF NOT EXISTS `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `label`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'Basic User', 'The Basic User can view and comment on articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(2, 'author', 'Author', 'In addition to being able to do all a Basic User can do, an Author can create articles, and also edit or delete his/her own articles.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(3, 'admin', 'Site Administrator', 'The Admin can view and comment on articles; create and edit article categories; create and edit and delete any articles; create and edit and delete users.', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(4, 'super-admin', 'Super-admin', 'The Super-admin can do everything that the Admin can do. Additionally, the Site owner can give/revoke user roles and ban users. The website has only one Super-admin.', '2025-09-23 13:54:27', '2025-09-23 13:54:27');
+(1, 'user', 'Basic User', 'The Basic User can view and comment on articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(2, 'author', 'Author', 'In addition to being able to do all a Basic User can do, an Author can create articles, and also edit or delete his/her own articles.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(3, 'admin', 'Site Administrator', 'The Admin can view and comment on articles; create and edit article categories; create and edit and delete any articles; create and edit and delete users.', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(4, 'super-admin', 'Super-admin', 'The Super-admin can do everything that the Admin can do. Additionally, the Site owner can give/revoke user roles and ban users. The website has only one Super-admin.', '2026-03-06 06:19:10', '2026-03-06 06:19:10');
 
 -- --------------------------------------------------------
 
@@ -388,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `site_name`, `tagline`, `owner_name`, `owner_email`, `twitter`, `facebook`, `instagram`, `theme_directory`, `is_cookieconsent`, `is_infinitescroll`, `created_at`, `updated_at`) VALUES
-(1, 'My Blog', 'A simple blog application made with Laravel', 'My Company', 'company@domain.com', 'https://twitter.com', 'https://facebook.com', 'https://instagram.com', 'brave', 1, 0, '2025-09-23 13:54:27', '2025-09-23 13:54:27');
+(1, 'My Blog', 'A simple blog application made with Laravel', 'My Company', 'company@domain.com', 'https://twitter.com', 'https://facebook.com', 'https://instagram.com', 'brave', 1, 0, '2026-03-06 06:19:10', '2026-03-06 06:19:10');
 
 -- --------------------------------------------------------
 
@@ -410,9 +411,9 @@ CREATE TABLE IF NOT EXISTS `tags` (
 --
 
 INSERT INTO `tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Books', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(2, 'Movies', '2025-09-23 13:54:27', '2025-09-23 13:54:27'),
-(3, 'News', '2025-09-23 13:54:27', '2025-09-23 13:54:27');
+(1, 'Books', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(2, 'Movies', '2026-03-06 06:19:10', '2026-03-06 06:19:10'),
+(3, 'News', '2026-03-06 06:19:10', '2026-03-06 06:19:10');
 
 -- --------------------------------------------------------
 

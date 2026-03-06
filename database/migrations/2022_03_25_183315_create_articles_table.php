@@ -24,6 +24,7 @@ class CreateArticlesTable extends Migration
             $table->string('short_description');
             $table->longText('content');
             $table->boolean('featured')->default(0);
+            $table->boolean('disable_comments')->default(0);
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->unsignedBigInteger('views')->default(0);

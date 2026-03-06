@@ -19,6 +19,7 @@ class Article extends Model
     'short_description',
     'content',
     'featured',
+    'disable_comments',
     'image',
     'video',
     'views',
