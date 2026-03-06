@@ -18,8 +18,8 @@
       @endif
        <script src="{{ asset('themes/' . $theme_directory . '/js/comments.js') }}"></script>
 
-      @if($is_infinitescroll ?? false)
-        <script src="{{ asset('themes/brave/js/infinite-comments.js') }}"></script>
+      @if($is_infinitescroll && $comments_count > 10)
+        <script src="{{ asset('themes/' . $theme_directory . '/js/infinite-comments.js') }}"></script>
       @endif
   @endif
 

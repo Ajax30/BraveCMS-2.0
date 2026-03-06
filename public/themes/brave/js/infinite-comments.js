@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container || container.dataset.infinitescroll !== "1") return;
 
   const loader = document.getElementById("comments_loader");
-  const total = parseInt(document.getElementById("comments_status")?.dataset.count || "0", 10);
+  const status = document.getElementById("comments_status");
+  const total = parseInt(status?.dataset.count || "0", 10);
   let loaded = container.children.length;
-  if (loaded >= total) return;
-
+  if (loaded >= total) return; 
   let page = 0;
   let loading = false;
   let finished = false;
@@ -18,14 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const csrf = document.querySelector('meta[name="csrf-token"]')?.content || "";
 
   const observer = new IntersectionObserver(
-    ([e]) => e.isIntersecting && load(),
+    ([entry]) => {
+      if (entry.isIntersecting) loadComments();
+    },
     { threshold: 0.1, rootMargin: "0px 0px 200px 0px" }
   );
 
   observer.observe(sentinel);
 
-  async function load() {
-    if (loading || finished || loaded >= total) return;
+  async function loadComments() {
+    if (loading || finished || loaded >= total) {
+      loader?.classList.add("d-none");
+      return;
+    }
+
     loading = true;
     page++;
     loader?.classList.remove("d-none");
@@ -44,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       });
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error("Network response was not ok");
 
       const { html } = await res.json();
       if (!html?.trim()) return finish();
@@ -55,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!temp.children.length) return finish();
 
       const fragment = document.createDocumentFragment();
-
       Array.from(temp.children).forEach(el => {
         el.classList.add("comment-batch-enter");
         fragment.appendChild(el);
@@ -73,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
       loaded += temp.children.length;
       if (loaded >= total) finish();
 
-    } catch {
-      console.error("Infinite comments error");
+    } catch (err) {
+      console.error("Infinite comments error:", err);
     } finally {
       loader?.classList.add("d-none");
       loading = false;
