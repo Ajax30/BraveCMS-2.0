@@ -69,35 +69,40 @@
                     @include('themes/' . $theme_directory . '/partials/social')
 
                     {{-- Comment Form --}}
-                    <div class="comment-form-wrapper" id="comment_form_wrapper">
-                        @auth
-                            <h3 class="comment-form-title">Leave a comment</h3>
-                            @include('themes/' . $theme_directory . '/partials/comment-form')
-                        @endauth
+                    @if (!$article->disable_comments)
+                        <div class="comment-form-wrapper" id="comment_form_wrapper">
+                            @auth
+                                <h3 class="comment-form-title">Leave a comment</h3>
+                                @include('themes/' . $theme_directory . '/partials/comment-form')
+                            @endauth
 
-                        @guest
-                            <h5 class="text-center text-muted">You need to <strong>sign in</strong> to comment</h5>
-                        @endguest
-                    </div>
+                            @guest
+                                <h5 class="text-center text-muted">You need to <strong>sign in</strong> to comment</h5>
+                            @endguest
+                        </div>
+                    @else
+                        <div class="mt-4">
+                            <h5 class="text-center text-muted">Adding comments is disabled for this article</h5>
+                        </div>
+                    @endif
 
                     {{-- Comments List (Infinite Scroll) --}}
                     @if ($comments && count($comments))
-                        <div class="comments mt-4" id="comments_container" 
-                             data-article-id="{{ $article->id }}"
-                             data-comments-per-page="{{ $comments_per_page }}"
-                             data-infinitescroll="{{ $is_infinitescroll ? '1' : '0' }}">
+                        <div class="comments mt-4" id="comments_container" data-article-id="{{ $article->id }}"
+                            data-comments-per-page="{{ $comments_per_page }}"
+                            data-infinitescroll="{{ $is_infinitescroll ? '1' : '0' }}">
                             @include('themes/' . $theme_directory . '/partials/comments-list', [
-                                'comments' => $comments
+                                'comments' => $comments,
                             ])
                         </div>
 
                         @if ($is_infinitescroll)
                             <div id="comments_loader" class="pt-1 d-none">
-                              <div class="dots-loader">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                              </div>
+                                <div class="dots-loader">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
                             </div>
                         @endif
                     @endif

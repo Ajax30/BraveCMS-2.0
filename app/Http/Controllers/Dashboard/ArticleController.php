@@ -157,6 +157,7 @@ class ArticleController extends Controller
       'short_description' => $fields['short_description'],
       'content' => $fields['content'],
       'featured' => $request->get('featured') == 'on' ? 1 : 0,
+      'disable_comments' => $request->get('disable_comments') ? 1 : 0,
       'image' => $imageName,
       'video' => $videoName,
       'published_at' => $fields['published_at'] ? date('Y-m-d H:i:s', strtotime($fields['published_at'])) : now(),
@@ -239,6 +240,7 @@ class ArticleController extends Controller
     $article->short_description = $fields['short_description'];
     $article->category_id = $fields['category_id'];
     $article->featured = $request->has('featured');
+    $article->disable_comments = $request->has('disable_comments');
     $article->image = $imageName;
     $article->video = $videoName;
     $article->content = $fields['content'];
