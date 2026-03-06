@@ -19789,6 +19789,11 @@ label {
 .switch-toggle {
   display: inline-block;
 }
+
+.switch-toggle-label {
+  min-width: 125px;
+}
+
 .switch-toggle input[type=checkbox] {
   height: 0;
   width: 0;
