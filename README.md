@@ -13,6 +13,10 @@ This is a simple, easy to use, CMS, ideal for an online newspaper or a blog. Lar
 5. Its Admin is designed with **Bootstrap 5 SASS** and very easy to customize.
 6. It is free (but patrons will be appreciated).
 
+### Video demo
+
+[![Watch the demo](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/video-thumbnail.png)](https://vimeo.com/manage/videos/1169547458)
+
 ### Login form
 
 ![Login](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/login.png)
