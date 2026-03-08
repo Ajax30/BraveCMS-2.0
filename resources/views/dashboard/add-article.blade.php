@@ -92,7 +92,7 @@
                 {{-- Featured --}}
                 <div class="row mb-3">
                     <div class="col-md-12 d-flex align-items-center switch-toggle">
-                        <p class="mb-0 me-3">Featured article?</p>
+                        <p class="switch-toggle-label mb-0 me-2">Featured article?</p>
                         <input class="mt-1" type="checkbox" id="featured" name="featured"
                             {{ old('featured') ? 'checked' : '' }}>
                         <label class="px-1" for="featured">{{ __('Toggle') }}</label>
@@ -102,7 +102,7 @@
                 {{-- Disable Comments --}}
                 <div class="row mb-3">
                     <div class="col-md-12 d-flex align-items-center switch-toggle">
-                        <p class="mb-0 me-3">Disable comments?</p>
+                        <p class="switch-toggle-label mb-0 me-2">Disable comments?</p>
                         <input class="mt-1" type="checkbox" id="disable_comments" name="disable_comments"
                             {{ old('disable_comments') ? 'checked' : '' }}>
                         <label class="px-1" for="disable_comments">{{ __('Toggle') }}</label>

@@ -81,7 +81,7 @@
                             @endguest
                         </div>
                     @else
-                        <div class="mt-4">
+                        <div class="comments-disabled-wrapper mt-4">
                             <h5 class="text-center text-muted">Adding comments is disabled for this article</h5>
                         </div>
                     @endif

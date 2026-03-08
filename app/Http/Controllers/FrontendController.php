@@ -25,6 +25,7 @@ class FrontendController extends Controller
   protected $is_infinitescroll;
   protected $pages;
   protected $articles;
+  protected $featured_articles;
   protected $article_categories;
   protected $article_tags;
   protected $authors;
@@ -43,8 +44,17 @@ class FrontendController extends Controller
     $this->is_cookieconsent = $this->site_settings['is_cookieconsent'] ?? null;
     $this->is_infinitescroll = $this->site_settings['is_infinitescroll'] ?? null;
 
-    // Most recent articles
-    $this->articles = Article::visible()->limit(5)->get();
+    // Featured articles
+    $this->featured_articles = Article::visible()
+      ->where('featured', 1)
+      ->get();
+
+    // Most viewed articles
+    $this->articles = Article::visible()
+      ->orderByDesc('views')
+      ->orderByDesc('created_at')
+      ->limit(5)
+      ->get();
 
     // Article categories. Get only categories with articles  
     $this->article_categories = ArticleCategory::has('articles')->get();
@@ -74,6 +84,7 @@ class FrontendController extends Controller
       'is_infinitescroll' => $this->is_infinitescroll,
       'pages' => $this->pages,
       'articles' => $this->articles,
+      'featured_articles' => $this->featured_articles,
       'categories' => $this->article_categories,
       'tags' => $this->article_tags,
       'authors' => $this->authors,

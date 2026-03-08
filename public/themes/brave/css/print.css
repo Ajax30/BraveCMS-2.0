@@ -9,6 +9,7 @@
 .video-container,
 .social-container,
 .comment-form-wrapper,
+.comments-disabled-wrapper,
 .comments {
   display: none !important;
 }

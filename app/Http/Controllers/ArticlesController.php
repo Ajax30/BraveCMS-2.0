@@ -40,16 +40,11 @@ class ArticlesController extends FrontendController
 
     $articles = $articlesQuery->paginate($this->per_page);
 
-    $featured_articles = Article::visible()
-      ->where('featured', 1)
-      ->get();
-
     return view(
       'themes/' . $this->theme_directory . '/templates/index',
       array_merge($this->data, [
         'search_query'      => $qry,
         'articles'          => $articles,
-        'featured_articles' => $featured_articles,
         'article_count'     => $article_count ?? null
       ])
     );
