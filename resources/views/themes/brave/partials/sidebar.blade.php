@@ -6,7 +6,7 @@
             <ul class="nav nav-tabs" role="tablist" data-bs-tabs="tabs">
                 @if (count($articles))
                     <li class="nav-item">
-                        <a class="nav-link active" href="#newest_posts" role="tab" data-bs-toggle="tab">New</a>
+                        <a class="nav-link active" href="#top_articles" role="tab" data-bs-toggle="tab">Top</a>
                     </li>
                 @endif
                 <li class="nav-item">
@@ -20,7 +20,7 @@
 
         <div class="tab-content">
             @if (count($articles))
-                <div class="tab-pane active" id="newest_posts">
+                <div class="tab-pane active" id="top_articles">
                     <ul class="list-unstyled sidebar-list d-table">
                         @foreach ($articles as $article)
                             <li class="d-table-row">

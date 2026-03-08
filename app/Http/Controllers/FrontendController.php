@@ -43,8 +43,12 @@ class FrontendController extends Controller
     $this->is_cookieconsent = $this->site_settings['is_cookieconsent'] ?? null;
     $this->is_infinitescroll = $this->site_settings['is_infinitescroll'] ?? null;
 
-    // Most recent articles
-    $this->articles = Article::visible()->limit(5)->get();
+    // Most viewed articles
+    $this->articles = Article::visible()
+      ->orderByDesc('views')
+      ->orderByDesc('created_at')
+      ->limit(5)
+      ->get();
 
     // Article categories. Get only categories with articles  
     $this->article_categories = ArticleCategory::has('articles')->get();
