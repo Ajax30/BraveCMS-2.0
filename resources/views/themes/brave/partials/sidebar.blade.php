@@ -1,4 +1,4 @@
-<aside class="sidebar">     
+<aside class="sidebar">
     @include('themes/' . $theme_directory . '/partials/newsletter-form')
 
     <div class="tabbed-sidebar">
@@ -9,11 +9,13 @@
                         <a class="nav-link active" href="#top_articles" role="tab" data-bs-toggle="tab">Top</a>
                     </li>
                 @endif
+                @if (count($featured_articles))
+                    <li class="nav-item">
+                        <a class="nav-link" href="#featured" role="tab" data-bs-toggle="tab">Featured</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#authors_list" role="tab" data-bs-toggle="tab">Authors</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#categories" role="tab" data-bs-toggle="tab">Categories</a>
                 </li>
             </ul>
         </div>
@@ -23,6 +25,26 @@
                 <div class="tab-pane active" id="top_articles">
                     <ul class="list-unstyled sidebar-list d-table">
                         @foreach ($articles as $article)
+                            <li class="d-table-row">
+                                <div class="thumbnail d-table-cell">
+                                    <a href="{{ url('/show/' . $article->slug) }}">
+                                        <img src="{{ asset('images/articles/' . $article->image) }}"
+                                            alt="{{ $article->title }}" class="img-thumbnail">
+                                    </a>
+                                </div>
+                                <div class="text d-table-cell">
+                                    <h3><a href="{{ url('/show/' . $article->slug) }}">{{ $article->title }}</a></h3>
+                                    <p>{{ Str::limit($article->short_description, 90, ' [...]') }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (count($featured_articles))
+                <div class="tab-pane" id="featured">
+                    <ul class="list-unstyled sidebar-list d-table">
+                        @foreach ($featured_articles as $article)
                             <li class="d-table-row">
                                 <div class="thumbnail d-table-cell">
                                     <a href="{{ url('/show/' . $article->slug) }}">
@@ -60,16 +82,6 @@
                         </li>
                     @endforeach
                 </ul>
-            </div>
-            <div class="tab-pane" id="categories">
-                <div class="list-group list-group-flush">
-                    @foreach ($categories as $category)
-                        <a href="{{ url('/category/' . $category->id) }}"
-                            class="list-group-item list-group-item-action">
-                            <span>{{ $category->name }}</span>
-                        </a>
-                    @endforeach
-                </div>
             </div>
         </div>
     </div>

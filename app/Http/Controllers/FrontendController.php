@@ -25,6 +25,7 @@ class FrontendController extends Controller
   protected $is_infinitescroll;
   protected $pages;
   protected $articles;
+  protected $featured_articles;
   protected $article_categories;
   protected $article_tags;
   protected $authors;
@@ -48,6 +49,11 @@ class FrontendController extends Controller
       ->orderByDesc('views')
       ->orderByDesc('created_at')
       ->limit(5)
+      ->get();
+
+    // Featured articles
+    $this->featured_articles = Article::visible()
+      ->where('featured', 1)
       ->get();
 
     // Article categories. Get only categories with articles  
@@ -78,6 +84,7 @@ class FrontendController extends Controller
       'is_infinitescroll' => $this->is_infinitescroll,
       'pages' => $this->pages,
       'articles' => $this->articles,
+      'featured_articles' => $this->featured_articles,
       'categories' => $this->article_categories,
       'tags' => $this->article_tags,
       'authors' => $this->authors,
