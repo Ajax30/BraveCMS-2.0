@@ -1,5 +1,4 @@
-<aside class="sidebar"> 
-     
+<aside class="sidebar">     
     @include('themes/' . $theme_directory . '/partials/newsletter-form')
 
     <div class="tabbed-sidebar">

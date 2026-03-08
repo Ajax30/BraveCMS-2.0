@@ -17,13 +17,12 @@ class Sidebar extends Component
     public $comments_count = 0;
 
     public function render() {
-    
-        $this->page_count =  Page::count();
-        $this->article_count =  Article::count();
-        $this->category_count =  ArticleCategory::count();
-        $this->tag_count =  Tag::count();
-        $this->comments_count =  Comment::count();
+      $this->page_count = Page::count();
+      $this->article_count = Article::count();
+      $this->category_count = ArticleCategory::count();
+      $this->tag_count = Tag::count();
+      $this->comments_count = Comment::count();
 
-        return view('components.sidebar');
+      return view('components.sidebar');
     }
 }

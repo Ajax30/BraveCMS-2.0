@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class PageNotFoundController extends FrontendController
 {
   public function notfound()
@@ -13,7 +11,8 @@ class PageNotFoundController extends FrontendController
       array_merge($this->data, [
         'title' => "404",
         'subtitle' => "Not found! :(",
-        'message' => "Nothing to see here!"
+        'message' => "Nothing to see here!",
+        'comments_count' => 0
       ])
     );
   }

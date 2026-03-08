@@ -74,7 +74,8 @@ class Handler extends ExceptionHandler
           'subtitle' => "Not found! :(",
           'message'=> "Nothing to see here!",
           'pages' => $pages,
-          'categories' => $article_categories
+          'categories' => $article_categories,
+          'comments_count' => 0
         ], 404);
       }
     }
