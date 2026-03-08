@@ -11,18 +11,20 @@
                 @endif
                 @if (count($articles))
                     <li class="nav-item">
-                        <a class="nav-link" href="#top_articles" role="tab" data-bs-toggle="tab">Top</a>
+                        <a class="nav-link @if (!count($featured_articles)) active @endif" href="#top_articles"
+                            role="tab" data-bs-toggle="tab">Top</a>
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="#authors_list" role="tab" data-bs-toggle="tab">Authors</a>
+                    <a class="nav-link @if (!count($featured_articles) && !count($articles)) active @endif" href="#authors_list"
+                        role="tab" data-bs-toggle="tab">Authors</a>
                 </li>
             </ul>
         </div>
 
         <div class="tab-content">
             @if (count($featured_articles))
-                <div class="tab-pane active" id="featured">
+                <div class="tab-pane fade @if (count($featured_articles)) show active @endif" id="featured">
                     <ul class="list-unstyled sidebar-list d-table">
                         @foreach ($featured_articles as $article)
                             <li class="d-table-row">
@@ -43,7 +45,7 @@
             @endif
 
             @if (count($articles))
-                <div class="tab-pane" id="top_articles">
+                <div class="tab-pane fade @if (!count($featured_articles)) show active @endif" id="top_articles">
                     <ul class="list-unstyled sidebar-list d-table">
                         @foreach ($articles as $article)
                             <li class="d-table-row">
@@ -63,7 +65,7 @@
                 </div>
             @endif
 
-            <div class="tab-pane" id="authors_list">
+            <div class="tab-pane fade @if (!count($featured_articles) && !count($articles)) show active @endif" id="authors_list">
                 <ul class="list-unstyled sidebar-list d-table">
                     @foreach ($authors as $author)
                         <li class="d-table-row">
