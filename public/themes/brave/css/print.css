@@ -36,6 +36,10 @@
   border: none !important;
 }
 
+.article-source {
+  display: block !important;
+}
+
 p, li {
   line-height: 1.6 !important;
   font-size: 14pt !important;
