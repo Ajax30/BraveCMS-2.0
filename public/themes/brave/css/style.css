@@ -23605,6 +23605,10 @@ main .img-thumbnail.float-left {
     margin-right: 3px;
 }
 
+.article-source {
+  display: none;
+}
+
 /* Tag cloud*/
 .tag-cloud {
     display: flex;
