@@ -43,10 +43,6 @@ The **super-admin** has access to the *Settings* section.
 
 ![Settings preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/settings.png)
 
-### Homepage
-
-![Homepage preview](https://github.com/Ajax30/BraveCMS-2.0/blob/main/screenshots/homepage.png)
-
 
 # How to use Brave CMS
 
