@@ -56,7 +56,241 @@ Alternatively, you can import `minimal.sql`, which contains all the necessary ta
 
 After that, you will be invited to *sign up*. After a successful sign-up, because you are the *first user*, you will be given the role of `super-admin`.
 
-You will be able to sign in and write articles, add or delete categories, etc.   
+You will be able to sign in and write articles, add or delete categories, etc.
+
+
+# Brave CMS Theme Guide
+
+## Variables → Template Reference
+
+| Variable | Templates where available |
+|----------|--------------------------|
+| `$article` | `single.blade.php`, `index.blade.php` |
+| `$article_count` | `index.blade.php` |
+| `$articles` | `index.blade.php` |
+| `$author` | `index.blade.php` |
+| `$categories` | `layout.blade.php` |
+| `$category` | `index.blade.php` |
+| `$comments` | `single.blade.php` |
+| `$is_cookieconsent` | `layout.blade.php` |
+| `$page` | `page.blade.php` |
+| `$pages` | `layout.blade.php` |
+| `$search_query` | `index.blade.php` |
+| `$site_name` | `layout.blade.php` |
+| `$subtitle` | `404.blade.php`, `single.blade.php`, `page.blade.php` |
+| `$tag` | `index.blade.php` |
+| `$tagline` | `layout.blade.php` |
+| `$title` | `404.blade.php`, `single.blade.php`, `page.blade.php` |
+| `$theme_directory` | All templates and partials |
+
+---
+
+## Creating a Theme
+
+Brave CMS supports custom themes located in:
+
+```bash
+resources/views/themes/
+```
+
+---
+
+## Theme Directory Variable
+
+All templates reference the active theme dynamically using `$theme_directory`.
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+@include('themes/' . $theme_directory . '/partials/header')
+```
+
+---
+
+## Theme Structure
+
+A typical theme structure:
+
+```text
+resources/views/themes/mytheme/
+
+layout.blade.php
+
+partials/
+    header.blade.php
+    footer.blade.php
+
+templates/
+    index.blade.php
+    single.blade.php
+    page.blade.php
+    contact.blade.php
+    404.blade.php
+```
+
+Public assets:
+
+```text
+public/themes/mytheme/
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── images/
+```
+
+Include CSS/JS in the layout:
+
+```blade
+<link rel="stylesheet" href="{{ asset('themes/' . $theme_directory . '/css/style.css') }}">
+<script src="{{ asset('themes/' . $theme_directory . '/js/script.js') }}"></script>
+```
+
+---
+
+## Layout
+
+`layout.blade.php` defines the main page structure:
+
+```blade
+@include('themes/' . $theme_directory . '/partials/header')
+
+@yield('content')
+
+@include('themes/' . $theme_directory . '/partials/footer')
+```
+
+Templates extend the layout:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+```
+
+---
+
+## Templates
+
+### `index.blade.php` — Article List
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+
+@section('content')
+@if (count($articles))
+  <div class="row articles-grid">
+    @foreach ($articles as $article)
+      <h2>{{ $article->title }}</h2>
+      <p>{{ $article->short_description }}</p>
+      <a href="{{ url('/show/' . $article->slug) }}">Read more</a>
+    @endforeach
+  </div>
+@endif
+
+{!! $articles->onEachSide(1)->withQueryString()->links() !!}
+@endsection
+```
+
+### `single.blade.php` — Single Article
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+
+@section('content')
+  <article>
+    <h1>{{ $article->title }}</h1>
+    <p>{{ $article->short_description }}</p>
+    <div class="article-content">
+      {!! $article->content !!}
+    </div>
+  </article>
+@endsection
+```
+
+### `page.blade.php` — Static Page
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+
+@section('content')
+  <h1>{{ $page->title }}</h1>
+    <div class="page-content">
+      {!! $page->content !!}
+    </div>
+@endsection
+```
+
+### `contact.blade.php` — Contact Page
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+
+@section('content')
+  <div class="container">
+    <h3>Contact us</h3>
+      <form method="post" action="{{ route('contact.submit') }}">
+      @csrf
+        <input type="text" name="name" placeholder="Your Name">
+        <input type="email" name="email" placeholder="Your Email">
+        <textarea name="message" placeholder="Your Message"></textarea>
+        <input type="submit" value="Send">
+      </form>
+  </div>
+@endsection
+```
+
+### `404.blade.php` — 404 Page
+
+Example:
+
+```blade
+@extends('themes/' . $theme_directory . '/layout')
+
+@section('content')
+  <div class="container text-center">
+    <h1>{{ $title }}</h1>
+    <p class="text-muted">{{ $subtitle }}</p>
+  </div>
+@endsection
+```
+
+---
+
+## Partials
+
+Always use `$theme_directory` when including partials.
+
+Example:
+
+```
+@include('themes/' . $theme_directory . '/partials/header')
+@include('themes/' . $theme_directory . '/partials/footer')
+```
+
+### `header.blade.php` — header partial
+Example:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ $tagline }} | {{ $site_name }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="{{ $article->short_description ?? '' }}">
+    <link rel="icon" href="{{ asset('themes/' . $theme_directory . '/img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('themes/' . $theme_directory . '/css/style.css') }}">
+</head>
+<body>
+```
 
 # License
 
