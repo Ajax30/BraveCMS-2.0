@@ -111,8 +111,8 @@
             invalidFormat: "Please select a valid image (JPEG, JPG or PNG)!"
         };
         const maxFileSize = 2 * 1024 * 1024;
-        const allowedTypes = ['image/jpeg', 'image/png']; 
-        const allowedExtensions = ['jpg', 'jpeg', 'png']; 
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
         const fileExtension = file.name.split('.').pop().toLowerCase();
 
@@ -126,9 +126,9 @@
     }
 
     function previewImage(event) {
-        const img = document.getElementById('imagePreview'); 
-        const imageContainer = img.closest('.row.my-3'); 
-        const removeLink = document.getElementById('delete-image'); 
+        const img = document.getElementById('imagePreview');
+        const imageContainer = img.closest('.row.my-3');
+        const removeLink = document.getElementById('delete-image');
         const input = event.target;
 
         // Remove any existing validation alerts inside the container
@@ -176,12 +176,12 @@
 
         const reader = new FileReader();
         reader.onload = () => {
-            img.src = reader.result; 
-            imageContainer.classList.remove('d-none'); 
-            img.classList.remove('d-none'); 
-            if (removeLink) removeLink.classList.remove('d-none'); 
+            img.src = reader.result;
+            imageContainer.classList.remove('d-none');
+            img.classList.remove('d-none');
+            if (removeLink) removeLink.classList.remove('d-none');
         };
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
     }
 
     function removeImage(event) {
