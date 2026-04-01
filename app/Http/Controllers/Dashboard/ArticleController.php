@@ -21,7 +21,7 @@ class ArticleController extends Controller
     'category_id' => 'required|exists:article_categories,id',
     'title' => 'required|string|max:190',
     'short_description' => 'required|string|max:190',
-    'image' => 'image|mimes:jpeg,jpg,png|max:2048',
+    'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
     'video' => 'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string',
     'published_at' => 'nullable|date',
