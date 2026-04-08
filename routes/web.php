@@ -121,7 +121,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/rights', [UserRightsController::class, 'index'])->name('user-rights')->middleware('checkUserPermissions:manage-user-rights');
     Route::get('/available-permissions', [UserRightsController::class, 'permissions'])->name('available-permissions')->middleware('checkUserPermissions:manage-user-rights');
     Route::get('/rights/change-role/{id}', [UserRightsController::class, 'change_role'])->name('change-role')->middleware('checkUserPermissions:assign-user-roles');
-    Route::post('/rights/update-role/{id}', [UserRightsController::class, 'update_role'])->name('update-role');
+    Route::post('/rights/update-role/{id}', [UserRightsController::class, 'update_role'])->name('update-role')->middleware('checkUserPermissions:assign-user-roles');
     Route::get('/rights/ban/{id}', [UserRightsController::class, 'ban_user'])->name('ban-user')->middleware('checkUserPermissions:ban-users');
     Route::get('/rights/activate/{id}', [UserRightsController::class, 'activate_user'])->name('activate-user')->middleware('checkUserPermissions:activate-users');
   });

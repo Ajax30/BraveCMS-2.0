@@ -21,7 +21,7 @@ class ArticleController extends Controller
     'category_id' => 'required|exists:article_categories,id',
     'title' => 'required|string|max:190',
     'short_description' => 'required|string|max:190',
-    'image' => 'image|mimes:jpeg,jpg,png|max:2048',
+    'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
     'video' => 'file|mimes:mp4,mov|max:20480',
     'content' => 'required|string',
     'published_at' => 'nullable|date',
@@ -86,18 +86,43 @@ class ArticleController extends Controller
   public function deleteImage($id, $fileName)
   {
     $article = Article::findOrFail($id);
-    if ($article->image !== 'default.jpg' && File::exists(public_path(self::IMAGE_PATH . $fileName))) {
+
+    if (in_array(Auth::user()->role->name, ['user', 'author']) && $article->user_id !== Auth::id()) {
+      abort(403);
+    }
+
+    $fileName = basename($fileName);
+
+    if (
+      $article->image === $fileName &&
+      $article->image !== 'default.jpg' &&
+      File::exists(public_path(self::IMAGE_PATH . $fileName))
+    ) {
       File::delete(public_path(self::IMAGE_PATH . $fileName));
       $article->update(['image' => 'default.jpg']);
+    } else {
+      abort(404);
     }
   }
 
   public function deleteVideo($id, $fileName)
   {
     $article = Article::findOrFail($id);
-    if (File::exists(public_path(self::VIDEO_PATH . $fileName))) {
+
+    if (in_array(Auth::user()->role->name, ['user', 'author']) && $article->user_id !== Auth::id()) {
+      abort(403);
+    }
+
+    $fileName = basename($fileName);
+
+    if (
+      $article->video === $fileName &&
+      File::exists(public_path(self::VIDEO_PATH . $fileName))
+    ) {
       File::delete(public_path(self::VIDEO_PATH . $fileName));
       $article->update(['video' => null]);
+    } else {
+      abort(404);
     }
   }
 
