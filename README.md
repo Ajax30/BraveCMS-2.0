@@ -55,29 +55,29 @@ After that, you will be invited to *sign up*. After a successful sign-up, becaus
 You will be able to sign in and write articles, add or delete categories, etc.
 
 
-# Brave CMS Theme Guide
+# Brave CMS Theme Development Guide
 
 ## Variables → Template Reference
 
-| Variable | Templates where available |
-|----------|--------------------------|
-| `$article` | `single.blade.php`, `index.blade.php` |
-| `$article_count` | `index.blade.php` |
-| `$articles` | `index.blade.php` |
-| `$author` | `index.blade.php` |
-| `$categories` | `layout.blade.php` |
-| `$category` | `index.blade.php` |
-| `$comments` | `single.blade.php` |
-| `$is_cookieconsent` | `layout.blade.php` |
-| `$page` | `page.blade.php` |
-| `$pages` | `layout.blade.php` |
-| `$search_query` | `index.blade.php` |
-| `$site_name` | `layout.blade.php` |
-| `$subtitle` | `404.blade.php`, `single.blade.php`, `page.blade.php` |
-| `$tag` | `index.blade.php` |
-| `$tagline` | `layout.blade.php` |
-| `$title` | `404.blade.php`, `single.blade.php`, `page.blade.php` |
-| `$theme_directory` | All templates and partials |
+| Variable            | Description                                              |
+|--------------------|----------------------------------------------------------|
+| `$article`         | Current article object (title, content, meta, etc.)      |
+| `$article_count`   | Total number of articles in the current listing          |
+| `$articles`        | Collection of articles (used for loops/lists)            |
+| `$author`          | Author data for current context (name, bio, etc.)        |
+| `$categories`      | List of all site categories                              |
+| `$category`        | Current category being viewed                            |
+| `$comments`        | List of comments for the current article                 |
+| `$is_cookieconsent`| Boolean flag to toggle cookie consent display            |
+| `$page`            | Current static page object                               |
+| `$pages`           | List of all static pages                                 |
+| `$search_query`    | Current search query string                              |
+| `$site_name`       | Website name                                             |
+| `$subtitle`        | Subtitle for current page/article                        |
+| `$tag`             | Current tag being viewed                                 |
+| `$tagline`         | Website tagline/description                              |
+| `$title`           | Title for current page/article                           |
+| `$theme_directory` | Path/URL to the active theme directory                   |
 
 ---
 
