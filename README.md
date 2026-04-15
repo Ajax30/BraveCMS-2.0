@@ -73,10 +73,10 @@ You will be able to sign in and write articles, add or delete categories, etc.
 | `$pages`           | List of all static pages                                 |
 | `$search_query`    | Current search query string                              |
 | `$site_name`       | Website name                                             |
-| `$subtitle`        | Subtitle for current page/article                        |
+| `$subtitle`        | Subtitle of the 404 template                      |
 | `$tag`             | Current tag being viewed                                 |
 | `$tagline`         | Website tagline/description                              |
-| `$title`           | Title for current page/article                           |
+| `$title`           | Title of the 404 template                           |
 | `$theme_directory` | Path/URL to the active theme directory                   |
 
 ---
