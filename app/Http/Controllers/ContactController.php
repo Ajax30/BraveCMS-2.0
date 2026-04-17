@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Support\HtmlSanitizer;
 
 class ContactController extends FrontendController
 {
@@ -18,10 +19,8 @@ class ContactController extends FrontendController
     );
   }
 
-
   public function submit(Request $request)
   {
-    // Server-side form validation
     $rules = [
       'name' => 'required',
       'email' => 'required|email',
@@ -41,24 +40,31 @@ class ContactController extends FrontendController
     $validator = Validator::make($request->all(), $rules, $messages);
 
     if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator->errors())->withInput()->with('error', 'There are invalid fields in the form.');
-    } else {
-      Mail::send(
-        'themes/' . $this->theme_directory . '/emails/contact-message',
-        [
-          'site_name' => $this->data['site_name'],
-          'name' => $request->name,
-          'email' => $request->email,
-          'phone' => $request->phone,
-          'msg' => nl2br($request->message),
-        ],
-        function ($mail) use ($request) {
-          $mail->from($request->email, $request->name);
-          $mail->to($this->data['owner_email'])->subject('A message from ' . $this->data['site_name']);
-        }
-      );
-
-      return redirect()->back()->with('success', 'Your message was sent. We will get back to you as soon as possible!');
+      return redirect()
+        ->back()
+        ->withErrors($validator->errors())
+        ->withInput()
+        ->with('error', 'There are invalid fields in the form.');
     }
+
+    $cleanMessage = nl2br(e(HtmlSanitizer::clean($request->message)));
+
+    Mail::send(
+      'themes/' . $this->theme_directory . '/emails/contact-message',
+      [
+        'site_name' => $this->data['site_name'],
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'msg' => $cleanMessage,
+      ],
+      function ($mail) use ($request) {
+        $mail->from($request->email, $request->name);
+        $mail->to($this->data['owner_email'])
+          ->subject('A message from ' . $this->data['site_name']);
+      }
+    );
+
+    return redirect()->back()->with('success', 'Your message was sent. We will get back to you as soon as possible!');
   }
 }
