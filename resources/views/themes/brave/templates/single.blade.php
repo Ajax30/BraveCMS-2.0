@@ -53,7 +53,7 @@
 
                     {{-- Article Content --}}
                     <div class="article-content">
-                        {!! $article->content !!}
+                        {!! \App\Support\HtmlSanitizer::clean($article->content) !!}
                     </div>
 
                     <div class="article-source">

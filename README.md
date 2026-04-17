@@ -201,7 +201,7 @@ Example:
     <h1>{{ $article->title }}</h1>
     <p>{{ $article->short_description }}</p>
     <div class="article-content">
-      {!! $article->content !!}
+      {!! \App\Support\HtmlSanitizer::clean($article->content) !!}
     </div>
   </article>
 @endsection
@@ -217,7 +217,7 @@ Example:
 @section('content')
   <h1>{{ $page->title }}</h1>
     <div class="page-content">
-      {!! $page->content !!}
+      {!! \App\Support\HtmlSanitizer::clean($page->content) !!}
     </div>
 @endsection
 ```

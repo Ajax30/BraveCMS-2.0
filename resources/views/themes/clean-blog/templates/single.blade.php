@@ -33,7 +33,7 @@
             </div>
           @endif
           
-          {!! $article->content !!}
+          {!! \App\Support\HtmlSanitizer::clean($article->content) !!}
         </div>
       </div>
     </div>
