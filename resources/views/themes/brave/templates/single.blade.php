@@ -53,12 +53,12 @@
 
                     {{-- Article Content --}}
                     <div class="article-content">
-                       {!! $article->content !!}
+                        {!! $article->content !!}
                     </div>
 
                     <div class="article-source">
-                      <hr />
-                      <p class="small text-secondary">Source: {{ request()->getHost() }}</p> 
+                        <hr />
+                        <p class="small text-secondary">Source: {{ request()->getHost() }}</p>
                     </div>
 
                     {{-- Tags --}}
