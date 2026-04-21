@@ -58,7 +58,7 @@ class PageController extends Controller
     // Data to be added
     $form_data = [
       'title' => $fields['title'],
-      'content' => $fields['content']
+      'content' => \App\Support\HtmlSanitizer::clean($fields['content'])
     ];
 
     // Insert data in the 'pages' table
@@ -92,7 +92,7 @@ class PageController extends Controller
 
     $page = Page::findOrFail($id);
     $page->title = $request->get('title');
-    $page->content = $request->get('content');
+    $page->content = \App\Support\HtmlSanitizer::clean($request->get('content'));
     $page->save();
 
     $currentPage = $request->get('page', 1);

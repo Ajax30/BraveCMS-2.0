@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Support\HtmlSanitizer;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends FrontendController
 {
@@ -47,7 +46,7 @@ class ContactController extends FrontendController
         ->with('error', 'There are invalid fields in the form.');
     }
 
-    $cleanMessage = nl2br(e(HtmlSanitizer::clean($request->message)));
+    $cleanMessage = e($request->message);
 
     Mail::send(
       'themes/' . $this->theme_directory . '/emails/contact-message',
@@ -60,8 +59,7 @@ class ContactController extends FrontendController
       ],
       function ($mail) use ($request) {
         $mail->from($request->email, $request->name);
-        $mail->to($this->data['owner_email'])
-          ->subject('A message from ' . $this->data['site_name']);
+        $mail->to($this->data['owner_email'])->subject('A message from ' . $this->data['site_name']);
       }
     );
 
