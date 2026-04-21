@@ -201,7 +201,7 @@ Example:
     <h1>{{ $article->title }}</h1>
     <p>{{ $article->short_description }}</p>
     <div class="article-content">
-     { !! $article->content !!}
+     {!! $article->content !!}
     </div>
   </article>
 @endsection

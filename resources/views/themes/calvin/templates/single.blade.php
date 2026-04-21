@@ -28,7 +28,7 @@
                     <!-- end s-content__entry-header -->
                     <div class="s-content__primary">
                         <div class="s-content__entry-content">
-                            { !! $article->content !!}
+                            {!! $article->content !!}
 
                             @include('themes/' . $theme_directory . '/partials/share')
                         </div>
