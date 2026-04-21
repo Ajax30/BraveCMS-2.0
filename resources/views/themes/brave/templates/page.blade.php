@@ -7,7 +7,7 @@
               <main class="content">
                   <h1 class="page-title display-4 text-center text-md-start">{{ $page->title }}</h1>
                   <div class="page-content">
-                    {!! $page->content !!}
+                   {!! $page->content !!}
                   </div>
               </main>
           </div>
