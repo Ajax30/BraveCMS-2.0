@@ -20,7 +20,7 @@
           <!-- end s-content__entry-header -->
           <div class="s-content__primary">
             <div class="s-content__page-content">
-                {!! $page->content !!}
+               {!! $page->content !!}
             </div>
           </div>
       </div>

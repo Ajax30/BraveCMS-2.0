@@ -180,7 +180,7 @@ class ArticleController extends Controller
       'title' => $fields['title'],
       'slug' => $slug,
       'short_description' => $fields['short_description'],
-      'content' => $fields['content'],
+      'content' => \App\Support\HtmlSanitizer::clean($fields['content']),
       'featured' => $request->get('featured') == 'on' ? 1 : 0,
       'disable_comments' => $request->get('disable_comments') ? 1 : 0,
       'image' => $imageName,
@@ -268,7 +268,7 @@ class ArticleController extends Controller
     $article->disable_comments = $request->has('disable_comments');
     $article->image = $imageName;
     $article->video = $videoName;
-    $article->content = $fields['content'];
+    $article->content = \App\Support\HtmlSanitizer::clean($fields['content']);
     $article->published_at = $fields['published_at'] ? date('Y-m-d H:i:s', strtotime($fields['published_at'])) : ($article->published_at ?? now());
     $article->expires_at = $fields['expires_at'] ? date('Y-m-d H:i:s', strtotime($fields['expires_at'])) : null;
 

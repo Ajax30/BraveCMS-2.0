@@ -33,7 +33,7 @@
             </div>
           @endif
           
-          {!! $article->content !!}
+         {!! $article->content !!}
         </div>
       </div>
     </div>
